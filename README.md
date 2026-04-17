@@ -324,11 +324,19 @@ aimed-agi-ultrasound/
 
 ## 📚 更多文档
 
+### 快速开始
+- **[快速开始](docs/QUICKSTART.md)** - 5 分钟快速启动服务 ⭐ 推荐新手
 - **[API 示例](docs/API_EXAMPLES.md)** - 详细的 API 使用示例
 - **[部署检查清单](docs/DEPLOYMENT_CHECKLIST.md)** - 生产环境部署指南
+
+### 开发参考
 - **[开发指南](docs/DEVELOPMENT_GUIDE.md)** - 本地开发和贡献指南
+- **[系统架构](docs/ARCHITECTURE.md)** - 技术架构和设计文档
 - **[贡献指南](CONTRIBUTING.md)** - 如何参与项目贡献
+
+### 其他
 - **[安全策略](SECURITY.md)** - 安全漏洞报告和处理流程
+- **[行为准则](CODE_OF_CONDUCT.md)** - 社区行为准则
 - **[变更日志](CHANGELOG.md)** - 版本更新记录
 
 ---
