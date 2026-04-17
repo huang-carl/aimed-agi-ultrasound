@@ -13,6 +13,7 @@ class Settings:
     host: str = os.getenv("HOST", "0.0.0.0")
     port: int = int(os.getenv("PORT", "8000"))
     debug: bool = os.getenv("DEBUG", "true").lower() == "true"
+    allowed_origins: str = os.getenv("ALLOWED_ORIGINS", "*")
     
     # 数据库
     database_url: str = os.getenv("DATABASE_URL", "sqlite+aiosqlite:///./aimed.db")
