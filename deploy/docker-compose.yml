@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  aimed-api:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    container_name: aimed-agent-swarm
+    ports:
+      - "8000:8000"
+    environment:
+      - DASHSCOPE_API_KEY=${DASHSCOPE_API_KEY}
+      - DATABASE_URL=sqlite+aiosqlite:///./data/aimed.db
+      - LOG_LEVEL=INFO
+      - DEBUG=false
+    volumes:
+      - ../data:/app/data
+      - ../logs:/app/logs
+      - ../models:/app/models
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - aimed-network
+
+networks:
+  aimed-network:
+    driver: bridge
