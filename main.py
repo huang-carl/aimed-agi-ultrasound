@@ -18,7 +18,7 @@ app = FastAPI(
 app.middleware("http")(global_exception_handler)
 
 # CORS 配置（生产环境应限制具体域名）
-allowed_origins = settings.ALLOWED_ORIGINS.split(",") if settings.ALLOWED_ORIGINS else ["*"]
+allowed_origins = settings.allowed_origins.split(",") if settings.allowed_origins else ["*"]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins,
