@@ -3,6 +3,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.109+-green.svg)](https://fastapi.tiangolo.com/)
+[![Test](https://github.com/huang-carl/aimed-agi-ultrasound/actions/workflows/test.yml/badge.svg)](https://github.com/huang-carl/aimed-agi-ultrasound/actions)
+[![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 **聚焦胃 + 胰腺 2 器官的充盈超声造影 AI 辅助诊断系统**
 
@@ -259,13 +261,16 @@ aimed-agi-ultrasound/
 │   ├── conductor.py             # 总指挥路由
 │   ├── stomach.py               # 胃诊断路由
 │   ├── pancreas.py              # 胰腺诊断路由
-│   └── report.py                # 报告生成路由
+│   ├── report.py                # 报告生成路由
+│   └── v1/                      # API v1 版本
 ├── agents/                      # AI 智能体
 │   ├── __init__.py
 │   ├── conductor_agent.py       # 总指挥 Agent
 │   ├── stomach_agent.py         # 胃诊断 Agent
 │   ├── pancreas_agent.py        # 胰腺诊断 Agent
 │   └── report_agent.py          # 报告生成 Agent
+├── middleware/                  # 中间件
+│   └── exceptions.py            # 全局异常处理
 ├── models/                      # 模型权重
 │   └── .gitkeep
 ├── data/                        # 数据目录
@@ -280,6 +285,10 @@ aimed-agi-ultrasound/
 │   ├── test_stomach.py
 │   ├── test_pancreas.py
 │   └── test_report.py
+├── docs/                        # 文档目录
+│   ├── API_EXAMPLES.md
+│   ├── DEPLOYMENT_CHECKLIST.md
+│   └── DEVELOPMENT_GUIDE.md
 └── logs/                        # 日志目录
     └── .gitkeep
 ```
@@ -310,6 +319,17 @@ aimed-agi-ultrasound/
 | 系统可用性 | > 99.9% | ⏳ 待测试 |
 | AI 识别准确率 | > 90% | ⏳ 待真实模型 |
 | 并发支持 | 10+ QPS | ⏳ 待压测 |
+
+---
+
+## 📚 更多文档
+
+- **[API 示例](docs/API_EXAMPLES.md)** - 详细的 API 使用示例
+- **[部署检查清单](docs/DEPLOYMENT_CHECKLIST.md)** - 生产环境部署指南
+- **[开发指南](docs/DEVELOPMENT_GUIDE.md)** - 本地开发和贡献指南
+- **[贡献指南](CONTRIBUTING.md)** - 如何参与项目贡献
+- **[安全策略](SECURITY.md)** - 安全漏洞报告和处理流程
+- **[变更日志](CHANGELOG.md)** - 版本更新记录
 
 ---
 
