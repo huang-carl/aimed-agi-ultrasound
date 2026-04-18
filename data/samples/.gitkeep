@@ -1,0 +1,21 @@
+# 测试样本目录
+
+此目录用于存放测试用超声影像样本。
+
+## 预期文件
+
+### 胃超声样本
+- `stomach_normal_001.png` - 正常胃超声
+- `stomach_gastritis_001.png` - 胃炎超声
+- `stomach_polyp_001.png` - 胃息肉超声
+
+### 胰腺超声样本
+- `pancreas_normal_001.png` - 正常胰腺超声
+- `pancreas_mass_001.png` - 胰腺占位超声
+- `pancreas_cyst_001.png` - 胰腺囊肿超声
+
+## 注意事项
+
+- 测试样本应为脱敏数据
+- 不得包含真实患者隐私信息
+- 样本文件不应提交到 Git（已在.gitignore 中排除）
