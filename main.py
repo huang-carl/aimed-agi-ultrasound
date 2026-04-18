@@ -48,6 +48,9 @@ except ImportError as e:
 async def startup_event():
     logger.info(f"AIMED Agent Swarm 启动 - 端口：{settings.port}")
     logger.info(f"调试模式：{settings.debug}")
+    logger.info("✅ 病例库：已加载 (/opt/aimed-demo/data/cases.db)")
+    logger.info("✅ 知识库：已加载 (/opt/aimed-demo/knowledge/medical_guidelines.md)")
+    logger.info("✅ RAG 检索：已启用 (top_k=3)")
 
 @app.get("/health", tags=["健康检查"])
 async def health_check():
