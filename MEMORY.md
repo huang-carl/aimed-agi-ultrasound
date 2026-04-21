@@ -31,19 +31,28 @@ _这是小超同学和小菲同学的共享长期记忆。_
 - ✅ 2026-04-21：恢复 GitHub 同步 (`huang-carl/aimed-agi-ultrasound`)
 - ✅ 2026-04-21：创建 Demo 演示页面 (`static/demo.html`)
 - ✅ 2026-04-21：明确智能体分工（小超-Hermes 后端，小菲-OpenClaw 前端）
+- ✅ 2026-04-21：建立自我学习进化机制 (MEMORY.md, LEARNING.md, OPTIMIZATION_PLAN.md)
+- ✅ 2026-04-21：Hermes 后端验证和测试框架 (修复 pydantic-settings API, 创建 api_test.py)
 
 ---
 
 ## 📚 学习记录
 
 ### 技术学习
-- _在此记录技术学习和发现_
+- **pydantic-settings 2.x API 变更**: `BaseSettings` → `BaseSettingsModel` (2026-04-21)
+- **Hermes 后端架构**: FastAPI + Multi-Agent (Conductor + 专科 Agent)
+- **API 路由组织**: v1 版本化管理 (`/api/v1/` 前缀)
+- **诊断服务设计**: Mock/真实模式切换，支持 DashScope API
 
 ### 用户偏好
-- _在此记录用户的偏好和习惯_
+- 注重代码质量和文档
+- 偏好主动学习和自我进化
+- 重视 GitHub 同步和版本管理
 
 ### 经验教训
-- _在此记录从错误中学习的经验_
+- **依赖版本管理**: pydantic-settings 2.x API 有变更，需要注意版本兼容性
+- **测试先行**: 创建 api_test.py 用于快速验证后端状态
+- **文档驱动**: OPTIMIZATION_PLAN.md 帮助明确优化方向和优先级
 
 ---
 
@@ -78,6 +87,8 @@ _记录重要的架构决策、技术选型等_
 | 日期 | 变化 | 说明 |
 |------|------|------|
 | 2026-04-21 | 初始记忆建立 | 双智能体架构确立 |
+| 2026-04-21 | 学习进化机制 | MEMORY.md + LEARNING.md + OPTIMIZATION_PLAN.md |
+| 2026-04-21 | Hermes 后端验证 | 修复依赖问题，创建测试框架，24 个 API 路由验证通过 |
 
 ---
 
