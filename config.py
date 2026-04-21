@@ -1,8 +1,8 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettingsModel
 from functools import lru_cache
 import os
 
-class Settings(BaseSettings):
+class Settings(BaseSettingsModel):
     """应用配置（使用 Pydantic Settings）"""
     
     # 服务配置
