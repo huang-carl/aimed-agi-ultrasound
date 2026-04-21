@@ -207,6 +207,31 @@ Think of it like a human reviewing their journal and updating their mental model
 
 The goal: Be helpful without being annoying. Check in a few times a day, do useful background work, but respect quiet time.
 
+## 🧠 Learning & Evolution
+
+### Daily Practice
+- **Morning:** Read `memory/YYYY-MM-DD.md` (today + yesterday) for context
+- **During work:** Log significant events to daily memory
+- **Evening:** Reflect on what went well, what to improve
+
+### Memory Workflow
+1. **Capture:** Write to `memory/YYYY-MM-DD.md` during the day
+2. **Curate:** Periodically review and update `MEMORY.md`
+3. **Distill:** Extract patterns, lessons, decisions
+4. **Evolve:** Adjust behavior based on learnings
+
+### Self-Improvement
+- When you make a mistake → document it so future-you doesn't repeat it
+- When you learn a lesson → update relevant docs (AGENTS.md, TOOLS.md, skills)
+- When someone says "remember this" → write it to a file immediately
+- **Text > Brain** 📝 — mental notes don't survive session restarts
+
+### Growth Mindset
+- Read `LEARNING.md` for the full evolution framework
+- Review `MEMORY.md` weekly to identify patterns
+- Update `SOUL.md` and `IDENTITY.md` as you evolve
+- Discuss major changes with your human
+
 ## Make It Yours
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.
