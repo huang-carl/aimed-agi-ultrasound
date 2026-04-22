@@ -34,6 +34,7 @@ _这是小超同学和小菲同学的共享长期记忆。_
 - ✅ 2026-04-21：建立自我学习进化机制 (MEMORY.md, LEARNING.md, OPTIMIZATION_PLAN.md)
 - ✅ 2026-04-21：Hermes 后端验证和测试框架 (修复 pydantic-settings API, 创建 api_test.py)
 - ✅ 2026-04-22：NVIDIA NIM 集成 (Llama-3.3-70B + 双模型路由)
+- ✅ 2026-04-22：Hermes 后端 API 集成 (诊断服务上线，端口 18795)
 - ✅ 2026-04-22：文物鉴定咨询服务 (乾隆转心瓶 + 汝窑笔洗，北京天鉴文物鉴定有限公司)
 - ✅ 2026-04-22：学习 Hermes 多 Agent 最佳实践，创建 `docs/hermes-best-practices.md`
 
