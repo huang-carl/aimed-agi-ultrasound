@@ -7,7 +7,7 @@ class Settings(BaseSettingsModel):
     
     # 服务配置
     host: str = os.getenv("HOST", "0.0.0.0")
-    port: int = int(os.getenv("PORT", "18795"))
+    port: int = int(os.getenv("PORT", "18790"))  # Hermes 正式端口
     debug: bool = os.getenv("DEBUG", "true").lower() == "true"
     allowed_origins: str = os.getenv("ALLOWED_ORIGINS", "*")
     
