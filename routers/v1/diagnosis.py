@@ -32,6 +32,7 @@ class DiagnosisRequest(BaseModel):
     image_description: str  # 影像描述
     context: Optional[str] = ""  # 额外上下文（病历等）
     model_preference: Optional[str] = "nvidia"  # 模型偏好：nvidia/mock
+    filling_status: Optional[str] = "已充盈"  # 充盈状态：必须为已充盈
 
 
 class DiagnosisResponse(BaseModel):
@@ -104,6 +105,22 @@ async def diagnose(request: DiagnosisRequest):
             )
         
         organ_cn = organ_map[request.organ]
+        
+        # 检查充盈状态 - 只接受已充盈
+        if request.filling_status != "已充盈":
+            return DiagnosisResponse(
+                success=False,
+                task_id=f"diag_{datetime.now().strftime('%Y%m%d%H%M%S')}_{uuid.uuid4().hex[:8]}",
+                organ=organ_cn,
+                disease="无法诊断",
+                probability=0.0,
+                suggestion="未充盈状态下无法进行诊断，请口服造影剂后重新检查",
+                image_quality="unknown",
+                mode="rejected",
+                model=None,
+                timestamp=datetime.now(),
+                raw_text=None
+            )
         
         # 调用 NVIDIA 诊断
         if nvidia_client and request.model_preference != 'mock':

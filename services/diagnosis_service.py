@@ -39,7 +39,7 @@ class DiagnosisService:
         if not self.mock_mode and not self.api_key and not self.nvidia_service:
             raise ValueError("无可用 AI 服务：DASHSCOPE_API_KEY 和 NVIDIA_API_KEY 均未配置且 MOCK_MODE=false")
     
-    def diagnose(self, organ: str, image_description: str, context: str = "") -> Dict[str, Any]:
+    def diagnose(self, organ: str, image_description: str, context: str = "", filling_status: str = "已充盈") -> Dict[str, Any]:
         """
         诊断接口（支持双模型路由）
         
@@ -47,10 +47,19 @@ class DiagnosisService:
             organ: 器官类型（胃/胰腺）
             image_description: 影像描述
             context: 额外上下文（病历等）
+            filling_status: 充盈状态（必须为"已充盈"）
             
         Returns:
             诊断结果字典
         """
+        # 检查充盈状态 - 只接受充盈状态
+        if filling_status != "已充盈":
+            return {
+                "success": False,
+                "error": "未充盈状态下无法进行诊断，请口服造影剂后重新检查",
+                "mode": "rejected"
+            }
+        
         if self.mock_mode:
             return self._mock_diagnose(organ, image_description)
         else:
