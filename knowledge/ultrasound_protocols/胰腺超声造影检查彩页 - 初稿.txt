@@ -1,0 +1,721 @@
+Original Article
+
+Can cereal-based oral contrast agents-assisted ultrasound
+become an alternative to non-contrast magnetic resonance
+imaging (MRI) in radiological follow-up for pancreatic cystic
+lesions?
+Jiang Ji1,2, Xinlong Shi1,2, Yu Xia1,2#, Luying Gao1,2, Nengwen Luo1,2, Liyuan Ma1,2, Aonan Pan1,2,
+Yuang An1,2, Ya Hu2,3, Yuxin Jiang1,2#
+1
+
+Department of Ultrasound, Peking Union Medical College Hospital, Chinese Academy of Medical Sciences and Peking Union Medical College,
+
+Beijing, China; 2State Key Laboratory of Complex Severe and Rare Diseases, Peking Union Medical College Hospital, Chinese Academy of Medical
+Sciences and Peking Union Medical College, Beijing, China; 3Department of General Surgery, Peking Union Medical College Hospital, Chinese
+Academy of Medical Sciences and Peking Union Medical College, Beijing, China
+Contributions: (I) Conception and design: Y Xia, Y Jiang; (II) Administrative support: Y Xia; (III) Provision of study materials or patients: Y Xia,
+Y Hu, L Gao; (IV) Collection and assembly of data: X Shi, L Gao, J Ji, L Ma, A Pan, Y An, N Luo; (V) Data analysis and interpretation: J Ji; (VI)
+Manuscript writing: All authors; (VII) Final approval of manuscript: All authors.
+#
+
+These authors contributed equally to this work.
+
+Correspondence to: Yu Xia, MD; Yuxin Jiang, MD. Department of Ultrasound, Peking Union Medical College Hospital, Chinese Academy of Medical
+Sciences and Peking Union Medical College, Beijing, China; State Key Laboratory of Complex Severe and Rare Diseases, Peking Union Medical
+College Hospital, Chinese Academy of Medical Sciences and Peking Union Medical College, Shuaifuyuan No. 1, Dongcheng District, Beijing
+100730, China. Email: xiayupumch@126.com; yuxinjiangxh@163.com.
+
+Background: Pancreatic cystic lesions (PCLs) are recommended to be examined by magnetic resonance
+imaging (MRI), yet MRI still has limitations, such as high costs, the risk of triggering claustrophobia, and
+relatively low availability compared with ultrasound. Oral contrast agents-assisted ultrasound has been used
+to examine the gallbladder and stomach, but whether oral contrast agents could improve the accuracy of
+transabdominal ultrasound (TAUS) for PCLs and could be a potential alternative to non-contrast MRI for
+PCL follow-up has not been studied. This study aimed to explore the value of cereal-based oral contrast
+agents in improving the accuracy of PCLs during TAUS.
+Methods: This is a prospective cohort study. Patients with PCL who were admitted to our center between
+January 2023 and January 2024 were enrolled, and TAUS was performed before and after taking cerealbased oral contrast agents. The imaging quality of the PCL was measured by structural visualization scores.
+The structural visualization scores of oral contrast agent-assisted ultrasound and non-contrast MRI were also
+compared.
+Results: A total of 27 patients with PCLs were enrolled, and 30 PCLs were detected. The sonolucency of
+the PCL improved after oral contrast agent administration. Before taking the agent, only 30% of patients
+had satisfactory sonolucency; after taking the oral contrast agent, the corresponding proportion reached 80%
+(P=0.002). The structural visualization score of the PCL determined by oral contrast agent-assisted TAUS
+was higher than that determined without the aid of an agent [1 (0–6) vs. 1 (0–3), P=0.001], which was mainly
+reflected in the increase in the number of visible septa after taking the agent. No significant difference was
+detected between the structural visualization score of the PCL examined by oral contrast agent-assisted
+TAUS and that examined by non-contrast MRI and the correlation between the 2 types of scores were
+satisfactory [1 (0–6) vs. 2 (0–7), P=0.070, Spearman correlation factor r=0.880].
+
+© Quantitative Imaging in Medicine and Surgery. All rights reserved.
+
+Quant Imaging Med Surg 2024;14(8):5602-5609 | https://dx.doi.org/10.21037/qims-24-367
+
+Quantitative Imaging in Medicine and Surgery, Vol 14, No 8 August 2024
+
+5603
+
+Conclusions: This study used a structured scoring system to confirm that cereal-based oral contrast agents
+could improve the ultrasound quality of PCLs, and the correlation between the quality of oral contrast agentassisted ultrasound and non-contrast MRI findings on PCLs was satisfactory. Further research to improve
+visualization of PCLs on TAUS using oral contrast agents could result in TAUS being a potential alternative
+to MRI in the follow-up of PCLs in resource-limited situations.
+Keywords: Pancreatic cystic lesion (PCL); transabdominal ultrasound (TAUS); oral contrast agent; magnetic
+resonance imaging (MRI)
+Submitted Feb 26, 2024. Accepted for publication Jun 25, 2024. Published online Jul 26, 2024.
+doi: 10.21037/qims-24-367
+View this article at: https://dx.doi.org/10.21037/qims-24-367
+
+Introduction
+Pancreatic cystic lesions (PCLs) are a heterogeneous group
+of diseases that mainly include serous cystic neoplasm
+(SCN), mucinous cystic neoplasm (MCN), intraductal
+papillary mucinous neoplasm (IPMN), solid pseudopapillary
+neoplasm (SPN), and neuroendocrine tumor (NET) (1).
+Patients with PCLs are often asymptomatic, and PCLs
+are more likely to be detected during radiological
+examinations (2). Thus, although the incidence of PCL
+can reach 24% in anatomical studies (3), the rate of PCL
+detection via radiological examinations is not high (4).
+The structural features and malignant potential of PCLs
+vary according to the pathological type (5). For example,
+the malignant potential of IPMNs can reach 40% (6).
+The management of different PCLs also varies according
+to several features of PCLs, including the pathological
+type, size, and growth rate (7). For certain PCLs, longterm follow-up is enough; however, for some PCLs, such
+as IPMNs, surgical treatment is necessary when some
+worrisome features are observed, such as the size of IPMN
+exceeding 3 cm (8). Therefore, choosing a proper method
+of PCL follow-up is highly important, as is providing
+additional information on PCLs for physicians to assist the
+decision-making of a suitable management approach. These
+patients need appropriate imaging examination methods.
+As an economical, convenient, and safe imaging
+technique, ultrasound is an important examination method
+for screening and monitoring PCLs. At present, the most
+commonly used ultrasound method for detecting cystic
+pancreatic lesions is fasting transabdominal examination,
+but the sensitivity of identifying the structures of the PCL
+could be further improved via this method. Although
+
+© Quantitative Imaging in Medicine and Surgery. All rights reserved.
+
+magnetic resonance imaging (MRI) is recommended as
+a PCL examination approach by guidelines (7,9), it still
+has limitations, such as high costs, the risk of triggering
+claustrophobia, and relatively low availability compared
+with ultrasound. Endoscopic ultrasonography (EUS) can
+improve the accuracy of identifying PCLs compared with
+transabdominal ultrasonography but is less commonly used
+since it is an invasive examination.
+Oral contrast agents have emerged to assist
+transabdominal ultrasonography in recent years. The
+major type of oral contrast agent uses cereal powder as
+its main ingredient and can quickly fill the stomach after
+gelatinization of the starch, and thus expel gases inside
+the stomach so that the PCL behind the stomach can be
+displayed more clearly (10). Consequently, oral contrast
+agents have been found to be valuable for improving the
+accuracy of transabdominal ultrasonography for detecting
+gastric and bile duct lesions (11,12) and for identifying the
+structure of a normal pancreas (13). However, no studies
+have evaluated whether oral contrast agents improve the
+visualization accuracy of the internal structure of the PCL
+during transabdominal ultrasound (TAUS).
+In this study, PCL patients were prospectively enrolled
+and underwent TAUS before and after taking cerealbased oral contrast agents. The value of cereal-based oral
+contrast agents in improving the accuracy of PCLs during
+TAUS was explored, and the accuracy of oral contrast
+agent-assisted TAUS PCL images and non-contrast
+MRI PCL images were also compared. We present the
+following article in accordance with the STROBE reporting
+checklist (available at https://qims.amegroups.com/article/
+view/10.21037/qims-24-367/rc).
+
+Quant Imaging Med Surg 2024;14(8):5602-5609 | https://dx.doi.org/10.21037/qims-24-367
+
+Ji et al. Oral contrast agents in ultrasound of pancreatic cysts
+
+5604
+
+Methods
+
+Ultrasonography and MRI
+
+Patients
+
+The sonolucency of the cystic lesions in the images
+was analyzed, the imaging quality of the PCL before
+and after administration of the oral contrast agent was
+scored according to the structure of the PCL, and the
+PCL structures were graded as follows: A was defined as
+the number of septa in the PCL, which was equal to the
+number of locules −1 (e.g., for uniocular cysts, A =0). B was
+defined as the septum/wall thickness score, which was 1
+(either the septum or wall was thicker than 2 mm) or 0 (no
+septum/wall was thicker than 2 mm). C was defined as the
+papillary structure score, which was 1 (presence of at least
+1 papilla in the cyst) or 0 (no papilla were present in the
+cyst). D was defined as the calcification score, which was the
+number of calcifications in the lesion. E was defined as the
+pancreatic duct score, which was 1 (the pancreatic duct was
+wider than 2 mm) or 0 (the pancreatic duct was not wider
+than 2 mm). The structure visualization score was defined as
+A+B+C+D+E, and the structural visualization scores of the
+PCL sonographs before and after taking the oral contrast
+agent were recorded. For participants who also underwent
+MRI, the structural visualization score of the MRI images
+of the PCL was also recorded.
+
+This is a prospective cohort study. Patients with PCL who
+were admitted to Peking Union Medical College Hospital
+between January 2023 and January 2024 were prospectively
+enrolled. The inclusion criteria were as follows: (I) PCL
+found by previous imaging, and (II) aged 18–80 years. The
+exclusion criteria for patients were as follows: (I) diabetes,
+(II) a history of pyloric obstruction, (III) allergic to cerealbased oral contrast agents, (IV) acute pancreatitis, and (V)
+missing data. Patients were followed-up until a surgery for
+PCL was conducted, or the follow-up time had reached
+least 3 months. The patients who were lost to follow-up
+within 3 months and did not receive surgery were excluded
+from the study. The sex, age, symptoms, reasons for
+undergoing surgery/aspiration (when applicable), type of
+surgery (when applicable), and the pathological subtypes
+(if available) were recorded. The study was conducted in
+accordance with the Declaration of Helsinki (as revised
+in 2013). The study was approved by institutional ethics
+committee of Peking Union Medical College Hospital (No.
+I-24PJ0102), and informed consent was provided by all
+individual participants.
+
+Statistical analysis
+
+TAUS imaging before and after taking oral contrast
+agents
+TAUS scans were performed by a Philips IU22 or a
+Philips EPIQ color Doppler ultrasound instrument
+(Philips, Amsterdam, Netherlands) with a convex array
+transducer at a frequency of 2–5 MHz. The patients fasted
+for at least 8 hours and underwent traditional ultrasound
+scans. Then, they were administered oral contrast agents,
+and a traditional ultrasound scan was performed again.
+The oral ultrasound contrast agent (Huzhou East Asia
+Pharmaceutical Products Co., Ltd., Huzhou, China) was
+prepared according to the manufacturer’s instructions.
+Then, 50 g of the oral contrast agent was mixed with
+450 mL of boiled water. The sonograph was analyzed
+separately by 2 radiologists specializing in ultrasound
+with at least 5 years of experience and who were blinded
+to the pathological results, clinical diagnoses, and other
+radiological data to reduce information bias. When
+disagreement occurred between the 2 doctors, conclusions
+were reached after consulting a third doctor specializing in
+ultrasound for more than 20 years.
+
+© Quantitative Imaging in Medicine and Surgery. All rights reserved.
+
+The estimated sample size was calculated based on the
+results of the pre-experiment: the proportion of a satisfying
+sonolucency by TAUS was 40% before taking the oral
+contrast agent, and 70% after taking the oral contrast agent.
+Therefore, the estimated sample size was 20. This sample
+size would provide the trial with 80% power to reject the
+null hypothesis at a 2.5% significance level (with noninferior hypothesis). Data analysis was performed using
+SPSS 25.0 (IBM Corp., Armonk, NY, USA). Continuous
+variables are presented as the median and range or mean ±
+standard error of mean (SEM). The structural visualization
+scores of the patients before and after taking oral contrast
+agents were compared by the Wilcoxon test. The
+sonolucency of the PCL before and after oral contrast agent
+administration was compared via the McNemar test. The
+correlation between the structural visualization scores of
+the sonographs after taking the oral contrast agent and the
+structural visualization scores of the MRIs were analyzed
+by the Spearman correlation test. A P value <0.05 was
+considered to indicate statistical significance.
+
+Quant Imaging Med Surg 2024;14(8):5602-5609 | https://dx.doi.org/10.21037/qims-24-367
+
+Quantitative Imaging in Medicine and Surgery, Vol 14, No 8 August 2024
+
+Results
+Patient clinical characteristics
+A total of 27 patients with PCL were enrolled and analyzed
+(Figure 1), including 11 males and 16 females, with a
+median age of 52 (22–72) years. The median follow-up
+time was 9 (1–27) months, with 5 patients receiving surgery
+within 3 months due to worrisome features having been
+observed through imaging. A total of 3 patients experienced
+abdominal pain before the detection of PCL, 1 patient had
+symptoms of abdominal discomfort after eating, 1 patient
+had jaundice, and the remaining 22 patients had no obvious
+symptoms before the detection of PCL. Among the 27
+patients, 10 patients underwent surgery or aspiration biopsy
+
+33 patients screened for eligibility
+3 patients with diabetes
+30 patients enrolled
+
+3 patients did not receive surgery
+and were followed for <3 months
+
+7 patients received
+surgery
+
+20 patients were
+followed for ≥3 months
+
+Figure 1 The diagram of patient enrollment.
+
+5605
+
+because high-risk features were observed by imaging or
+serum examination, or certain symptoms persisted. A total
+of 7 patients underwent surgery, and the pathological results
+revealed that 3 had MCNs, 1 had SCN, 2 had IPMNs, and
+1 had an SPN. The reasons for undergoing surgery, types
+of surgery, and corresponding pathology of these 7 patients
+are listed in Table 1. Among 3 patients who underwent PCL
+aspiration biopsy, no malignant tumor cells were found in
+their aspiration samples. The remaining 17 patients had
+regular follow-up for their PCLs.
+Sonographic features of PCL
+A total of 30 PCLs were detected in 27 patients; 3 lesions
+were found in 1 patient, and 2 lesions were found in 1
+patient. All PCLs could be observed before the application
+of the oral contrast agent. Among the lesions, 9 lesions were
+located at the head of the pancreas, 11 were located at the
+body of the pancreas, and 10 were located at the tail of the
+pancreas. The median maximum diameter of the lesions
+before taking the oral contrast agent was 2.7 (range, 0.43–
+7.3) cm, and the median maximum diameter of lesions after
+taking the oral contrast agent was 2.4 (range, 0.60–8.4) cm.
+Moreover, there was no significant difference between the
+maximum diameter of the PCL before and after taking the
+oral contrast agent (P=0.596).
+The sonolucency of the PCL improved after the patients
+were administered the oral contrast agent compared with
+that during fasting. Before taking the oral contrast agent, a
+
+Table 1 Information of patients who underwent surgery
+Patient
+No.
+
+Location of PCL Reason for undergoing surgery
+
+Type of surgery
+
+1
+
+Pancreatic tail
+
+Spleen-preserving distal pancreatomy Mucinous cystic neoplasm
+
+2
+
+Pancreatic head A dilated pancreatic duct was
+detected in MRI
+
+3
+
+Pancreatic tail
+
+Presence of symptom (abdominal pain) Spleen-preserving distal pancreatomy Serous cystic neoplasm
+
+4
+
+Pancreatic tail
+
+Elevation of serum CA19-9
+
+Spleen-preserving distal pancreatomy Mucinous cystic neoplasm
+
+5
+
+Pancreatic tail
+
+Cyst fluid cytology indicated
+high-grade dysplasia
+
+Distal pancreatectomy with
+splenectomy
+
+Mucinous cystic neoplasm
+
+6
+
+Pancreatic body A solid component was detected in
+MRI
+
+Middle pancreatectomy
+
+Solid-pseudopapillary
+neoplasm
+
+7
+
+Pancreatic head A dilated pancreatic duct was
+and body
+detected in MRI
+
+Pancreatectomy
+
+Intraductal papillary
+mucinous neoplasm
+
+A mural nodule was detected in MRI
+
+Pancreaticoduodenectomy
+
+Pathology
+
+Intraductal papillary
+mucinous neoplasm
+
+PCL, pancreatic cystic lesion; MRI, magnetic resonance imaging; CA19-9, carbohydrate antigen 19-9.
+
+© Quantitative Imaging in Medicine and Surgery. All rights reserved.
+
+Quant Imaging Med Surg 2024;14(8):5602-5609 | https://dx.doi.org/10.21037/qims-24-367
+
+Ji et al. Oral contrast agents in ultrasound of pancreatic cysts
+
+5606
+
+A
+
+B
+
+Figure 2 The ultrasound images of a 66-year-old male patient with a PCL located in the head of pancreas. Before taking cereal-based oral
+contrast agent (A), the sonolucency of PCL was poor, while after taking the agent (B), the sonolucency was satisfying. FR, frame rate; S1,
+speed 1; C, compress; P, persistence; Gen, general; PCL, pancreatic cystic lesion.
+
+A
+
+B
+
+Figure 3 The ultrasound images of a 66-year-old female patient with a PCL (marked in yellow) located in the body of pancreas. Before
+taking cereal-based oral contrast agent (A), only 1 septum thicker than 2 mm was observed, and no papillary structure or calcification was
+observed, so the structural visualization score for this PCL was 2. After taking the agent (B), some anechoic areas became more obvious, and
+a total of 5 lobules were observed, so the septa number was consequently defined as 4. The thickness of the septum exceeded 2 mm, and 1
+calcification was observed (arrow), so the structural visualization score after taking the agent was 6. FR, frame rate; RS, resolution-speed; C,
+compress; P, persistence; Gen, general; PCL, pancreatic cystic lesion.
+
+total of 9 PCLs (30%) had satisfactory sonolucency. After
+taking the oral contrast agent, a total of 24 patients (80%)
+with PCL had satisfactory sonolucency (P=0.002; Figure 2).
+The median structure visualization score was 1 (0–6) after
+the patients took the agents, and this score was significantly
+greater than that before the patients took the oral contrast
+agents [1 (0–3), P=0.001; Figure 3]. The number of
+observed septa in the 10 PCLs was changed after the agent
+was administered. Specifically, the number of observed
+septa increased in 8 PCLs, and the number decreased in
+2 PCLs. For 4 PCLs, no cyst wall/septum thicker than
+2 mm was observed before taking the agent, but a cyst wall/
+partition with a thickness >2 mm was observed after taking
+the agent. For 6 PCLs, no papillary structure was observed
+before taking the agent, but the papillary structure could be
+
+© Quantitative Imaging in Medicine and Surgery. All rights reserved.
+
+observed after taking the agent. For 1 PCL, no calcification
+was observed before the agent was taken, but 1 calcification
+was observed after the agent was taken. For 1 PCL, no
+dilated pancreatic duct was observed before the agent was
+taken, but a dilated pancreatic duct was observed after the
+agent was taken.
+Correlation between the PCL structure visualization score
+on ultrasound images after taking the oral contrast agent
+and that on non-contrast-MRI images
+Among the 27 patients, a total of 19 patients with 21 PCLs
+underwent non-contrast MRI. To compare the accuracy
+of ultrasound assisted by an oral contrast agent with
+that of MRI, the correlation between the PCL structure
+
+Quant Imaging Med Surg 2024;14(8):5602-5609 | https://dx.doi.org/10.21037/qims-24-367
+
+Quantitative Imaging in Medicine and Surgery, Vol 14, No 8 August 2024
+
+visualization scores of these 2 examination approaches
+was analyzed. On MRI, the location of the PCL in 19
+patients was consistent with the location detected by oral
+contrast agent-assisted ultrasound. The median maximum
+diameter of the PCL on MRI was 2.4 (0.47–5.0) cm,
+and no significant difference was detected between the
+maximal diameter of PCL on MRI and oral contrast agentassisted ultrasound (P=0.101). No significant difference was
+detected between the median PCL structure visualization
+score determined by oral contrast agent-assisted ultrasound
+[1 (0–6)] and MRI [2 (0–7), P=0.070], and the PCL
+structure visualization scores obtained by the 2 examination
+approaches were significantly correlated (r=0.880, P<0.001).
+Among them, the septum numbers observed via oral
+contrast agent-assisted TAUS and non-contrast MRI were
+different for the 6 PCLs. A total of 5 PCLs had more
+septa observed via MRI, and 1 PCL had fewer septa. In 2
+PCLs, no cyst wall/septum thicker than 2 mm was observed
+during oral contrast agent-assisted ultrasound, but a cyst
+wall/septum thicker than 2 mm was observed during
+non-contrast MRI. In 4 PCLs, the numbers of papillary
+structures observed during the 2 examination approaches
+were different, and the number of papillary structures
+observed on MRI was greater than that observed on oral
+contrast agent-assisted ultrasound.
+Discussion
+The management of PCLs varies. For certain types of
+PCL, regular follow-up is essential, and these types of
+PCL require proper imaging technologies (14). There is
+room for improvement in the accuracy of transabdominal
+ultrasonography for accessing the PCL since the pancreas
+is often hidden behind gastrointestinal gases during
+examination (15). Therefore, it is necessary to optimize
+traditional ultrasound examinations to improve the
+detection rate of PCLs and the clarity of PCL ultrasound
+images. The oral contrast agent can fill the stomach and
+eliminate the interference of gastrointestinal gas on TAUS
+examination of organs in the deep area of the abdomen (11).
+In addition, oral contrast agents are denser in texture than
+plain water and therefore can remain in the gastrointestinal
+tract for a longer period (16), giving ultrasonographers
+enough time to access the PCL. This advantage is more
+important in the evaluation of the PCL than in the
+evaluation of the normal pancreas. This study was the first
+to explore the value of cereal-based oral contrast agents
+in ultrasound examinations of PCL through a prospective
+
+© Quantitative Imaging in Medicine and Surgery. All rights reserved.
+
+5607
+
+cohort, and for the first time, a structured score was used to
+quantitatively compare the clarity and sonolucency of PCL
+before and after taking the oral contrast agent.
+Since the oral contrast agent eliminated the interference
+of gastric gas on the PCL to the greatest extent, the
+sonolucency of the PCL after oral contrast agent
+administration was significantly greater than that during
+fasting TAUS. With the improvement in sonolucency, the
+internal structure of the PCL became more clearly visible.
+In this study, the main structural characteristics of the
+PCL (number of septa, septum/wall thickness, papillary
+structure, calcification) that were of interest in the previous
+literature (6,17,18) were included in the quantitative
+evaluation, so were the high-risk features such as the dilated
+pancreatic duct, and it was found that the overall structural
+visualization score after taking the oral contrast agent was
+greater than that before taking the agent. After taking the
+oral contrast agent, the internal structure of the PCL could
+be more clearly observed by TAUS. The most prominent
+changes in the structural visualization scores before and
+after taking the oral contrast agent were the number of
+septa in the PCL, the thickening of the cyst wall/septum,
+and the presence of a visible papillary structure. The
+number of septa and the thickness of the cyst wall/septum
+in the PCL may be related to the pathological classification.
+Zhong et al. (18) examined the MCN and SCN by EUS
+and reported that the SCN tended to contain more septa
+and thinner cyst walls. In addition, Fan et al. (17) reported
+that the papillary structure was more likely to be present in
+NETs than in SCNs and MCNs. Therefore, the application
+of an oral contrast agent could increase the value of TAUS
+in the diagnosis, classification, or follow-up of PCLs.
+In this study, the images of oral contrast agent-assisted
+ultrasound of PCLs were further compared with the noncontrast MRI images; it was found that there was no
+significant difference between the structured visualization
+scores of the oral contrast agent-assisted ultrasound
+images and that of the non-contrast MRI images, and the
+Spearman correlation factor of these two was 0.880, which
+indicated a good correlation. Non-contrast MRI is currently
+the recommended radiological examination approach for
+evaluating PCL (15), but this approach has limitations, such
+as high cost, risk of causing claustrophobia, and limited
+use in patients with implanted metal devices. The use of
+oral contrast agent-assisted TAUS not only retains the
+advantages of traditional ultrasound but also improves the
+accuracy of its image display. According to our study, the
+internal structures observed by oral contrast agent-assisted
+
+Quant Imaging Med Surg 2024;14(8):5602-5609 | https://dx.doi.org/10.21037/qims-24-367
+
+Ji et al. Oral contrast agents in ultrasound of pancreatic cysts
+
+5608
+
+TAUS and non-contrast MRI were comparable to some
+extent.
+This study has several limitations. The number of
+enrolled patients was limited. Most of the patients did not
+undergo surgical resection, and pathological diagnoses
+were lacking; therefore, an in-depth analysis of the
+correlation between the structural visualization scores
+and the pathological classification was not available. Since
+many patients did not undergo EUS examination, the
+accuracy of oral contrast agent-assisted TAUS and EUS
+was not compared. Nevertheless, this study preliminarily
+explored the value of a cereal-based oral contrast agent
+in the examination of PCLs via TAUS and confirmed
+that the use of an oral contrast agent could improve the
+accuracy of ultrasonography via a structured scoring
+system. Additionally, with the assistance of an oral contrast
+agent, the accuracy of TAUS for accessing the PCL was
+comparable with that of non-contrast MRI to some extent,
+suggesting that oral contrast agent-assisted TAUS could be
+an alternative to non-contrast MRI for PCL follow-up in
+resource-limited area, or patients who cannot tolerate MRI,
+such as those with metal implants. However, a randomized
+and controlled comparative study on oral contrast agentassisted TAUS and non-contrast MRI/EUS is needed
+to explore whether oral contrast agent-assisted TAUS
+could be a proper alternative to non-contrast MRI/EUS.
+Nonetheless, these findings provide a basis for further PCL
+ultrasound research on oral contrast agents.
+Conclusions
+Oral contrast agent has been used in TAUS for gallbladder
+disease, yet no study has applied it in TAUS for PCL.
+This prospective study used a structured scoring system to
+confirm that cereal-based oral contrast agent could improve
+the ultrasound quality of PCLs, and the correlation between
+the quality of oral contrast agent-assisted TAUS and noncontrast MRI findings on PCLs was satisfactory. Further
+research to improve visualization of PCLs on TAUS using
+oral contrast agents could result in TAUS being a potential
+alternative to MRI in the follow-up of PCLs in resourcelimited situations.
+Acknowledgments
+
+Reporting Checklist: The authors have completed the
+STROBE reporting checklist. Available at https://qims.
+amegroups.com/article/view/10.21037/qims-24-367/rc
+Conflicts of Interest: All authors have completed the
+ICMJE uniform disclosure form (available at https://
+qims.amegroups.com/article/view/10.21037/qims-24367/coif). All authors report that this study was supported
+by the National High Level Hospital Clinical Research
+Funding of Peking Union Medical College Hospital
+(No. 2022-PUMCH-D-001). The authors have no other
+conflicts of interest to declare.
+Ethical Statement: The authors are accountable for all
+aspects of the work in ensuring that questions related
+to the accuracy or integrity of any part of the work are
+appropriately investigated and resolved. The study was
+conducted in accordance with the Declaration of Helsinki (as
+revised in 2013). The study was approved by institutional
+ethics committee of Peking Union Medical College
+Hospital (No. I-24PJ0102), and informed consent was
+provided by all individual participants.
+Open Access Statement: This is an Open Access article
+distributed in accordance with the Creative Commons
+Attribution-NonCommercial-NoDerivs 4.0 International
+License (CC BY-NC-ND 4.0), which permits the noncommercial replication and distribution of the article with
+the strict proviso that no changes or edits are made and the
+original work is properly cited (including links to both the
+formal publication through the relevant DOI and the license).
+See: https://creativecommons.org/licenses/by-nc-nd/4.0/.
+References
+1.
+2.
+3.
+
+4.
+
+Funding: The study was supported by the National High
+Level Hospital Clinical Research Funding of Peking Union
+Medical College Hospital (No. 2022-PUMCH-D-001).
+
+© Quantitative Imaging in Medicine and Surgery. All rights reserved.
+
+Footnote
+
+5.
+
+Larson A, Kwon RS. Natural History of Pancreatic Cysts.
+Dig Dis Sci 2017;62:1770-7.
+Verbesey JE, Munson JL. Pancreatic cystic neoplasms.
+Surg Clin North Am 2010;90:411-25.
+Kimura W, Nagai H, Kuroda A, Muto T, Esaki Y. Analysis
+of small cystic lesions of the pancreas. Int J Pancreatol
+1995;18:197-206.
+Pușcașu CI, Rimbaş M, Mateescu RB, Larghi A, Cauni V.
+Advances in the Diagnosis of Pancreatic Cystic Lesions.
+Diagnostics (Basel) 2022;12:1779.
+Sarno A, Tedesco G, De Robertis R, Marchegiani G, Salvia
+
+Quant Imaging Med Surg 2024;14(8):5602-5609 | https://dx.doi.org/10.21037/qims-24-367
+
+Quantitative Imaging in Medicine and Surgery, Vol 14, No 8 August 2024
+
+R, D'Onofrio M. Pancreatic cystic neoplasm diagnosis:
+Role of imaging. Endosc Ultrasound 2018;7:297-300.
+6. Jeurnink SM, Vleggaar FP, Siersema PD. Overview
+of the clinical problem: facts and current issues of
+mucinous cystic neoplasms of the pancreas. Dig Liver Dis
+2008;40:837-46.
+7. van Huijgevoort NCM, Del Chiaro M, Wolfgang
+CL, van Hooft JE, Besselink MG. Diagnosis and
+management of pancreatic cystic neoplasms: current
+evidence and guidelines. Nat Rev Gastroenterol Hepatol
+2019;16:676-89.
+8. Ohtsuka T, Fernandez-Del Castillo C, Furukawa T,
+Hijioka S, Jang JY, Lennon AM, Miyasaka Y, Ohno
+E, Salvia R, Wolfgang CL, Wood LD. International
+evidence-based Kyoto guidelines for the management of
+intraductal papillary mucinous neoplasm of the pancreas.
+Pancreatology 2024;24:255-70.
+9. Elta GH, Enestvedt BK, Sauer BG, Lennon AM. ACG
+Clinical Guideline: Diagnosis and Management of
+Pancreatic Cysts. Am J Gastroenterol 2018;113:464-79.
+10. Wu S, Zhuang H, Zhao JY, Wang YF. Gastrocolic fistula in
+Crohn's disease detected by oral agent contrast-enhanced
+ultrasound: A case report of a novel ultrasound modality.
+World J Gastroenterol 2020;26:2119-25.
+11. Young A, Yusuf GT, Fang C, Metafa A, Gupta S, Sidhu
+PS. Cholecystoduodenal fistula identified on oral contrastenhanced ultrasound. J Ultrasound 2022;25:339-42.
+12. Liu Z, Guo J, Sun S, Ren W, Tang S, Xie L, Huang
+L. Evaluation of transabdominal ultrasound after oral
+
+13.
+
+14.
+15.
+
+16.
+
+17.
+
+18.
+
+5609
+
+administration of an echoic cellulose-based gastric
+ultrasound contrast agent for demonstrating small gastric
+subepithelial masses. Abdom Imaging 2014;39:424-31.
+Xu W, Xu T, Liu W, Li F, Yang X, Li T, Yao J. A cohort
+study on the effects of gastrointestinal adjuvant on
+pancreatic transabdominal ultrasound visual quality. Hebei
+Medical Journal 2020;42:3113-5.
+Coban S, Basar O, Brugge WR. Pancreatic Cystic
+Neoplasms. Gastroenterol Clin North Am 2022;51:537-59.
+Sun Y, Yang S, Qi E, Liu F, Zhou F, Lu Y, Liang P, Ye H,
+Yu X. Comparative Diagnostic Evaluation with ContrastEnhanced Ultrasound, Computed Tomography and
+Magnetic Resonance Imaging in Patients with Pancreatic
+Cystic Neoplasms. Cancer Manag Res 2020;12:2889-98.
+Liu Z, Dou X, Guo J, Zhao Y, Zhang J, Ren W, Tang
+S, Zhang Y, Zhang X, Huang L, Lin L. Utility of
+Transabdominal Ultrasonography Enhanced by Oral
+Cellulose-Based Contrast Agent in Depicting Varices at
+Cardia and Fundus. Ultrasound Med Biol 2020;46:1428-34.
+Fan Z, Yan K, Wang Y, Qiu J, Wu W, Yang L, Chen M.
+Application of Contrast-Enhanced Ultrasound in Cystic
+Pancreatic Lesions Using a Simplified Classification
+Diagnostic Criterion. Biomed Res Int 2015;2015:974621.
+Zhong L, Chai N, Linghu E, Li H, Yang J, Tang P.
+A prospective study on endoscopic ultrasound for
+the differential diagnosis of serous cystic neoplasms
+and mucinous cystic neoplasms. BMC Gastroenterol
+2019;19:127.
+
+Cite this article as: Ji J, Shi X, Xia Y, Gao L, Luo N, Ma L,
+Pan A, An Y, Hu Y, Jiang Y. Can cereal-based oral contrast
+agents-assisted ultrasound become an alternative to noncontrast magnetic resonance imaging (MRI) in radiological
+follow-up for pancreatic cystic lesions? Quant Imaging Med
+Surg 2024;14(8):5602-5609. doi: 10.21037/qims-24-367
+
+© Quantitative Imaging in Medicine and Surgery. All rights reserved.
+
+Quant Imaging Med Surg 2024;14(8):5602-5609 | https://dx.doi.org/10.21037/qims-24-367
+
+

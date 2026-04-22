@@ -1,0 +1,13 @@
+{
+  "model_type": "gastric_classifier",
+  "architecture": "ResNet18",
+  "num_classes": 2,
+  "classes": [
+    "胃",
+    "胰腺"
+  ],
+  "training_date": "2026-04-23T03:22:29.454974",
+  "training_samples": 53,
+  "final_accuracy": 100.0,
+  "final_loss": 5.945391967543401e-05
+}
