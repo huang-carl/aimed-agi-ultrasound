@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIMED 充盈视界 FillingVision - 胃胰超声造影 AI 诊断平台</title>
+    <meta name="description" content="阿尔麦德智慧医疗（湖州）有限公司 - 基于口服超声造影剂 + AI 多智能体诊断的胃胰疾病早筛平台，让三甲医院增强造影能力下沉到基层">
+    <meta name="keywords" content="AIMED,充盈视界，FillingVision，超声造影，AI 诊断，胃胰疾病，阿尔麦德智慧医疗">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #10b981;
+            --accent-color: #8b5cf6;
+            --dark-color: #1e293b;
+            --light-color: #f8fafc;
+            --text-color: #334155;
+            --text-light: #64748b;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+        
+        /* 导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5em;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+        
+        /* Hero 区域 */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 30px 50px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+            text-align: center;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+        
+        .hero .description {
+            font-size: 1.1em;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: white;
+            color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary-color);
+        }
+        
+        /* 关于我们 */
+        .section {
+            padding: 100px 30px;
+        }
+        
+        .section-light {
+            background: var(--light-color);
+        }
+        
+        .section-white {
+            background: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5em;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--text-light);
+            font-size: 1.1em;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* 器官优先级标签 */
+        .priority-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        .priority-p0 {
+            background: #ef4444;
+            color: white;
+        }
+        .priority-p1 {
+            background: #f59e0b;
+            color: white;
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-image {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 20px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8em;
+            color: white;
+        }
+        
+        .about-content h3 {
+            font-size: 2em;
+            color: var(--dark-color);
+            margin-bottom: 20px;
+        }
+        
+        .about-content p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+        }
+        
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.95em;
+        }
+        
+        /* 核心技术 */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .tech-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+        
+        .tech-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+        }
+        
+        .tech-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+        }
+        
+        .tech-card h3 {
+            font-size: 1.5em;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+        }
+        
+        .tech-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+        
+        /* 产品介绍 */
+        .product-showcase {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+        
+        .product-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 25px;
+            padding: 50px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        
+        .product-card h3 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .product-card .tagline {
+            font-size: 1.2em;
+            margin-bottom: 25px;
+            opacity: 0.9;
+            position: relative;
+        }
+        
+        .product-card ul {
+            list-style: none;
+            position: relative;
+        }
+        
+        .product-card li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .product-card li:last-child {
+            border-bottom: none;
+        }
+        
+        .product-card li::before {
+            content: '✓';
+            font-weight: bold;
+        }
+        
+        /* 优势特点 */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+        
+        .feature-item {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        
+        .feature-item h4 {
+            font-size: 1.3em;
+            color: var(--dark-color);
+            margin-bottom: 12px;
+        }
+        
+        .feature-item p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        /* 联系我们 */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 50px;
+        }
+        
+        .contact-info {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            padding: 50px;
+            border-radius: 25px;
+            color: white;
+        }
+        
+        .contact-info h3 {
+            font-size: 2em;
+            margin-bottom: 30px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .contact-icon {
+            font-size: 1.8em;
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .contact-text h4 {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        
+        .contact-text p {
+            opacity: 0.9;
+        }
+        
+        .contact-form {
+            background: white;
+            padding: 50px;
+            border-radius: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            color: var(--dark-color);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        /* 页脚 */
+        .footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 60px 30px 30px;
+        }
+        
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h4 {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-section a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5em;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.2em;
+            }
+            
+            .about-grid,
+            .tech-grid,
+            .product-showcase,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">📱</div>
+                <span>AIMED 充盈视界</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">首页</a></li>
+                <li><a href="#about">关于我们</a></li>
+                <li><a href="/static/technology.html">核心技术</a></li>
+                <li><a href="/static/products.html">产品服务</a></li>
+                <li><a href="/static/solutions.html">解决方案</a></li>
+                <li><a href="/static/upload.html">数据上传</a></li>
+                <li><a href="/static/demo.html">演示系统</a></li>
+                <li><a href="#contact">联系我们</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero 区域 -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>AIMED 充盈视界 FillingVision</h1>
+            <p class="subtitle">胃胰超声造影 AI 诊断平台<br>让三甲医院增强造影能力下沉到基层</p>
+            <p class="description">
+                基于口服超声造影剂 + AI 多智能体诊断的胃胰疾病早筛平台，
+                聚焦胃 + 胰腺双核心，按序延伸至胆管/食道/贲门/十二指肠，
+                通过无创、便捷、精准的超声造影技术，助力基层医疗机构提升胃胰疾病早期筛查能力。
+            </p>
+            <div class="hero-buttons">
+                <a href="#products" class="btn btn-primary">了解产品</a>
+                <a href="#contact" class="btn btn-outline">合作咨询</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我们 -->
+    <section class="section section-light" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>关于阿尔麦德</h2>
+                <p>专注智慧医疗，赋能基层健康</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-image">🔬</div>
+                <div class="about-content">
+                    <h3>阿尔麦德智慧医疗（湖州）有限公司</h3>
+                    <p>
+                        阿尔麦德智慧医疗（湖州）有限公司是一家专注于医学影像 AI 诊断的创新型企业，
+                        致力于将先进的超声造影技术与人工智能深度融合，打造面向基层医疗机构的胃胰疾病早筛解决方案。
+                    </p>
+                    <p>
+                        通过自主研发的口服超声造影剂（胰腺型/胃肠型/胆管型）和 AI 多智能体诊断系统（Hermes），
+                        我们让复杂的增强造影检查变得简单、便捷、可及，助力实现"早发现、早诊断、早治疗"的医疗愿景。
+                    </p>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-number">101+</span>
+                            <span class="stat-label">标注病例（持续收集中）</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">4 器官</span>
+                            <span class="stat-label">胃/胰腺/十二指肠/结肠</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">85%+</span>
+                            <span class="stat-label">AI 诊断准确率目标</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 核心技术 -->
+    <section class="section section-white" id="technology">
+        <div class="container">
+            <div class="section-title">
+                <h2>核心技术</h2>
+                <p>三大技术支柱，构建精准诊断护城河</p>
+            </div>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <div class="tech-icon">💊</div>
+                    <h3>口服超声造影剂（三剂）</h3>
+                    <p>
+                        自主研发的三种型号口服超声造影剂（胰腺型/胃肠型/胆管型），安全无创，
+                        显著提升胃/胰腺/胆管超声成像质量，使粘膜下病变清晰可见，
+                        为 AI 诊断提供高质量图像基础。
+                    </p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">🤖</div>
+                    <h3>AI 多智能体诊断系统（Hermes）</h3>
+                    <p>
+                        基于 NVIDIA NIM + 阿里云百炼双引擎，胃/胰腺双专科 AI 智能体协同工作，
+                        聚焦胃<span class="priority-tag priority-p0">P0</span>+胰腺<span class="priority-tag priority-p0">P0</span>双核心，
+                        按序延伸至胆管<span class="priority-tag priority-p1">P1</span>/食道<span class="priority-tag priority-p1">P2</span>/贲门<span class="priority-tag priority-p1">P3</span>/十二指肠<span class="priority-tag priority-p1">P4</span>，
+                        确保诊断的专业性和准确性。
+                    </p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-icon">📊</div>
+                    <h3>标准化检查流程（一法）</h3>
+                    <p>
+                        标准化充盈超声造影检查流程 + 影像采集规范，
+                        消除胃肠道气体干扰，胰腺显示率从 60% 提升至≥90%，
+                        支持 AI 辅助诊断和数据采集。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 产品服务 -->
+    <section class="section section-light" id="products">
+        <div class="container">
+            <div class="section-title">
+                <h2>产品服务</h2>
+                <p>完整的产品矩阵，覆盖诊前到诊后全流程</p>
+            </div>
+            <div class="product-showcase">
+                <div class="product-card">
+                    <h3>🏥 FillingVision 诊断系统</h3>
+                    <p class="tagline">面向医疗机构的 AI 辅助诊断平台（Phase 1 研发中）</p>
+                    <ul>
+                        <li>胃部超声造影 AI 诊断（P0 优先）</li>
+                        <li>胰腺超声造影 AI 诊断（P0 优先）</li>
+                        <li>自动生成诊断报告</li>
+                        <li>Hermes 多智能体协同分析</li>
+                        <li>支持 DICOM 图像导入</li>
+                        <li>101+ 标注病例持续训练中</li>
+                    </ul>
+                </div>
+                <div class="product-card" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                    <h3>📱 基层筛查助手</h3>
+                    <p class="tagline">面向基层医生的便捷筛查工具（Phase 2 规划）</p>
+                    <ul>
+                        <li>移动端图像采集</li>
+                        <li>实时 AI 分析反馈</li>
+                        <li>标准化操作流程</li>
+                        <li>远程专家会诊</li>
+                        <li>患者随访管理</li>
+                        <li>数据统计分析</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 优势特点 -->
+    <section class="section section-white">
+        <div class="container">
+            <div class="section-title">
+                <h2>核心优势</h2>
+                <p>为什么选择 AIMED 充盈视界</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <h4>精准高效</h4>
+                    <p>Phase 1 目标 AI 准确率≥85%，Phase 3 目标≥95%，大幅降低漏诊误诊率</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🛡️</div>
+                    <h4>安全无创</h4>
+                    <p>口服谷物类造影剂，无辐射无创，孕妇可用，患者依从性高</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💰</div>
+                    <h4>成本可控</h4>
+                    <p>检查成本 100-200 元，仅为胃镜 1/3、CT 增强 1/5，适合大规模筛查</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🌐</div>
+                    <h4>基层友好</h4>
+                    <p>标准化操作流程，10-30 分钟出报告，无需专业放射科医生即可开展</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section class="section section-light" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>联系我们</h2>
+                <p>期待与您携手，共创智慧医疗新未来</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>联系方式</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-text">
+                            <h4>公司地址</h4>
+                            <p>浙江省湖州市吴兴区</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-text">
+                            <h4>电子邮箱</h4>
+                            <p>aimed@aius.xin</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🌐</div>
+                        <div class="contact-text">
+                            <h4>官方网站</h4>
+                            <p>www.aius.xin</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">💬</div>
+                        <div class="contact-text">
+                            <h4>商务合作</h4>
+                            <p>欢迎医疗机构、投资方、合作伙伴洽谈</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <label>姓名</label>
+                            <input type="text" placeholder="请输入您的姓名">
+                        </div>
+                        <div class="form-group">
+                            <label>邮箱</label>
+                            <input type="email" placeholder="请输入您的邮箱">
+                        </div>
+                        <div class="form-group">
+                            <label>机构/公司</label>
+                            <input type="text" placeholder="请输入您的机构名称">
+                        </div>
+                        <div class="form-group">
+                            <label>留言</label>
+                            <textarea placeholder="请输入您想咨询的内容"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">发送消息</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h4>关于 AIMED</h4>
+                <ul>
+                    <li><a href="#about">公司简介</a></li>
+                    <li><a href="/static/technology.html">核心技术</a></li>
+                    <li><a href="/static/products.html">产品服务</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>产品服务</h4>
+                <ul>
+                    <li><a href="/static/demo.html">FillingVision 诊断系统</a></li>
+                    <li><a href="#">基层筛查助手</a></li>
+                    <li><a href="/static/upload.html">数据管理平台</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>合作支持</h4>
+                <ul>
+                    <li><a href="/static/solutions.html">医疗机构合作</a></li>
+                    <li><a href="/docs">技术支持</a></li>
+                    <li><a href="#contact">培训服务</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>联系我们</h4>
+                <ul>
+                    <li><a href="mailto:aimed@aius.xin">aimed@aius.xin</a></li>
+                    <li><a href="https://www.aius.xin">www.aius.xin</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 阿尔麦德智慧医疗（湖州）有限公司 版权所有 | 浙 ICP 备 待定</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                <a href="https://github.com/huang-carl/aimed-agi-ultrasound" style="color: rgba(255,255,255,0.7);">GitHub 开源</a> · 
+                <a href="/docs" style="color: rgba(255,255,255,0.7);">技术文档</a> · 
+                <a href="/redoc" style="color: rgba(255,255,255,0.7);">API 文档</a>
+            </p>
+            <p style="margin-top: 10px; font-size: 0.85em; color: rgba(255,255,255,0.5);">
+                📍 浙江省湖州市吴兴区 | 📧 aimed@aius.xin | 🌐 www.aius.xin
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 导航栏滚动效果
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 30px rgba(0,0,0,0.1)';
+            } else {
+                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            }
+        });
+
+        // 移动端菜单
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // 表单提交（演示）
+        document.querySelector('.contact-form form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('感谢您的留言！我们会尽快与您联系～');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
