@@ -292,6 +292,9 @@
             }
             .hero h1 { font-size: 2em; }
             .stats-grid { grid-template-columns: 1fr; }
+            #collaboration .collaboration-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -306,8 +309,9 @@
             <ul class="nav-links">
                 <li><a href="#home">首页</a></li>
                 <li><a href="#about">公司介绍</a></li>
-                <li><a href="#lab">联合实验室</a></li>
+                <li><a href="#lab">合作伙伴</a></li>
                 <li><a href="#project">项目实施</a></li>
+                <li><a href="#collaboration">科研合作</a></li>
                 <li><a href="#technology">技术架构</a></li>
                 <li><a href="#contact">联系我们</a></li>
             </ul>
@@ -474,6 +478,93 @@
                         <li>✅ Hermes 后端多 Agent 协同</li>
                         <li>✅ 标准化报告自动生成</li>
                     </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 多中心科研合作 -->
+    <section class="section section-white" id="collaboration">
+        <div class="container">
+            <div class="section-title">
+                <h2>多中心科研合作</h2>
+                <p>共建共享，打造胃胰腺诊断 AI 大模型</p>
+            </div>
+            <div style="max-width: 900px; margin: 0 auto;">
+                <div style="background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); color: white; padding: 50px; border-radius: 20px; margin-bottom: 40px; text-align: center;">
+                    <h3 style="font-size: 2em; margin-bottom: 20px;">🤝 诚邀医疗机构、医生、开发者加入</h3>
+                    <p style="font-size: 1.2em; opacity: 0.95;">
+                        我们致力于联合全国多家医院、临床医生和 AI 开发者，<br>
+                        共同标注数据、训练模型、验证技术，<br>
+                        打造一个更精准、更可靠的胃胰腺疾病超声造影 AI 诊断大模型。
+                    </p>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-bottom: 40px;">
+                    <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); text-align: center;">
+                        <div style="font-size: 3em; margin-bottom: 15px;">🏥</div>
+                        <h4 style="font-size: 1.3em; margin-bottom: 15px; color: var(--primary-color);">医疗机构</h4>
+                        <p style="color: var(--text-light); line-height: 1.8;">
+                            提供临床病例数据<br>
+                            参与多中心验证<br>
+                            共享科研成果
+                        </p>
+                    </div>
+                    <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); text-align: center;">
+                        <div style="font-size: 3em; margin-bottom: 15px;">👨‍⚕️</div>
+                        <h4 style="font-size: 1.3em; margin-bottom: 15px; color: var(--secondary-color);">临床医生</h4>
+                        <p style="color: var(--text-light); line-height: 1.8;">
+                            专业数据标注<br>
+                            临床指导与反馈<br>
+                            联合发表论文
+                        </p>
+                    </div>
+                    <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); text-align: center;">
+                        <div style="font-size: 3em; margin-bottom: 15px;">💻</div>
+                        <h4 style="font-size: 1.3em; margin-bottom: 15px; color: var(--accent-color);">AI 开发者</h4>
+                        <p style="color: var(--text-light); line-height: 1.8;">
+                            参与模型优化<br>
+                            贡献算法创新<br>
+                            开源协作开发
+                        </p>
+                    </div>
+                </div>
+
+                <div style="background: var(--light-color); padding: 40px; border-radius: 15px; margin-bottom: 30px;">
+                    <h4 style="font-size: 1.5em; margin-bottom: 20px; color: var(--dark-color);">🎯 合作目标</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.05);">
+                            <strong>📊 大规模数据集：</strong>联合多家医院，积累 10000+ 高质量胃胰腺超声造影病例
+                        </li>
+                        <li style="padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.05);">
+                            <strong>🧠 大模型训练：</strong>基于多中心数据，训练更通用、更准确的 AI 诊断模型
+                        </li>
+                        <li style="padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.05);">
+                            <strong>📝 科研产出：</strong>联合发表高水平学术论文，推动行业标准制定
+                        </li>
+                        <li style="padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.05);">
+                            <strong>🌐 技术推广：</strong>将成熟技术下沉至基层医疗机构，赋能更多医生
+                        </li>
+                    </ul>
+                </div>
+
+                <div style="text-align: center; padding: 30px; background: white; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08);">
+                    <h4 style="font-size: 1.5em; margin-bottom: 20px; color: var(--dark-color);">📬 合作洽谈</h4>
+                    <p style="color: var(--text-light); margin-bottom: 25px;">
+                        欢迎有意向的医院、医生、开发者与我们联系，共建胃胰腺 AI 诊断生态
+                    </p>
+                    <div style="display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;">
+                        <div>
+                            <div style="font-size: 1.5em; margin-bottom: 10px;">📧</div>
+                            <div style="color: var(--text-light);">电子邮箱</div>
+                            <div style="font-weight: 600; color: var(--primary-color);">aimed@aius.xin</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 1.5em; margin-bottom: 10px;">🌐</div>
+                            <div style="color: var(--text-light);">GitHub 开源</div>
+                            <div style="font-weight: 600; color: var(--primary-color);">huang-carl/aimed-agi-ultrasound</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
