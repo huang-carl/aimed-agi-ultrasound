@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIMED 充盈视界 - 产品展示</title>
+    <meta name="description" content="AIMED FillingVision 充盈视界 - 基于口服超声造影剂 + AI 多智能体诊断的胃胰疾病早筛平台">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #10b981;
+            --accent-color: #8b5cf6;
+            --dark-color: #1e293b;
+            --light-color: #f8fafc;
+            --text-color: #334155;
+            --text-light: #64748b;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+        
+        /* 导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5em;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-color);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+        
+        /* 页面头部 */
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 150px 30px 80px;
+            text-align: center;
+            color: white;
+        }
+        
+        .page-header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .page-header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* 面包屑导航 */
+        .breadcrumb {
+            background: var(--light-color);
+            padding: 20px 30px;
+            margin-top: 80px;
+        }
+        
+        .breadcrumb-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .breadcrumb a {
+            color: var(--text-light);
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--primary-color);
+        }
+        
+        .breadcrumb span {
+            color: var(--text-light);
+            margin: 0 10px;
+        }
+        
+        /* 通用 Section */
+        .section {
+            padding: 80px 30px;
+        }
+        
+        .section-light {
+            background: var(--light-color);
+        }
+        
+        .section-white {
+            background: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5em;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--text-light);
+            font-size: 1.1em;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* 产品网格 */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        
+        .product-image {
+            height: 250px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5em;
+        }
+        
+        .product-content {
+            padding: 35px;
+        }
+        
+        .product-content h3 {
+            font-size: 1.8em;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+        }
+        
+        .product-content .tagline {
+            color: var(--text-light);
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        
+        .product-content ul {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+        
+        .product-content li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .product-content li:last-child {
+            border-bottom: none;
+        }
+        
+        .product-content li::before {
+            content: '✓';
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+        
+        .product-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .product-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* 功能特点 */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .feature-box {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+            transition: all 0.3s;
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+        }
+        
+        .feature-box h4 {
+            font-size: 1.4em;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+        }
+        
+        .feature-box p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+        
+        /* 技术架构 */
+        .architecture {
+            background: var(--dark-color);
+            color: white;
+            padding: 80px 30px;
+        }
+        
+        .architecture h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 60px;
+        }
+        
+        .arch-diagram {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 50px;
+        }
+        
+        .arch-layers {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .arch-layer {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        
+        .arch-layer-icon {
+            font-size: 3em;
+            width: 80px;
+            text-align: center;
+        }
+        
+        .arch-layer-content {
+            flex: 1;
+        }
+        
+        .arch-layer h4 {
+            font-size: 1.4em;
+            margin-bottom: 8px;
+        }
+        
+        .arch-layer p {
+            opacity: 0.8;
+            font-size: 0.95em;
+        }
+        
+        .arch-layer-badge {
+            background: var(--secondary-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        
+        /* 应用场景 */
+        .scenarios-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+        
+        .scenario-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 35px 25px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .scenario-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .scenario-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .scenario-card h4 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        
+        .scenario-card p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        /* 数据展示 */
+        .stats-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            padding: 80px 30px;
+            color: white;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 3.5em;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        /* CTA 区域 */
+        .cta-section {
+            background: var(--light-color);
+            padding: 80px 30px;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5em;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+        }
+        
+        .cta-section p {
+            color: var(--text-light);
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-outline {
+            background: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        /* 页脚 */
+        .footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 60px 30px 30px;
+        }
+        
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h4 {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-section a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+        }
+        
+        /* 响应式 */
+        @media (max-width: 1024px) {
+            .product-grid,
+            .features-grid,
+            .scenarios-grid,
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .page-header h1 {
+                font-size: 2em;
+            }
+            
+            .product-grid,
+            .features-grid,
+            .scenarios-grid,
+            .stats-grid,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .arch-layer {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <div class="logo-icon">🏥</div>
+                <span>AIMED 阿尔麦德</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="/">首页</a></li>
+                <li><a href="/static/products.html" class="active">产品服务</a></li>
+                <li><a href="/static/technology.html">核心技术</a></li>
+                <li><a href="/static/solutions.html">解决方案</a></li>
+                <li><a href="/static/upload.html">数据上传</a></li>
+                <li><a href="/static/demo.html">演示系统</a></li>
+                <li><a href="/#contact">联系我们</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- 页面头部 -->
+    <section class="page-header">
+        <h1>产品服务</h1>
+        <p>完整的产品矩阵，覆盖胃胰疾病筛查全流程</p>
+    </section>
+
+    <!-- 面包屑 -->
+    <div class="breadcrumb">
+        <div class="breadcrumb-container">
+            <a href="/">首页</a> <span>/</span> 产品服务
+        </div>
+    </div>
+
+    <!-- 产品网格 -->
+    <section class="section section-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>核心产品</h2>
+                <p>面向不同场景的专业解决方案</p>
+            </div>
+            
+            <div class="product-grid">
+                <!-- 产品 1 -->
+                <div class="product-card">
+                    <div class="product-image">🏥</div>
+                    <div class="product-content">
+                        <h3>FillingVision 诊断系统</h3>
+                        <p class="tagline">面向医疗机构的 AI 辅助诊断平台</p>
+                        <ul>
+                            <li>胃部超声造影 AI 诊断</li>
+                            <li>胰腺超声造影 AI 诊断</li>
+                            <li>自动生成诊断报告</li>
+                            <li>多智能体协同分析</li>
+                            <li>支持 DICOM 图像导入</li>
+                            <li>云端 + 本地双部署模式</li>
+                        </ul>
+                        <a href="/static/demo.html" class="product-btn">体验演示</a>
+                    </div>
+                </div>
+                
+                <!-- 产品 2 -->
+                <div class="product-card" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white;">
+                    <div class="product-image" style="background: rgba(255,255,255,0.2);">📱</div>
+                    <div class="product-content">
+                        <h3 style="color: white;">基层筛查助手</h3>
+                        <p class="tagline" style="color: rgba(255,255,255,0.9);">面向基层医生的便捷筛查工具</p>
+                        <ul style="border-color: rgba(255,255,255,0.2);">
+                            <li style="border-color: rgba(255,255,255,0.2);">移动端图像采集</li>
+                            <li style="border-color: rgba(255,255,255,0.2);">实时 AI 分析反馈</li>
+                            <li style="border-color: rgba(255,255,255,0.2);">标准化操作流程</li>
+                            <li style="border-color: rgba(255,255,255,0.2);">远程专家会诊</li>
+                            <li style="border-color: rgba(255,255,255,0.2);">患者随访管理</li>
+                            <li style="border-color: rgba(255,255,255,0.2);">数据统计分析</li>
+                        </ul>
+                        <a href="/#contact" class="product-btn" style="background: white; color: #10b981;">咨询合作</a>
+                    </div>
+                </div>
+                
+                <!-- 产品 3 -->
+                <div class="product-card">
+                    <div class="product-image" style="background: linear-gradient(135deg, #f59e0b, #d97706);">📊</div>
+                    <div class="product-content">
+                        <h3>数据管理平台</h3>
+                        <p class="tagline">医学图像训练数据收集与管理</p>
+                        <ul>
+                            <li>图像上传与分类存储</li>
+                            <li>充盈状态标注</li>
+                            <li>诊断信息管理</li>
+                            <li>训练数据统计</li>
+                            <li>批量导出与报告</li>
+                            <li>权限与审计日志</li>
+                        </ul>
+                        <a href="/static/upload.html" class="product-btn">上传数据</a>
+                    </div>
+                </div>
+                
+                <!-- 产品 4 -->
+                <div class="product-card" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); color: white;">
+                    <div class="product-image" style="background: rgba(255,255,255,0.2);">🤖</div>
+                    <div class="product-content">
+                        <h3 style="color: white;">AI 训练平台</h3>
+                        <p class="tagline" style="color: rgba(255,255,255,0.9);">医学图像 AI 模型训练与优化</p>
+                        <ul style="border-color: rgba(255,255,255,0.2);">
+                            <li style="border-color: rgba(255,255,255,0.2);">PyTorch 训练框架</li>
+                            <li style="border-color: rgba(255,255,255,0.2);">自动器官识别</li>
+                            <li style="border-color: rgba(255,255,255,0.2);">病变分类模型</li>
+                            <li style="border-color: rgba(255,255,255,0.2);">数据增强工具</li>
+                            <li style="border-color: rgba(255,255,255,0.2);">模型性能评估</li>
+                            <li style="border-color: rgba(255,255,255,0.2);">持续学习优化</li>
+                        </ul>
+                        <a href="/docs/训练数据整理报告.md" class="product-btn" style="background: white; color: #8b5cf6;">查看文档</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 功能特点 -->
+    <section class="section section-white">
+        <div class="container">
+            <div class="section-title">
+                <h2>核心功能</h2>
+                <p>全方位的技术能力，满足多样化需求</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-box">
+                    <div class="feature-icon">🔍</div>
+                    <h4>智能诊断</h4>
+                    <p>基于 NVIDIA NIM + 阿里云百炼双引擎，AI 多智能体协同分析，诊断准确率≥95%</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">📸</div>
+                    <h4>图像识别</h4>
+                    <p>自动器官识别（胃/胰腺）、充盈状态判断、病变定位与分类</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">📄</div>
+                    <h4>报告生成</h4>
+                    <p>自动生成标准化诊断报告，支持自定义模板，符合临床规范</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">📚</div>
+                    <h4>知识库检索</h4>
+                    <p>RAG 医学知识库，基于最新指南，实时更新，确保诊断专业性</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">🔒</div>
+                    <h4>数据安全</h4>
+                    <p>JWT 认证、数据加密、完整审计日志，符合医疗数据安全要求</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">🌐</div>
+                    <h4>多渠道接入</h4>
+                    <p>支持钉钉、飞书双渠道，小超同学 + 小菲同学协同服务</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技术架构 -->
+    <section class="architecture">
+        <h2>技术架构</h2>
+        <div class="arch-diagram">
+            <div class="arch-layers">
+                <div class="arch-layer">
+                    <div class="arch-layer-icon">📱</div>
+                    <div class="arch-layer-content">
+                        <h4>用户交互层</h4>
+                        <p>Web 界面 / 钉钉 / 飞书 / API 接口</p>
+                    </div>
+                    <span class="arch-layer-badge">OpenClaw Gateway</span>
+                </div>
+                
+                <div class="arch-layer">
+                    <div class="arch-layer-icon">🎯</div>
+                    <div class="arch-layer-content">
+                        <h4>总指挥智能体</h4>
+                        <p>任务分发、结果汇总、质量控制</p>
+                    </div>
+                    <span class="arch-layer-badge">Conductor Agent</span>
+                </div>
+                
+                <div class="arch-layer">
+                    <div class="arch-layer-icon">🤖</div>
+                    <div class="arch-layer-content">
+                        <h4>专科智能体</h4>
+                        <p>胃诊断 Agent / 胰腺诊断 Agent / 报告生成 Agent</p>
+                    </div>
+                    <span class="arch-layer-badge">Multi-Agent System</span>
+                </div>
+                
+                <div class="arch-layer">
+                    <div class="arch-layer-icon">🧠</div>
+                    <div class="arch-layer-content">
+                        <h4>AI 模型层</h4>
+                        <p>NVIDIA NIM (Llama-3.3-70B) + 阿里云百炼 (Qwen-Plus)</p>
+                    </div>
+                    <span class="arch-layer-badge">双引擎路由</span>
+                </div>
+                
+                <div class="arch-layer">
+                    <div class="arch-layer-icon">📚</div>
+                    <div class="arch-layer-content">
+                        <h4>数据层</h4>
+                        <p>病例数据库 / 医学知识库 / 训练数据集</p>
+                    </div>
+                    <span class="arch-layer-badge">SQLite + RAG</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 应用场景 -->
+    <section class="section section-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>应用场景</h2>
+                <p>广泛适用于各类医疗机构</p>
+            </div>
+            
+            <div class="scenarios-grid">
+                <div class="scenario-card">
+                    <div class="scenario-icon">🏥</div>
+                    <h4>三甲医院</h4>
+                    <p>提升诊断效率，降低医生工作负荷</p>
+                </div>
+                <div class="scenario-card">
+                    <div class="scenario-icon">🏨</div>
+                    <h4>基层医院</h4>
+                    <p>弥补专业医生不足，提升筛查能力</p>
+                </div>
+                <div class="scenario-card">
+                    <div class="scenario-icon">🏢</div>
+                    <h4>体检中心</h4>
+                    <p>大规模胃胰疾病早期筛查</p>
+                </div>
+                <div class="scenario-card">
+                    <div class="scenario-icon">👨‍⚕️</div>
+                    <h4>专科诊所</h4>
+                    <p>精准辅助诊断，提升服务质量</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 数据统计 -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-number">50+</span>
+                <span class="stat-label">训练图像</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">95%</span>
+                <span class="stat-label">诊断准确率</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">全天候服务</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">2</span>
+                <span class="stat-label">器官覆盖</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2>开始使用 AIMED 充盈视界</h2>
+        <p>立即体验 AI 辅助诊断的强大能力，或联系我们的团队获取定制方案</p>
+        <div class="cta-buttons">
+            <a href="/static/demo.html" class="btn btn-primary">免费试用</a>
+            <a href="/static/upload.html" class="btn btn-outline">上传数据</a>
+            <a href="/#contact" class="btn btn-primary">合作咨询</a>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h4>关于 AIMED</h4>
+                <ul>
+                    <li><a href="/">公司简介</a></li>
+                    <li><a href="/static/technology.html">核心技术</a></li>
+                    <li><a href="/static/products.html">产品服务</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>产品服务</h4>
+                <ul>
+                    <li><a href="/static/demo.html">FillingVision 诊断系统</a></li>
+                    <li><a href="#">基层筛查助手</a></li>
+                    <li><a href="/static/upload.html">数据管理平台</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>开发资源</h4>
+                <ul>
+                    <li><a href="/docs">技术文档</a></li>
+                    <li><a href="/redoc">API 文档</a></li>
+                    <li><a href="https://github.com/huang-carl/aimed-agi-ultrasound">GitHub</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>联系我们</h4>
+                <ul>
+                    <li><a href="mailto:aimed@aius.xin">aimed@aius.xin</a></li>
+                    <li><a href="https://www.aius.xin">www.aius.xin</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 阿尔麦德智慧医疗（湖州）有限公司 版权所有 | 浙 ICP 备 XXXXXXXX 号</p>
+        </div>
+    </footer>
+
+    <script>
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 导航栏滚动效果
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 30px rgba(0,0,0,0.1)';
+            } else {
+                navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            }
+        });
+
+        // 移动端菜单
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+    </script>
+</body>
+</html>

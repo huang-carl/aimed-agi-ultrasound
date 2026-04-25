@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+load_dotenv()  # 加载 .env 文件中的环境变量（NVIDIA_API_KEY 等）
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -64,12 +67,21 @@ async def startup_event():
 
 @app.get("/", tags=["首页"])
 async def root():
-    """重定向到 Demo 演示页面"""
+    """重定向到官网首页"""
     from fastapi.responses import FileResponse
-    demo_path = os.path.join(static_path, "demo.html")
-    if os.path.exists(demo_path):
-        return FileResponse(demo_path)
-    return {"message": "AIMED Agent Swarm", "docs": "/docs", "demo": "/static/demo.html"}
+    index_path = os.path.join(static_path, "index.html")
+    if os.path.exists(index_path):
+        return FileResponse(index_path)
+    return {"message": "AIMED 阿尔麦德智慧医疗", "docs": "/docs", "demo": "/static/demo.html"}
+
+@app.get("/upload", tags=["上传页面"])
+async def upload_page():
+    """图像上传平台页面"""
+    from fastapi.responses import FileResponse
+    upload_path = os.path.join(static_path, "upload.html")
+    if os.path.exists(upload_path):
+        return FileResponse(upload_path)
+    return {"message": "上传页面", "url": "/static/upload.html"}
 
 @app.get("/health", tags=["健康检查"])
 async def health_check():

@@ -57,25 +57,32 @@ class CaseInfo(BaseModel):
 @router.post("/upload", response_model=CaseUploadResponse, tags=["v1-病例管理"])
 async def upload_case(
     organ: str = Form(...),
+    filling_status: Optional[str] = Form('filled'),
+    diagnosis: Optional[str] = Form(None),
+    notes: Optional[str] = Form(None),
+    description: Optional[str] = Form(None),
     patient_id: Optional[str] = Form(None),
     patient_name: Optional[str] = Form(None),
-    image: Optional[UploadFile] = File(None),
-    image_description: Optional[str] = Form(None)
+    image: Optional[UploadFile] = File(None)
 ):
     """
-    上传病例
+    上传病例（支持训练数据收集）
     
-    - **organ**: 器官类型（胃/胰腺）
+    - **organ**: 器官类型（胃/stomach 或 胰腺/pancreas）
+    - **filling_status**: 充盈状态（filled=已充盈，unfilled=未充盈）
+    - **diagnosis**: 诊断描述（如：胃底部恶性间质瘤）
+    - **notes**: 备注信息
+    - **description**: 详细描述
     - **patient_id**: 患者 ID（可选）
     - **patient_name**: 患者姓名（可选）
-    - **image**: 病例图像（可选）
-    - **image_description**: 影像描述（可选）
+    - **image**: 病例图像
     """
     # 验证器官类型
     if organ not in ['胃', '胰腺', 'stomach', 'pancreas']:
         raise HTTPException(status_code=400, detail="不支持的器官类型")
     
     organ_cn = '胃' if organ in ['胃', 'stomach'] else '胰腺'
+    filling_cn = '已充盈' if filling_status == 'filled' else '未充盈'
     
     # 生成病例 ID
     case_id = f"case_{datetime.now().strftime('%Y%m%d%H%M%S')}_{uuid.uuid4().hex[:8]}"
@@ -87,14 +94,16 @@ async def upload_case(
         storage_result = case_storage.save_image(image_data, organ_cn, case_id)
         image_path = storage_result['local_path']
     
-    # AI 诊断（如果有影像描述）
-    diagnosis = None
-    probability = None
-    if image_description and nvidia_client:
+    # 使用提供的诊断或使用 AI 诊断
+    final_diagnosis = diagnosis or '待诊断'
+    probability = 0.0
+    
+    # 如果没有提供诊断且有描述，尝试 AI 诊断
+    if not diagnosis and description and nvidia_client:
         try:
-            result = nvidia_client.diagnose(organ_cn, image_description)
+            result = nvidia_client.diagnose(organ_cn, description)
             if result.get('success'):
-                diagnosis = result['diagnosis'].get('disease', '待解析')
+                final_diagnosis = result['diagnosis'].get('disease', '待解析')
                 probability = result['diagnosis'].get('probability', 0.8)
         except:
             pass
@@ -104,11 +113,13 @@ async def upload_case(
         'patient_id': patient_id or '',
         'patient_name': patient_name or '',
         'organ': organ_cn,
+        'filling_status': filling_cn,
         'image_path': image_path,
         'oss_url': '',
-        'image_description': image_description or '',
-        'diagnosis': diagnosis or '待诊断',
-        'probability': probability or 0.0,
+        'image_description': description or '',
+        'diagnosis': final_diagnosis,
+        'notes': notes or '',
+        'probability': probability,
         'image_quality': 'good' if image_path else 'unknown',
         'category': datetime.now().strftime('%Y-%m-%d')
     }
@@ -120,7 +131,7 @@ async def upload_case(
         case_id=case_id,
         message="病例上传成功",
         organ=organ_cn,
-        diagnosis=diagnosis,
+        diagnosis=final_diagnosis,
         probability=probability
     )
 
