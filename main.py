@@ -261,7 +261,7 @@ async def list_models():
 if __name__ == "__main__":
     import uvicorn
     
-    port = int(os.getenv('PORT', '18790'))
+    port = int(os.getenv('PORT', '18792'))
     debug = os.getenv('DEBUG', 'true').lower() == 'true'
     
     print(f"启动 AIMED Hermes 后端 - 端口：{port}")
