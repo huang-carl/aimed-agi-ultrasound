@@ -2,6 +2,26 @@
 AIMED Hermes 后端 - 主入口
 胃胰腺超声造影 AI 诊断平台
 端口：18790
+
+架构：
+┌─────────────────────────────────────────┐
+│          FastAPI Gateway (main.py)       │
+│  - CORS / 静态文件 / 健康检查            │
+└──────────────────┬──────────────────────┘
+                   │
+        ┌──────────┴──────────┐
+        │                     │
+   routers/v1/           services/
+   (路由层)              (服务层)
+        │                     │
+        └──────────┬──────────┘
+                   │
+        ┌──────────┴──────────┐
+        │                     │
+   agents/              model_router.py
+   (智能体层)            (模型路由)
+        │
+   Conductor → Stomach/Pancreas/Report
 """
 
 import os
@@ -15,7 +35,11 @@ from datetime import datetime
 # 添加项目路径
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-# 导入服务
+# 加载环境变量
+from dotenv import load_dotenv
+load_dotenv()
+
+# ===== 导入服务层 =====
 try:
     from services.diagnosis_service_v2 import DiagnosisServiceV2
     diagnosis_service_cls = DiagnosisServiceV2
@@ -24,18 +48,26 @@ except ImportError:
     from services.diagnosis_service import DiagnosisService
     diagnosis_service_cls = DiagnosisService
     print("✅ 使用诊断服务 V1（标准模式）")
+
 from services.vector_search_service import VectorSearchService, CHROMADB_AVAILABLE
 from services.image_segmentation_service import ImageSegmentationService, SAM_AVAILABLE
+from services.model_router import get_router, ModelRouter
+from services.api_key_pool import get_key_pool
 
-# 加载环境变量
-from dotenv import load_dotenv
-load_dotenv()
+# ===== 导入智能体层 =====
+from agents.conductor_agent import conductor_agent
+from agents.stomach_agent import stomach_agent
+from agents.pancreas_agent import pancreas_agent
+from agents.report_agent import report_agent
+
+# ===== 导入路由层 =====
+from routers.v1 import diagnosis, conductor, cases, stomach, pancreas, report
 
 # 创建 FastAPI 应用
 app = FastAPI(
     title="AIMED Hermes - 胃胰腺超声造影 AI 诊断",
     description="基于口服超声造影剂 + AI 多智能体诊断的胃胰疾病早筛平台",
-    version="2.0.0",
+    version="2.1.0",
     docs_url="/docs",
     redoc_url="/redoc"
 )
@@ -53,25 +85,41 @@ app.add_middleware(
 diagnosis_service = None
 vector_search = None
 segmentation_service = None
+model_router = None
+key_pool = None
 
 
 @app.on_event("startup")
 async def startup_event():
-    """应用启动事件"""
-    global diagnosis_service, vector_search, segmentation_service
+    """应用启动事件 - 分层初始化"""
+    global diagnosis_service, vector_search, segmentation_service, model_router, key_pool
     
     print("=" * 60)
-    print("AIMED Hermes 后端启动")
+    print("AIMED Hermes 后端启动 v2.1.0")
     print("=" * 60)
     
-    # 初始化诊断服务
+    # 1. 初始化模型路由层
+    try:
+        model_router = get_router()
+        print(f"✅ 模型路由已初始化 - 提供商: {list(model_router.providers.keys())}")
+    except Exception as e:
+        print(f"⚠️ 模型路由初始化失败: {e}")
+    
+    # 2. 初始化 Key 池
+    try:
+        key_pool = get_key_pool()
+        print(f"✅ Key 池已初始化")
+    except Exception as e:
+        print(f"⚠️ Key 池初始化失败: {e}")
+    
+    # 3. 初始化诊断服务
     try:
         diagnosis_service = diagnosis_service_cls()
         print("✅ 诊断服务已初始化")
     except Exception as e:
         print(f"⚠️ 诊断服务初始化失败: {e}")
     
-    # 初始化向量检索服务
+    # 4. 初始化向量检索服务
     if CHROMADB_AVAILABLE:
         try:
             vector_search = VectorSearchService(
@@ -84,7 +132,7 @@ async def startup_event():
     else:
         print("⚠️ ChromaDB 未安装，跳过向量检索服务")
     
-    # 初始化图像分割服务
+    # 5. 初始化图像分割服务
     if SAM_AVAILABLE:
         try:
             segmentation_service = ImageSegmentationService(model_type="vit_b")
@@ -98,7 +146,28 @@ async def startup_event():
     else:
         print("⚠️ SAM 未安装，跳过图像分割服务")
     
-    # 挂载静态文件
+    # 6. 注册智能体到 Conductor
+    try:
+        conductor_agent.register_agent("stomach", stomach_agent)
+        conductor_agent.register_agent("pancreas", pancreas_agent)
+        conductor_agent.register_agent("report", report_agent)
+        print(f"✅ 智能体注册完成 - {len(conductor_agent.agent_registry)} 个 Agent")
+    except Exception as e:
+        print(f"⚠️ 智能体注册失败: {e}")
+    
+    # 7. 挂载路由层
+    try:
+        app.include_router(diagnosis.router, prefix="/api/v1/diagnosis", tags=["v1-诊断服务"])
+        app.include_router(conductor.router, prefix="/api/v1/conductor", tags=["v1-总指挥"])
+        app.include_router(cases.router, prefix="/api/v1/cases", tags=["v1-病例管理"])
+        app.include_router(stomach.router, prefix="/api/v1/stomach", tags=["v1-胃部诊断"])
+        app.include_router(pancreas.router, prefix="/api/v1/pancreas", tags=["v1-胰腺诊断"])
+        app.include_router(report.router, prefix="/api/v1/report", tags=["v1-报告生成"])
+        print("✅ API 路由层已挂载 (6 个路由组)")
+    except Exception as e:
+        print(f"⚠️ 路由挂载失败: {e}")
+    
+    # 8. 挂载静态文件
     static_dir = os.path.join(os.path.dirname(__file__), "static")
     if os.path.exists(static_dir):
         app.mount("/static", StaticFiles(directory=static_dir), name="static")
@@ -107,18 +176,23 @@ async def startup_event():
     print("=" * 60)
 
 
+# ===== 全局端点（健康检查 + 系统状态） =====
+
 @app.get("/health")
 async def health_check():
     """健康检查"""
     return {
         "status": "healthy",
         "service": "AIMED Hermes",
-        "version": "2.0.0",
+        "version": "2.1.0",
         "timestamp": datetime.now().isoformat(),
         "components": {
             "diagnosis": diagnosis_service is not None,
             "vector_search": vector_search is not None,
-            "segmentation": segmentation_service is not None
+            "segmentation": segmentation_service is not None,
+            "model_router": model_router is not None,
+            "key_pool": key_pool is not None,
+            "conductor": len(conductor_agent.agent_registry)
         }
     }
 
@@ -128,8 +202,14 @@ async def get_status():
     """获取系统状态"""
     status = {
         "service": "AIMED Hermes",
-        "version": "2.0.0",
+        "version": "2.1.0",
         "timestamp": datetime.now().isoformat(),
+        "architecture": {
+            "gateway": "FastAPI (main.py)",
+            "router_layer": "routers/v1/ (6 组)",
+            "service_layer": "services/ (12 个服务)",
+            "agent_layer": "agents/ (4 个 Agent)"
+        },
         "models": {
             "primary": os.getenv('DASHSCOPE_MODEL', 'qwen-plus'),
             "nvidia": os.getenv('NVIDIA_MODEL', 'meta/llama-3.3-70b-instruct') if os.getenv('NVIDIA_API_KEY') else None
@@ -138,7 +218,12 @@ async def get_status():
             "diagnosis": diagnosis_service is not None,
             "vector_search": vector_search is not None,
             "segmentation": segmentation_service is not None,
+            "model_router": model_router is not None,
             "mock_mode": os.getenv('MOCK_MODE', 'true').lower() == 'true'
+        },
+        "agents": {
+            "registered": list(conductor_agent.agent_registry.keys()),
+            "statistics": conductor_agent.get_statistics()
         }
     }
     
@@ -148,37 +233,23 @@ async def get_status():
     if segmentation_service:
         status["segmentation"] = segmentation_service.get_model_info()
     
+    if model_router:
+        status["model_router"] = model_router.get_stats()
+    
+    if key_pool:
+        status["key_pool"] = key_pool.get_stats()
+    
     return status
 
 
-@app.post("/api/v1/diagnose")
-async def diagnose(
-    organ: str = Query(..., description="器官类型（胃/胰腺）"),
-    image_description: str = Query(..., description="影像描述"),
-    context: Optional[str] = Query("", description="病历信息"),
-    filling_status: str = Query("已充盈", description="充盈状态")
-):
-    """诊断接口"""
-    if not diagnosis_service:
-        raise HTTPException(status_code=503, detail="诊断服务不可用")
-    
-    result = diagnosis_service.diagnose(
-        organ=organ,
-        image_description=image_description,
-        context=context,
-        filling_status=filling_status
-    )
-    
-    return result
-
+# ===== 全局端点（保留兼容） =====
 
 @app.post("/api/v1/segment")
 async def segment_image(file: UploadFile = File(...)):
-    """图像分割接口"""
+    """图像分割接口（全局保留）"""
     if not segmentation_service:
         raise HTTPException(status_code=503, detail="图像分割服务不可用")
     
-    # 保存上传的文件
     upload_dir = "./data/uploads"
     os.makedirs(upload_dir, exist_ok=True)
     
@@ -187,7 +258,6 @@ async def segment_image(file: UploadFile = File(...)):
         content = await file.read()
         f.write(content)
     
-    # 执行自动分割
     result = segmentation_service.auto_segment(file_path)
     result['filename'] = file.filename
     result['file_size'] = len(content)
@@ -245,7 +315,7 @@ async def search_knowledge(
 @app.get("/api/v1/models")
 async def list_models():
     """列出可用模型"""
-    return {
+    models_info = {
         "primary": {
             "name": os.getenv('DASHSCOPE_MODEL', 'qwen-plus'),
             "provider": "aliyun"
@@ -254,14 +324,20 @@ async def list_models():
             "name": os.getenv('NVIDIA_MODEL', 'meta/llama-3.3-70b-instruct'),
             "provider": "nvidia"
         } if os.getenv('NVIDIA_API_KEY') else None,
-        "routing": os.getenv('MODEL_ROUTING', 'smart')
+        "routing": "smart (智能降级)"
     }
+    
+    # 如果 model_router 可用，补充详细信息
+    if model_router:
+        models_info["providers"] = model_router.get_stats()
+    
+    return models_info
 
 
 if __name__ == "__main__":
     import uvicorn
     
-    port = int(os.getenv('PORT', '18792'))
+    port = int(os.getenv('PORT', '18790'))
     debug = os.getenv('DEBUG', 'true').lower() == 'true'
     
     print(f"启动 AIMED Hermes 后端 - 端口：{port}")

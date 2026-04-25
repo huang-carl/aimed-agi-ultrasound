@@ -1,0 +1,16 @@
+[Unit]
+Description=AIMED Hermes Backend - 胃胰腺超声造影 AI 诊断平台
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/.openclaw/workspace
+ExecStart=/root/.openclaw/workspace/.venv/bin/python3 -m uvicorn main:app --host 0.0.0.0 --port 18790
+Restart=always
+RestartSec=5
+Environment=PATH=/root/.openclaw/workspace/.venv/bin:/usr/bin:/bin
+EnvironmentFile=/root/.openclaw/workspace/.env
+
+[Install]
+WantedBy=multi-user.target
