@@ -1454,7 +1454,7 @@
                 <div class="compliance-card reveal">
                     <div class="compliance-icon">💎</div>
                     <h4>消费者保护</h4>
-                    <p>消费者权益受法律保护，7天无理由退款保障</p>
+                    <p>消费者权益受法律保护</p>
                 </div>
             </div>
         </div>
@@ -1485,10 +1485,13 @@
                 <div class="section-tag">Contact Us</div>
                 <h2 class="section-title">立即咨询</h2>
                 <p class="section-subtitle">填写表单，专业顾问将在24小时内与您联系</p>
+                <p style="text-align:center;margin-top:10px;font-size:0.88rem;color:var(--text-light);">
+                    邮箱联系：<a href="mailto:shanghaigame@foxmail.com" style="color:var(--primary-light);">shanghaigame@foxmail.com</a>
+                </p>
                 <div class="section-divider"></div>
             </div>
             <div class="contact-wrapper">
-                <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+                <form class="contact-form reveal" id="contactForm" onsubmit="submitForm(event)">
                     <div class="form-row">
                         <div class="form-group">
                             <label class="form-label">您的姓名 *</label>
@@ -1595,16 +1598,55 @@
         revealOnScroll();
 
         // Form
-        function handleSubmit(e) {
+        function submitForm(e) {
             e.preventDefault();
-            const btn = e.target.querySelector('.form-submit');
-            btn.textContent = '提交成功！我们将尽快与您联系';
-            btn.style.background = 'var(--primary-light)';
-            setTimeout(() => {
-                btn.textContent = '提交咨询';
-                btn.style.background = '';
-                e.target.reset();
-            }, 3000);
+            const form = e.target;
+            const btn = form.querySelector('.form-submit');
+            
+            // Collect form data
+            const formData = new FormData(form);
+            const data = {
+                name: formData.get('name') || form.querySelector('input[placeholder="请输入姓名"]').value,
+                phone: formData.get('phone') || form.querySelector('input[placeholder="请输入手机号"]').value,
+                company: form.querySelector('input[placeholder="公司/医院/机构名称"]').value,
+                identity: form.querySelectorAll('select')[0].value,
+                意向：form.querySelectorAll('select')[1].value,
+                message: form.querySelector('textarea').value
+            };
+            
+            // Send to API
+            fetch('/api/contact.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    btn.textContent = '提交成功！我们将尽快与您联系';
+                    btn.style.background = 'var(--primary-light)';
+                    setTimeout(() => {
+                        btn.textContent = '提交咨询';
+                        btn.style.background = '';
+                        form.reset();
+                    }, 3000);
+                } else {
+                    btn.textContent = '提交失败：' + result.message;
+                    btn.style.background = '#e74c3c';
+                    setTimeout(() => {
+                        btn.textContent = '提交咨询';
+                        btn.style.background = '';
+                    }, 3000);
+                }
+            })
+            .catch(error => {
+                btn.textContent = '网络错误，请稍后重试';
+                btn.style.background = '#e74c3c';
+                setTimeout(() => {
+                    btn.textContent = '提交咨询';
+                    btn.style.background = '';
+                }, 3000);
+            });
         }
 
         // Smooth scroll
