@@ -16,7 +16,14 @@ from datetime import datetime
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 # 导入服务
-from services.diagnosis_service import DiagnosisService
+try:
+    from services.diagnosis_service_v2 import DiagnosisServiceV2
+    diagnosis_service_cls = DiagnosisServiceV2
+    print("✅ 使用诊断服务 V2（智能降级）")
+except ImportError:
+    from services.diagnosis_service import DiagnosisService
+    diagnosis_service_cls = DiagnosisService
+    print("✅ 使用诊断服务 V1（标准模式）")
 from services.vector_search_service import VectorSearchService, CHROMADB_AVAILABLE
 from services.image_segmentation_service import ImageSegmentationService, SAM_AVAILABLE
 
@@ -59,7 +66,7 @@ async def startup_event():
     
     # 初始化诊断服务
     try:
-        diagnosis_service = DiagnosisService()
+        diagnosis_service = diagnosis_service_cls()
         print("✅ 诊断服务已初始化")
     except Exception as e:
         print(f"⚠️ 诊断服务初始化失败: {e}")
