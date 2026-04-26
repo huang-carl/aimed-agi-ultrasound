@@ -26,7 +26,7 @@ AIMED Hermes 后端 - 主入口
 
 import os
 import sys
-from fastapi import FastAPI, UploadFile, File, Query, HTTPException
+from fastapi import FastAPI, UploadFile, File, Query, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from typing import Optional, Dict, Any
@@ -375,7 +375,7 @@ async def public_diagnose(
     image_description: str = Query(..., description="影像描述"),
     context: Optional[str] = Query("", description="病历信息"),
     filling_status: str = Query("已充盈", description="充盈状态"),
-    request: Any = None
+    request: Request = None
 ):
     """公开诊断 API（无需认证，限流 100 次/天/IP）"""
     client_ip = request.client.host if request else "unknown"
