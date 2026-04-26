@@ -254,6 +254,7 @@
                 <li><a href="/solutions.html">解决方案</a></li>
                 <li><a href="/technology.html">技术</a></li>
                 <li><a href="https://www.aius.xin" target="_blank">官网</a></li>
+                <li><a href="/portal/login.html" id="loginLink">🔑 登录</a></li>
             </ul>
         </div>
     </nav>
@@ -357,5 +358,34 @@
         <p>阿尔麦德智慧医疗（湖州）有限公司 | <a href="https://www.aius.xin" target="_blank">www.aius.xin</a></p>
         <p style="margin-top:8px;">AIMED 充盈视界 FillingVision - 胃胰疾病早筛平台</p>
     </footer>
+
+    <script>
+        // 检查登录状态
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginStatus = localStorage.getItem('loginStatus');
+            const loginLink = document.getElementById('loginLink');
+            
+            if (loginStatus) {
+                const data = JSON.parse(loginStatus);
+                const loginTime = new Date(data.timestamp).getTime();
+                const now = Date.now();
+                
+                if (now - loginTime < 24 * 60 * 60 * 1000) {
+                    // 已登录，显示用户信息
+                    loginLink.innerHTML = `👤 ${data.username || data.identityId} (${data.roleLabel})`;
+                    loginLink.href = '#';
+                    loginLink.onclick = (e) => {
+                        e.preventDefault();
+                        if (confirm('确定要退出登录吗？')) {
+                            localStorage.removeItem('loginStatus');
+                            window.location.reload();
+                        }
+                    };
+                } else {
+                    localStorage.removeItem('loginStatus');
+                }
+            }
+        });
+    </script>
 </body>
 </html>
