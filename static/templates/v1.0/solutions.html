@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIMED 充盈视界 - 解决方案</title>
+    <meta name="description" content="AIMED 解决方案 - 面向不同医疗机构的定制化方案">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #10b981;
+            --accent-color: #8b5cf6;
+            --dark-color: #1e293b;
+            --light-color: #f8fafc;
+            --text-color: #334155;
+            --text-light: #64748b;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+        }
+        
+        /* 导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5em;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-color);
+        }
+        
+        /* AI 平台登录按钮 */
+        .nav-login-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2) !important;
+            color: white !important;
+            padding: 8px 20px !important;
+            border-radius: 25px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s !important;
+            box-shadow: 0 2px 10px rgba(102,126,234,0.3) !important;
+        }
+        .nav-login-btn:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 15px rgba(102,126,234,0.4) !important;
+        }
+        
+        /* 页面头部 */
+        .page-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 150px 30px 80px;
+            text-align: center;
+            color: white;
+        }
+        
+        .page-header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .page-header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+        }
+        
+        /* 面包屑 */
+        .breadcrumb {
+            background: var(--light-color);
+            padding: 20px 30px;
+            margin-top: 80px;
+        }
+        
+        .breadcrumb-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .breadcrumb a {
+            color: var(--text-light);
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--primary-color);
+        }
+        
+        .breadcrumb span {
+            color: var(--text-light);
+            margin: 0 10px;
+        }
+        
+        /* Section */
+        .section {
+            padding: 80px 30px;
+        }
+        
+        .section-light {
+            background: var(--light-color);
+        }
+        
+        .section-white {
+            background: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5em;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--text-light);
+            font-size: 1.1em;
+        }
+        
+        /* 解决方案卡片 */
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 35px;
+        }
+        
+        .solution-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+        
+        .solution-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        
+        .solution-header {
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        .solution-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+        
+        .solution-header h3 {
+            font-size: 1.6em;
+            color: var(--dark-color);
+            margin-bottom: 10px;
+        }
+        
+        .solution-header .subtitle {
+            color: var(--text-light);
+            font-size: 1em;
+        }
+        
+        .solution-body {
+            padding: 30px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .solution-body ul {
+            list-style: none;
+        }
+        
+        .solution-body li {
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .solution-body li:last-child {
+            border-bottom: none;
+        }
+        
+        .solution-body li::before {
+            content: '✓';
+            color: var(--secondary-color);
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .solution-footer {
+            padding: 25px 30px;
+            background: var(--light-color);
+            text-align: center;
+        }
+        
+        .solution-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .solution-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* 部署模式 */
+        .deployment-section {
+            background: var(--dark-color);
+            color: white;
+            padding: 80px 30px;
+        }
+        
+        .deployment-section h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 60px;
+        }
+        
+        .deployment-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .deployment-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 40px;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .deployment-card:hover {
+            border-color: rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .deployment-card h3 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .deployment-card ul {
+            list-style: none;
+        }
+        
+        .deployment-card li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .deployment-card li:last-child {
+            border-bottom: none;
+        }
+        
+        .deployment-card li::before {
+            content: '✓';
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+        
+        /* 合作流程 */
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+        
+        .process-step {
+            position: relative;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .process-step-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            color: white;
+        }
+        
+        .process-step h4 {
+            font-size: 1.1em;
+            color: var(--dark-color);
+            margin-bottom: 8px;
+        }
+        
+        .process-step p {
+            font-size: 0.85em;
+            color: var(--text-light);
+        }
+        
+        /* CTA */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            padding: 80px 30px;
+            text-align: center;
+            color: white;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+        
+        .cta-section p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: white;
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s;
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        /* 页脚 */
+        .footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 60px 30px 30px;
+        }
+        
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h4 {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-section a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+        }
+        
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+        }
+        
+        /* 响应式 */
+        @media (max-width: 1024px) {
+            .solution-grid,
+            .deployment-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .page-header h1 {
+                font-size: 2em;
+            }
+            
+            .solution-grid,
+            .deployment-grid,
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+            
+            .process-steps {
+                flex-direction: column;
+                gap: 40px;
+            }
+            
+            .process-steps::before {
+                display: none;
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <div class="logo-icon">🏥</div>
+                <span>AIMED 阿尔麦德</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="/">首页</a></li>
+                <li><a href="/static/products.html">产品服务</a></li>
+                <li><a href="/static/technology.html">核心技术</a></li>
+                <li><a href="/static/solutions.html" class="active">解决方案</a></li>
+                <li><a href="/static/upload.html">数据上传</a></li>
+                <li><a href="/static/demo.html">演示系统</a></li>
+                <li><a href="/#contact">联系我们</a></li>
+                <li><a href="/portal/login.html" class="nav-login-btn">🔑 AI 平台</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 页面头部 -->
+    <section class="page-header">
+        <h1>解决方案</h1>
+        <p>面向不同医疗机构的定制化方案</p>
+    </section>
+
+    <!-- 面包屑 -->
+    <div class="breadcrumb">
+        <div class="breadcrumb-container">
+            <a href="/">首页</a> <span>/</span> 解决方案
+        </div>
+    </div>
+
+    <!-- 解决方案 -->
+    <section class="section section-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>行业解决方案</h2>
+                <p>针对不同场景的专业解决方案</p>
+            </div>
+            
+            <div class="solution-grid">
+                <!-- 方案 1 -->
+                <div class="solution-card">
+                    <div class="solution-header">
+                        <div class="solution-icon">🏥</div>
+                        <h3>三甲医院方案</h3>
+                        <p class="subtitle">提升诊断效率，降低医生工作负荷</p>
+                    </div>
+                    <div class="solution-body">
+                        <ul>
+                            <li>FillingVision 诊断系统完整部署</li>
+                            <li>与 PACS/RIS 系统对接</li>
+                            <li>支持 DICOM 图像直接导入</li>
+                            <li>多科室协同诊断</li>
+                            <li>科研数据导出与分析</li>
+                            <li>定制化报告模板</li>
+                        </ul>
+                    </div>
+                    <div class="solution-footer">
+                        <a href="/#contact" class="solution-btn">咨询方案</a>
+                    </div>
+                </div>
+                
+                <!-- 方案 2 -->
+                <div class="solution-card">
+                    <div class="solution-header">
+                        <div class="solution-icon">🏨</div>
+                        <h3>基层医院方案</h3>
+                        <p class="subtitle">弥补专业医生不足，提升筛查能力</p>
+                    </div>
+                    <div class="solution-body">
+                        <ul>
+                            <li>基层筛查助手移动端应用</li>
+                            <li>标准化操作流程指引</li>
+                            <li>实时 AI 辅助诊断</li>
+                            <li>远程专家会诊支持</li>
+                            <li>云端数据存储</li>
+                            <li>操作培训与技术支持</li>
+                        </ul>
+                    </div>
+                    <div class="solution-footer">
+                        <a href="/#contact" class="solution-btn">咨询方案</a>
+                    </div>
+                </div>
+                
+                <!-- 方案 3 -->
+                <div class="solution-card">
+                    <div class="solution-header">
+                        <div class="solution-icon">🏢</div>
+                        <h3>体检中心方案</h3>
+                        <p class="subtitle">大规模胃胰疾病早期筛查</p>
+                    </div>
+                    <div class="solution-body">
+                        <ul>
+                            <li>批量筛查模式</li>
+                            <li>快速报告生成</li>
+                            <li>异常结果自动标记</li>
+                            <li>体检报告集成</li>
+                            <li>数据统计与看板</li>
+                            <li>随访管理模块</li>
+                        </ul>
+                    </div>
+                    <div class="solution-footer">
+                        <a href="/#contact" class="solution-btn">咨询方案</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 部署模式 -->
+    <section class="deployment-section">
+        <h2>部署模式</h2>
+        <div class="deployment-grid">
+            <div class="deployment-card">
+                <h3>☁️ 云端部署</h3>
+                <ul>
+                    <li>无需本地服务器</li>
+                    <li>按需付费，成本低</li>
+                    <li>自动更新维护</li>
+                    <li>数据加密传输</li>
+                    <li>支持多机构协同</li>
+                    <li>7×24 小时技术支持</li>
+                </ul>
+            </div>
+            <div class="deployment-card">
+                <h3>🖥️ 本地部署</h3>
+                <ul>
+                    <li>数据完全本地存储</li>
+                    <li>符合数据安全要求</li>
+                    <li>一次性买断授权</li>
+                    <li>内网隔离部署</li>
+                    <li>定制化开发支持</li>
+                    <li>现场培训与实施</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 合作流程 -->
+    <section class="section section-white">
+        <div class="container">
+            <div class="section-title">
+                <h2>合作流程</h2>
+                <p>简单 5 步，开启 AI 辅助诊断之旅</p>
+            </div>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="process-step-icon">📞</div>
+                    <h4>需求沟通</h4>
+                    <p>了解机构需求</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-step-icon">📋</div>
+                    <h4>方案定制</h4>
+                    <p>制定专属方案</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-step-icon">🤝</div>
+                    <h4>签约合作</h4>
+                    <p>签订合作协议</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-step-icon">⚙️</div>
+                    <h4>部署实施</h4>
+                    <p>系统部署培训</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-step-icon">🚀</div>
+                    <h4>上线运营</h4>
+                    <p>正式上线使用</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2>开始合作</h2>
+        <p>联系我们的团队，获取定制化解决方案和报价</p>
+        <a href="/#contact" class="cta-btn">立即咨询</a>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h4>关于 AIMED</h4>
+                <ul>
+                    <li><a href="/">公司简介</a></li>
+                    <li><a href="/static/technology.html">核心技术</a></li>
+                    <li><a href="/static/products.html">产品服务</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>产品服务</h4>
+                <ul>
+                    <li><a href="/static/demo.html">FillingVision 诊断系统</a></li>
+                    <li><a href="#">基层筛查助手</a></li>
+                    <li><a href="/static/upload.html">数据管理平台</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>开发资源</h4>
+                <ul>
+                    <li><a href="/docs">技术文档</a></li>
+                    <li><a href="/redoc">API 文档</a></li>
+                    <li><a href="https://github.com/huang-carl/aimed-agi-ultrasound">GitHub</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>联系我们</h4>
+                <ul>
+                    <li><a href="mailto:aimed@aius.xin">aimed@aius.xin</a></li>
+                    <li><a href="https://www.aius.xin">www.aius.xin</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 阿尔麦德智慧医疗（湖州）有限公司 版权所有 | 浙 ICP 备 XXXXXXXX 号</p>
+        </div>
+    </footer>
+
+    <script>
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

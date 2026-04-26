@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>超声造影人工智能诊断联合实验室 - 登录</title>
+    <link rel="icon" type="image/jpeg" href="../aimed-logo-new.jpg">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #0071e3;
+            --primary-dark: #0055b3;
+            --secondary: #00c853;
+            --dark: #1d1d1f;
+            --gray: #86868b;
+            --light: #f5f5f7;
+            --white: #ffffff;
+            --border: #d2d2d7;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+            max-width: 440px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .login-header {
+            text-align: center;
+            padding: 40px 32px 24px;
+            border-bottom: 0.5px solid rgba(0,0,0,0.06);
+        }
+        .login-header img {
+            height: 48px;
+            margin-bottom: 16px;
+            border-radius: 10px;
+        }
+        .login-header h1 {
+            font-size: 1.4em;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+            color: var(--dark);
+        }
+        .login-header p {
+            color: var(--gray);
+            font-size: 0.9em;
+        }
+
+        .login-body {
+            padding: 32px;
+        }
+
+        /* 标签切换 */
+        .tab-container {
+            display: flex;
+            margin-bottom: 24px;
+            background: var(--light);
+            border-radius: 10px;
+            padding: 3px;
+        }
+        .tab {
+            flex: 1;
+            padding: 8px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.85em;
+            transition: all 0.3s;
+            color: var(--gray);
+        }
+        .tab.active {
+            background: var(--white);
+            color: var(--primary);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* 表单 */
+        .form-group { margin-bottom: 16px; }
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: var(--dark);
+            font-size: 0.85em;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.95em;
+            transition: all 0.3s;
+            font-family: inherit;
+            background: var(--white);
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0,113,227,0.15);
+        }
+
+        /* 角色选择 */
+        .role-select {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .role-option {
+            padding: 10px;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.85em;
+        }
+        .role-option:hover {
+            border-color: var(--primary);
+            background: rgba(0,113,227,0.03);
+        }
+        .role-option.selected {
+            border-color: var(--primary);
+            background: rgba(0,113,227,0.06);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        .role-option .icon {
+            font-size: 1.4em;
+            margin-bottom: 2px;
+        }
+
+        /* 按钮 */
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.95em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .btn-blockchain {
+            background: linear-gradient(135deg, #00c853, #00b4d8);
+            color: white;
+            margin-top: 12px;
+        }
+        .btn-blockchain:hover {
+            opacity: 0.9;
+        }
+
+        /* 链接 */
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: var(--gray);
+            font-size: 0.8em;
+        }
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 0.5px;
+            background: var(--border);
+        }
+        .divider::before { margin-right: 12px; }
+        .divider::after { margin-left: 12px; }
+
+        .links {
+            text-align: center;
+            margin-top: 16px;
+        }
+        .links a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+        .links a:hover { text-decoration: underline; }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 12px;
+            color: var(--gray);
+            font-size: 0.8em;
+        }
+        .back-link a {
+            color: var(--gray);
+            text-decoration: none;
+        }
+        .back-link a:hover { color: var(--dark); }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 12px 18px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+            max-width: 300px;
+            font-size: 0.85em;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .toast.success { border-left: 3px solid var(--secondary); }
+        .toast.error { border-left: 3px solid #ff3b30; }
+        .toast.info { border-left: 3px solid var(--primary); }
+
+        /* 表单选项 */
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            font-size: 0.8em;
+        }
+        .form-options label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--gray);
+            cursor: pointer;
+        }
+        .form-options a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        @media (max-width: 480px) {
+            .login-body { padding: 24px; }
+            .role-select { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <img src="../aimed-logo-new.jpg" alt="AIMED">
+            <h1>超声造影人工智能诊断联合实验室</h1>
+            <p>安全登录</p>
+        </div>
+        <div class="login-body">
+            <!-- 标签切换 -->
+            <div class="tab-container">
+                <div class="tab active" onclick="switchTab('password')">账号密码</div>
+                <div class="tab" onclick="switchTab('blockchain')">区块链身份</div>
+            </div>
+
+            <!-- 账号密码登录 -->
+            <div class="tab-content active" id="tab-password">
+                <div class="form-group">
+                    <label>用户名</label>
+                    <input type="text" id="username" placeholder="请输入用户名" autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label>密码</label>
+                    <input type="password" id="password" placeholder="请输入密码" autocomplete="current-password">
+                </div>
+                <div class="form-group">
+                    <label>登录身份</label>
+                    <div class="role-select" id="roleSelect">
+                        <div class="role-option" onclick="selectRole(this, 'doctor')">
+                            <div class="icon">👨‍⚕️</div>
+                            <div>医生</div>
+                        </div>
+                        <div class="role-option" onclick="selectRole(this, 'patient')">
+                            <div class="icon">👤</div>
+                            <div>患者</div>
+                        </div>
+                        <div class="role-option" onclick="selectRole(this, 'developer')">
+                            <div class="icon">👨‍💻</div>
+                            <div>开发者</div>
+                        </div>
+                        <div class="role-option" onclick="selectRole(this, 'admin')">
+                            <div class="icon">⚙️</div>
+                            <div>管理员</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-options">
+                    <label>
+                        <input type="checkbox" id="rememberMe" checked> 记住我
+                    </label>
+                    <a href="#" onclick="showToast('请联系管理员重置密码', 'info'); return false;">忘记密码？</a>
+                </div>
+                <button class="btn btn-primary" id="loginBtn" onclick="login()">登录</button>
+            </div>
+
+            <!-- 区块链身份登录 -->
+            <div class="tab-content" id="tab-blockchain">
+                <div class="form-group">
+                    <label>身份 ID</label>
+                    <input type="text" id="identityId" placeholder="输入区块链身份 ID（如：ID-XXXXXX）">
+                </div>
+                <div class="form-group">
+                    <label>登录身份</label>
+                    <div class="role-select" id="roleSelect2">
+                        <div class="role-option" onclick="selectRole(this, 'doctor')">
+                            <div class="icon">👨‍⚕️</div>
+                            <div>医生</div>
+                        </div>
+                        <div class="role-option" onclick="selectRole(this, 'patient')">
+                            <div class="icon">👤</div>
+                            <div>患者</div>
+                        </div>
+                        <div class="role-option" onclick="selectRole(this, 'developer')">
+                            <div class="icon">👨‍💻</div>
+                            <div>开发者</div>
+                        </div>
+                        <div class="role-option" onclick="selectRole(this, 'admin')">
+                            <div class="icon">⚙️</div>
+                            <div>管理员</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-blockchain" onclick="loginBlockchain()">区块链身份验证登录</button>
+                <p style="text-align:center;margin-top:12px;font-size:0.8em;color:var(--gray)">
+                    通过区块链身份识别页面注册的身份可在此登录
+                </p>
+            </div>
+
+            <div class="divider">或</div>
+
+            <div class="links">
+                还没有账号？<a href="/portal/blockchain-identity.html">注册区块链身份</a>
+            </div>
+            <div class="back-link">
+                <a href="/portal/">← 返回联合实验室</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedRole = null;
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            
+            if (tab === 'password') {
+                document.querySelectorAll('.tab')[0].classList.add('active');
+                document.getElementById('tab-password').classList.add('active');
+            } else {
+                document.querySelectorAll('.tab')[1].classList.add('active');
+                document.getElementById('tab-blockchain').classList.add('active');
+            }
+        }
+
+        function selectRole(el, role) {
+            const parent = el.parentElement;
+            parent.querySelectorAll('.role-option').forEach(o => o.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedRole = role;
+        }
+
+        async function login() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+
+            if (!username || !password) {
+                showToast('请填写用户名和密码', 'error');
+                return;
+            }
+            if (!selectedRole) {
+                showToast('请选择登录身份', 'error');
+                return;
+            }
+
+            const btn = document.getElementById('loginBtn');
+            btn.disabled = true;
+            btn.textContent = '登录中...';
+
+            try {
+                const loginData = {
+                    username: username,
+                    role: selectedRole,
+                    roleLabel: getRoleLabel(selectedRole),
+                    timestamp: new Date().toISOString(),
+                    rememberMe: rememberMe
+                };
+
+                localStorage.setItem('loginStatus', JSON.stringify(loginData));
+                showToast('登录成功！欢迎回来，' + username, 'success');
+                
+                setTimeout(() => {
+                    window.location.href = getRedirectUrl(selectedRole);
+                }, 800);
+            } catch (e) {
+                showToast('登录失败：' + e.message, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '登录';
+            }
+        }
+
+        async function loginBlockchain() {
+            const identityId = document.getElementById('identityId').value.trim();
+            
+            if (!identityId) {
+                showToast('请输入身份 ID', 'error');
+                return;
+            }
+            if (!selectedRole) {
+                showToast('请选择登录身份', 'error');
+                return;
+            }
+
+            const identityHistory = JSON.parse(localStorage.getItem('identityHistory') || '[]');
+            const identity = identityHistory.find(i => i.id === identityId);
+            
+            if (!identity) {
+                showToast('身份 ID 不存在，请先注册', 'error');
+                return;
+            }
+
+            const loginData = {
+                identityId: identityId,
+                role: selectedRole,
+                roleLabel: getRoleLabel(selectedRole),
+                identity: identity,
+                timestamp: new Date().toISOString(),
+                authMethod: 'blockchain'
+            };
+
+            localStorage.setItem('loginStatus', JSON.stringify(loginData));
+            showToast('✅ 区块链身份验证成功！', 'success');
+
+            setTimeout(() => {
+                window.location.href = getRedirectUrl(selectedRole);
+            }, 800);
+        }
+
+        function getRoleLabel(role) {
+            const labels = {
+                'doctor': '👨‍⚕️ 医生',
+                'patient': '👤 患者',
+                'developer': '👨‍💻 开发者',
+                'admin': '⚙️ 管理员'
+            };
+            return labels[role] || role;
+        }
+
+        function getRedirectUrl(role) {
+            const redirects = {
+                'doctor': '/portal/doctor.html',
+                'patient': '/portal/patient.html',
+                'developer': '/portal/developer.html',
+                'admin': '/portal/'
+            };
+            return redirects[role] || '/portal/';
+        }
+
+        function showToast(msg, type) {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `${type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️'} ${msg}`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // 检查是否已登录
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginStatus = localStorage.getItem('loginStatus');
+            if (loginStatus) {
+                const data = JSON.parse(loginStatus);
+                const loginTime = new Date(data.timestamp).getTime();
+                const now = Date.now();
+                if (now - loginTime < 24 * 60 * 60 * 1000) {
+                    window.location.href = getRedirectUrl(data.role);
+                } else {
+                    localStorage.removeItem('loginStatus');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
