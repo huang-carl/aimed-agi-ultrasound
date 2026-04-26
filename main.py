@@ -176,13 +176,38 @@ async def startup_event():
     # 9. 挂载 AI 平台入口
     portal_dir = os.path.join(os.path.dirname(__file__), "static", "portal")
     if os.path.exists(portal_dir):
-        app.mount("/portal", StaticFiles(directory=portal_dir), name="portal")
-        print(f"✅ AI 平台入口已挂载：/portal")
+        # 不挂载整个目录，改为显式路由
+        print(f"✅ AI 平台入口目录已就绪：{portal_dir}")
     
     print("=" * 60)
 
 
 # ===== 全局端点（健康检查 + 系统状态） =====
+
+@app.get("/portal")
+@app.get("/portal/")
+async def portal_index():
+    """AI 平台入口页"""
+    from fastapi.responses import FileResponse
+    portal_dir = os.path.join(os.path.dirname(__file__), "static", "portal")
+    return FileResponse(os.path.join(portal_dir, "index.html"))
+
+
+@app.get("/portal/{page}.html")
+async def portal_page(page: str):
+    """AI 平台页面"""
+    from fastapi.responses import FileResponse
+    portal_dir = os.path.join(os.path.dirname(__file__), "static", "portal")
+    page_file = os.path.join(portal_dir, f"{page}.html")
+    
+    # 安全检查：防止路径遍历
+    if not os.path.abspath(page_file).startswith(os.path.abspath(portal_dir)):
+        raise HTTPException(status_code=404, detail="页面不存在")
+    
+    if os.path.exists(page_file):
+        return FileResponse(page_file)
+    raise HTTPException(status_code=404, detail="页面不存在")
+
 
 @app.get("/health")
 async def health_check():
