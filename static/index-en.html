@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>阿尔麦德智慧医疗 - 超声造影 AI 诊断</title>
-    <meta name="description" content="阿尔麦德智慧医疗（湖州）有限公司 - 基于口服超声造影剂 + AI 多智能体诊断的胃胰疾病早筛平台">
+    <title>AIMED Smart Healthcare - Ultrasound Contrast AI Diagnosis</title>
+    <meta name="description" content="AIMED Smart Healthcare (Huzhou) Co., Ltd. - Oral ultrasound contrast agent + AI multi-agent diagnosis for gastric and pancreatic disease early screening">
     <link rel="icon" type="image/jpeg" href="aimed-logo-new.jpg">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -18,14 +18,14 @@
         }
         html { scroll-behavior: smooth; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif;
             color: var(--dark);
             background: var(--white);
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 导航栏 */
+        /* Navigation */
         .navbar {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -58,6 +58,7 @@
             display: flex;
             gap: 28px;
             list-style: none;
+            align-items: center;
         }
         .nav-links a {
             text-decoration: none;
@@ -101,9 +102,9 @@
             background: var(--white);
         }
         .hero h1 {
-            font-size: clamp(2.2em, 5.5vw, 4em);
+            font-size: clamp(2em, 5vw, 3.8em);
             font-weight: 700;
-            letter-spacing: -0.04em;
+            letter-spacing: -0.03em;
             line-height: 1.15;
             margin-bottom: 18px;
             color: var(--dark);
@@ -115,7 +116,7 @@
             background-clip: text;
         }
         .hero .subtitle {
-            font-size: clamp(1em, 2vw, 1.25em);
+            font-size: clamp(0.95em, 2vw, 1.2em);
             color: var(--gray);
             font-weight: 400;
             max-width: 560px;
@@ -182,7 +183,7 @@
         .section-center { text-align: center; }
         .section-center .section-desc { margin: 0 auto; }
 
-        /* 统计 */
+        /* Stats */
         .stats-row {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -202,7 +203,7 @@
             margin-top: 2px;
         }
 
-        /* 特性卡片 */
+        /* Features */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -233,7 +234,7 @@
             line-height: 1.6;
         }
 
-        /* 合作伙伴 */
+        /* Partners */
         .partners-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -267,7 +268,7 @@
             line-height: 1.6;
         }
 
-        /* 时间线 */
+        /* Timeline */
         .timeline {
             margin-top: 48px;
             position: relative;
@@ -319,7 +320,7 @@
             line-height: 1.6;
         }
 
-        /* 平台入口 */
+        /* Portal */
         .portal-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -358,7 +359,7 @@
             margin-top: 36px;
         }
 
-        /* 联系 */
+        /* Contact */
         .contact-row {
             display: flex;
             justify-content: center;
@@ -384,7 +385,7 @@
         }
         .contact-item a:hover { text-decoration: underline; }
 
-        /* 页脚 */
+        /* Footer */
         .footer {
             background: var(--light);
             padding: 32px 24px 24px;
@@ -414,7 +415,7 @@
         }
         .footer-links a:hover { color: var(--dark); }
 
-        /* 响应式 */
+        /* Responsive */
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .hero { min-height: 80vh; padding: 90px 20px 50px; }
@@ -430,238 +431,238 @@
     </style>
 </head>
 <body>
-    <!-- 导航栏 -->
+    <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="/" class="logo">
                 <img src="aimed-logo-new.jpg" alt="AIMED">
-                <span>阿尔麦德智慧医疗超声造影服务生态</span>
+                <span>AIMED Smart Healthcare</span>
             </a>
             <ul class="nav-links">
-                <li><a href="#about">关于</a></li>
-                <li><a href="#features">技术</a></li>
-                <li><a href="#scenarios">场景</a></li>
-                <li><a href="#roadmap">规划</a></li>
-                <li><a href="#demo">体验</a></li>
-                <li><a href="#portal">平台</a></li>
-                <li><a href="#contact">联系</a></li>
-                <li><a href="/portal/login.html" class="nav-login">登录</a></li>
-                <li><a href="/index-en.html" class="lang-switch">EN</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#features">Technology</a></li>
+                <li><a href="#scenarios">Scenarios</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+                <li><a href="#demo">Demo</a></li>
+                <li><a href="#portal">Platform</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="/portal/login.html" class="nav-login">Login</a></li>
+                <li><a href="/" class="lang-switch">中文</a></li>
             </ul>
         </div>
     </nav>
 
     <!-- Hero -->
     <section class="hero">
-        <h1>让超声造影诊断<br><span>触手可及</span></h1>
-        <p class="subtitle">口服超声造影剂 + AI 多智能体诊断<br>将三甲医院增强造影能力下沉至基层与体检中心</p>
+        <h1>Making Ultrasound Contrast<br><span>Diagnosis Accessible</span></h1>
+        <p class="subtitle">Oral ultrasound contrast agent + AI multi-agent diagnosis<br>Bringing tertiary hospital contrast enhancement capabilities to primary care and screening centers</p>
         <div class="hero-buttons">
-            <a href="/portal/" class="btn-primary">进入联合实验室 →</a>
-            <a href="#features" class="btn-secondary">了解技术</a>
+            <a href="/portal/" class="btn-primary">Enter Joint Laboratory →</a>
+            <a href="#features" class="btn-secondary">Learn More</a>
         </div>
     </section>
 
-    <!-- 统计 -->
+    <!-- Stats -->
     <section class="section section-light">
         <div class="container">
             <div class="stats-row">
                 <div class="stat-item">
                     <div class="number">2</div>
-                    <div class="label">核心器官</div>
+                    <div class="label">Core Organs</div>
                 </div>
                 <div class="stat-item">
                     <div class="number">85%</div>
-                    <div class="label">AI 准确率目标</div>
+                    <div class="label">AI Accuracy Target</div>
                 </div>
                 <div class="stat-item">
                     <div class="number">4</div>
-                    <div class="label">AI 模型</div>
+                    <div class="label">AI Models</div>
                 </div>
                 <div class="stat-item">
                     <div class="number">4</div>
-                    <div class="label">合作伙伴</div>
+                    <div class="label">Partners</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 关于 -->
+    <!-- About -->
     <section class="section" id="about">
         <div class="container section-center">
-            <div class="section-label">关于阿尔麦德</div>
-            <h2 class="section-title">医学影像 AI 诊断创新者</h2>
-            <p class="section-desc">基于口服超声造影剂 + AI 多智能体诊断，构建胃胰疾病早筛完整技术体系</p>
+            <div class="section-label">About AIMED</div>
+            <h2 class="section-title">Innovator in Medical Imaging AI Diagnosis</h2>
+            <p class="section-desc">Building a complete early screening system for gastric and pancreatic diseases based on oral ultrasound contrast agents + AI multi-agent diagnosis</p>
             <div style="margin-top:40px;background:var(--light);border-radius:16px;padding:32px;max-width:640px;margin-left:auto;margin-right:auto;">
-                <p style="font-size:1.1em;font-weight:600;color:var(--primary);margin-bottom:12px;">AIMED = 二剂 + 一法 + 一系统</p>
+                <p style="font-size:1.1em;font-weight:600;color:var(--primary);margin-bottom:12px;">AIMED = Two Agents + One Protocol + One System</p>
                 <p style="color:var(--gray);font-size:0.9em;line-height:1.7;">
-                    胰腺型 + 胃肠型口服超声造影剂 · 标准化检查流程 · AI 多智能体诊断平台
+                    Pancreatic + Gastrointestinal oral ultrasound contrast agents · Standardized examination protocol · AI multi-agent diagnosis platform
                 </p>
                 <p style="margin-top:12px;font-size:0.92em;font-weight:500;color:var(--dark);">
-                    喝一杯造影剂 → 做超声检查 → AI 辅助分析 → 10 分钟出报告
+                    Drink contrast agent → Ultrasound examination → AI-assisted analysis → Report in 10 minutes
                 </p>
                 <div style="margin-top:28px;text-align:center;">
-                    <img src="workflow.png" alt="AIMED 工作流程" style="max-width:100%;width:800px;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,0.1);">
+                    <img src="workflow.png" alt="AIMED Workflow" style="max-width:100%;width:800px;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,0.1);">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 技术 -->
+    <!-- Technology -->
     <section class="section section-light" id="features">
         <div class="container section-center">
-            <div class="section-label">核心技术</div>
-            <h2 class="section-title">四大技术支柱</h2>
-            <p class="section-desc">从造影剂到 AI 诊断，构建完整的胃胰疾病早筛体系</p>
+            <div class="section-label">Core Technology</div>
+            <h2 class="section-title">Four Technology Pillars</h2>
+            <p class="section-desc">From contrast agents to AI diagnosis, building a complete gastric and pancreatic disease early screening system</p>
         </div>
         <div class="container">
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="icon">💊</div>
-                    <h3>口服超声造影剂</h3>
-                    <p>胰腺型、胃肠型、胆管型三款造影剂，安全无创，显著提升超声成像质量。</p>
+                    <h3>Oral Ultrasound Contrast Agent</h3>
+                    <p>Three types of contrast agents: pancreatic, gastrointestinal, and biliary. Safe and non-invasive, significantly improving ultrasound imaging quality.</p>
                 </div>
                 <div class="feature-card">
                     <div class="icon">🤖</div>
-                    <h3>AI 多智能体诊断</h3>
-                    <p>Conductor 总指挥 + 胃/胰腺专科 Agent，4 套 AI 系统自动切换，诊断不中断。</p>
+                    <h3>AI Multi-Agent Diagnosis</h3>
+                    <p>Conductor commander + gastric/pancreas specialist agents. Four AI systems automatically switch to ensure uninterrupted diagnosis.</p>
                 </div>
                 <div class="feature-card">
                     <div class="icon">🔍</div>
-                    <h3>智能知识库检索</h3>
-                    <p>医疗知识库 + 图像智能分割，诊断前自动检索相似病例，提升准确率。</p>
+                    <h3>Intelligent Knowledge Base Retrieval</h3>
+                    <p>Medical knowledge base + intelligent image segmentation. Automatically retrieves similar cases before diagnosis to improve accuracy.</p>
                 </div>
                 <div class="feature-card">
                     <div class="icon">🔐</div>
-                    <h3>区块链身份 & 数字资产</h3>
-                    <p>身份注册上链存证，诊断报告 NFT 化，确保数据不可篡改、可追溯。</p>
+                    <h3>Blockchain Identity & Digital Assets</h3>
+                    <p>Identity registration on-chain, diagnosis reports NFT-ized, ensuring data tamper-proof and traceable.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 运用场景 -->
+    <!-- Scenarios -->
     <section class="section section-dark" id="scenarios">
         <div class="container section-center">
-            <div class="section-label">运用场景</div>
-            <h2 class="section-title">四大运用场景</h2>
-            <p class="section-desc">覆盖基层医疗到公共卫生，构建全方位胃胰疾病早筛体系</p>
+            <div class="section-label">Application Scenarios</div>
+            <h2 class="section-title">Four Application Scenarios</h2>
+            <p class="section-desc">Covering primary care to public health, building a comprehensive gastric and pancreatic disease early screening system</p>
         </div>
         <div class="container">
             <div class="partners-grid">
                 <div class="partner-card">
-                    <h4>🏥 基层医疗普筛</h4>
-                    <div class="type">社区卫生服务中心 / 乡镇卫生院</div>
-                    <p>面向有消化道症状的基层就诊患者，开展胃胰疾病临床诊断应用，验证 AI 辅助诊断在真实医疗场景中的准确性。</p>
+                    <h4>🏥 Primary Care Screening</h4>
+                    <div class="type">Community Health Centers / Township Hospitals</div>
+                    <p>For patients with gastrointestinal symptoms at primary care level, conducting clinical diagnosis applications for gastric and pancreatic diseases.</p>
                 </div>
                 <div class="partner-card">
-                    <h4>🏢 机构团检筛查</h4>
-                    <div class="type">企事业单位 / 体检中心</div>
-                    <p>面向无症状健康人群的胃胰疾病普筛与早查，探索 AI 辅助筛查在体检场景中的价值，实现疾病早发现、早干预。</p>
+                    <h4>🏢 Institutional Group Screening</h4>
+                    <div class="type">Enterprises / Screening Centers</div>
+                    <p>Population-wide screening for asymptomatic healthy individuals, exploring the value of AI-assisted screening in health checkup scenarios.</p>
                 </div>
                 <div class="partner-card">
-                    <h4>📋 慢病高危随访</h4>
-                    <div class="type">慢病患者 / 高危人群</div>
-                    <p>针对慢性胃炎、胃溃疡等高危人群，建立定期随访机制，通过 AI 辅助诊断实现疾病进展监测和早期预警。</p>
+                    <h4>📋 Chronic Disease High-Risk Follow-up</h4>
+                    <div class="type">Chronic Disease Patients / High-Risk Groups</div>
+                    <p>Establishing regular follow-up mechanisms for high-risk groups such as chronic gastritis and gastric ulcer patients.</p>
                 </div>
                 <div class="partner-card">
-                    <h4>🌍 公共卫生普查</h4>
-                    <div class="type">区域公共卫生项目</div>
-                    <p>配合政府公共卫生项目，开展区域性胃胰疾病普查，建立疾病数据库，为公共卫生决策提供数据支撑。</p>
+                    <h4>🌍 Public Health Census</h4>
+                    <div class="type">Regional Public Health Programs</div>
+                    <p>Cooperating with government public health programs to conduct regional gastric and pancreatic disease censuses.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 合作伙伴 -->
+    <!-- Partners -->
     <section class="section section-dark" id="partners">
         <div class="container section-center">
-            <div class="section-label">合作伙伴</div>
-            <h2 class="section-title">产学研医协同创新</h2>
-            <p class="section-desc">与顶尖医疗机构和高校合作，推动技术临床转化</p>
+            <div class="section-label">Partners</div>
+            <h2 class="section-title">Industry-University-Research-Medicine Collaborative Innovation</h2>
+            <p class="section-desc">Collaborating with top medical institutions and universities to promote clinical translation</p>
         </div>
         <div class="container">
             <div class="partners-grid">
                 <div class="partner-card">
-                    <h4>🎓 南京大学</h4>
-                    <div class="type">AI 算法研发</div>
-                    <p>多模态医学影像分析、深度学习模型优化</p>
+                    <h4>🎓 Nanjing University</h4>
+                    <div class="type">AI Algorithm R&D</div>
+                    <p>Multi-modal medical image analysis, deep learning model optimization</p>
                 </div>
                 <div class="partner-card">
-                    <h4>🏥 301 医院</h4>
-                    <div class="type">临床验证</div>
-                    <p>高质量病例数据与专家标注，技术临床转化</p>
+                    <h4>🏥 PLA General Hospital (301)</h4>
+                    <div class="type">Clinical Validation</div>
+                    <p>High-quality case data and expert annotation, clinical technology translation</p>
                 </div>
                 <div class="partner-card">
-                    <h4>🏥 湖州师范学院附属第一医院</h4>
-                    <div class="type">基层临床</div>
-                    <p>有症状患者诊断应用，真实场景验证</p>
+                    <h4>🏥 First Hospital of Huzhou University</h4>
+                    <div class="type">Primary Care</div>
+                    <p>Symptomatic patient diagnosis applications, real-world scenario validation</p>
                 </div>
                 <div class="partner-card">
-                    <h4>🏥 湖州市健康体检中心</h4>
-                    <div class="type">体检普筛</div>
-                    <p>无症状人群普筛，AI 辅助筛查价值验证</p>
+                    <h4>🏥 Huzhou Health Screening Center</h4>
+                    <div class="type">Screening</div>
+                    <p>Asymptomatic population screening, AI-assisted screening value validation</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 规划 -->
+    <!-- Roadmap -->
     <section class="section" id="roadmap">
         <div class="container section-center">
-            <div class="section-label">实施规划</div>
-            <h2 class="section-title">三阶段路线图</h2>
-            <p class="section-desc">从技术验证到规模化部署</p>
+            <div class="section-label">Roadmap</div>
+            <h2 class="section-title">Three-Phase Roadmap</h2>
+            <p class="section-desc">From technology validation to large-scale deployment</p>
         </div>
         <div class="container">
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="phase">Phase 1 · 2026</div>
-                    <h4>技术验证</h4>
-                    <p>胃 + 胰腺双核心，5000+ 标注病例，AI 准确率 ≥85%</p>
+                    <h4>Technology Validation</h4>
+                    <p>Gastric + Pancreas dual core, 5000+ annotated cases, AI accuracy ≥85%</p>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="phase">Phase 2 · 2027</div>
-                    <h4>产品化</h4>
-                    <p>扩展胆管 + 食道，二类器械备案，试点医院验证</p>
+                    <h4>Productization</h4>
+                    <p>Expand to bile duct + esophagus, Class II device registration, pilot hospital validation</p>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="phase">Phase 3 · 2027+</div>
-                    <h4>规模化</h4>
-                    <p>NMPA 三类证申报，覆盖全国基层医疗机构</p>
+                    <h4>Large-Scale Deployment</h4>
+                    <p>NMPA Class III certificate application, covering primary medical institutions nationwide</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 快速体验 -->
+    <!-- Demo -->
     <section class="section" id="demo">
         <div class="container section-center">
-            <div class="section-label">快速体验</div>
-            <h2 class="section-title">AI 诊断演示</h2>
-            <p class="section-desc">无需登录，直接体验 AI 诊断能力</p>
+            <div class="section-label">Quick Demo</div>
+            <h2 class="section-title">AI Diagnosis Demo</h2>
+            <p class="section-desc">No login required, experience AI diagnosis capabilities directly</p>
         </div>
         <div class="container">
             <div style="max-width:600px;margin:36px auto 0;background:var(--white);border-radius:16px;padding:32px;border:1px solid rgba(0,0,0,0.05);">
                 <div style="margin-bottom:16px;">
-                    <label style="font-size:0.85em;font-weight:500;display:block;margin-bottom:6px;">检查器官</label>
+                    <label style="font-size:0.85em;font-weight:500;display:block;margin-bottom:6px;">Organ</label>
                     <select id="demoOrgan" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:10px;font-size:0.95em;font-family:inherit;">
-                        <option value="胃">胃 (Stomach)</option>
-                        <option value="胰腺">胰腺 (Pancreas)</option>
+                        <option value="stomach">Stomach</option>
+                        <option value="pancreas">Pancreas</option>
                     </select>
                 </div>
                 <div style="margin-bottom:16px;">
-                    <label style="font-size:0.85em;font-weight:500;display:block;margin-bottom:6px;">影像描述</label>
-                    <textarea id="demoDesc" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:10px;font-size:0.95em;font-family:inherit;min-height:80px;resize:vertical;" placeholder="请描述超声影像特征...">胃窦部黏膜充血水肿，可见点状糜烂</textarea>
+                    <label style="font-size:0.85em;font-weight:500;display:block;margin-bottom:6px;">Image Description</label>
+                    <textarea id="demoDesc" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:10px;font-size:0.95em;font-family:inherit;min-height:80px;resize:vertical;" placeholder="Describe ultrasound image features...">Gastric antrum mucosal hyperemia and edema with punctate erosion</textarea>
                 </div>
-                <button id="demoBtn" onclick="runDemo()" style="width:100%;padding:12px;background:var(--primary);color:white;border:none;border-radius:10px;font-size:0.95em;font-weight:500;cursor:pointer;font-family:inherit;">开始诊断 →</button>
+                <button id="demoBtn" onclick="runDemo()" style="width:100%;padding:12px;background:var(--primary);color:white;border:none;border-radius:10px;font-size:0.95em;font-weight:500;cursor:pointer;font-family:inherit;">Start Diagnosis →</button>
                 <div id="demoResult" style="margin-top:20px;display:none;">
                     <div style="background:var(--light);border-radius:12px;padding:20px;">
                         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                            <h4 style="font-size:0.95em;">诊断结果</h4>
-                            <span id="demoMode" style="background:var(--primary);color:white;padding:3px 10px;border-radius:12px;font-size:0.75em;font-weight:500;">Mock 模式</span>
+                            <h4 style="font-size:0.95em;">Diagnosis Result</h4>
+                            <span id="demoMode" style="background:var(--primary);color:white;padding:3px 10px;border-radius:12px;font-size:0.75em;font-weight:500;">Mock Mode</span>
                         </div>
                         <div id="demoContent" style="font-size:0.9em;line-height:1.7;"></div>
                     </div>
@@ -670,81 +671,81 @@
         </div>
     </section>
 
-    <!-- 平台入口 -->
+    <!-- Platform -->
     <section class="section section-light" id="portal">
         <div class="container section-center">
-            <div class="section-label">联合实验室</div>
-            <h2 class="section-title">超声造影人工智能诊断联合实验室</h2>
-            <p class="section-desc">统一入口 · 多角色适配 · 区块链身份 · 数字资产</p>
+            <div class="section-label">Joint Laboratory</div>
+            <h2 class="section-title">Ultrasound Contrast AI Diagnosis Joint Laboratory</h2>
+            <p class="section-desc">Unified Entry · Multi-Role · Blockchain Identity · Digital Assets</p>
         </div>
         <div class="container">
             <div class="portal-grid">
                 <a href="/portal/login.html" class="portal-card">
                     <div class="icon">🔑</div>
-                    <h4>统一登录</h4>
-                    <p>账号密码 / 区块链</p>
+                    <h4>Unified Login</h4>
+                    <p>Account / Blockchain</p>
                 </a>
                 <a href="/portal/doctor.html" class="portal-card">
                     <div class="icon">👨‍⚕️</div>
-                    <h4>医生工作台</h4>
-                    <p>影像上传 → AI 诊断</p>
+                    <h4>Doctor Workbench</h4>
+                    <p>Upload → AI Diagnosis</p>
                 </a>
                 <a href="/portal/patient.html" class="portal-card">
                     <div class="icon">👤</div>
-                    <h4>患者咨询台</h4>
-                    <p>症状描述 → AI 建议</p>
+                    <h4>Patient Portal</h4>
+                    <p>Symptoms → AI Advice</p>
                 </a>
                 <a href="/portal/blockchain-identity.html" class="portal-card">
                     <div class="icon">🔐</div>
-                    <h4>区块链身份</h4>
-                    <p>身份注册 → 链上存证</p>
+                    <h4>Blockchain ID</h4>
+                    <p>Register → On-Chain</p>
                 </a>
                 <a href="/portal/digital-assets.html" class="portal-card">
                     <div class="icon">💎</div>
-                    <h4>数字资产</h4>
-                    <p>诊断报告 → NFT 存证</p>
+                    <h4>Digital Assets</h4>
+                    <p>Reports → NFT</p>
                 </a>
             </div>
             <div class="portal-cta">
-                <a href="/portal/" class="btn-primary">进入联合实验室 →</a>
+                <a href="/portal/" class="btn-primary">Enter Joint Laboratory →</a>
             </div>
         </div>
     </section>
 
-    <!-- 联系 -->
+    <!-- Contact -->
     <section class="section" id="contact">
         <div class="container section-center">
-            <div class="section-label">联系我们</div>
-            <h2 class="section-title">期待与您携手</h2>
+            <div class="section-label">Contact Us</div>
+            <h2 class="section-title">Looking Forward to Working With You</h2>
             <div class="contact-row">
                 <div class="contact-item">
                     <div class="icon">📧</div>
-                    <h5>邮箱</h5>
+                    <h5>Email</h5>
                     <a href="mailto:aimed@aius.xin">aimed@aius.xin</a>
                 </div>
                 <div class="contact-item">
                     <div class="icon">🌐</div>
-                    <h5>官网</h5>
+                    <h5>Website</h5>
                     <a href="https://www.aius.xin">www.aius.xin</a>
                 </div>
                 <div class="contact-item">
                     <div class="icon">📍</div>
-                    <h5>地址</h5>
-                    <p>智慧城市医疗 湖州模式</p>
+                    <h5>Address</h5>
+                    <p>Smart City Healthcare · Huzhou Model</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 页脚 -->
+    <!-- Footer -->
     <footer class="footer">
         <div class="footer-inner">
-            <p>© 2026 阿尔麦德智慧医疗（湖州）有限公司</p>
+            <p>© 2026 AIMED Smart Healthcare (Huzhou) Co., Ltd.</p>
             <div class="footer-links">
-                <a href="/portal/login.html">联合实验室</a>
-                <a href="/portal/doctor.html">医生工作台</a>
-                <a href="/portal/patient.html">患者咨询台</a>
-                <a href="/api/v1/docs">API 文档</a>
+                <a href="/portal/login.html">Joint Laboratory</a>
+                <a href="/portal/doctor.html">Doctor Workbench</a>
+                <a href="/portal/patient.html">Patient Portal</a>
+                <a href="/api/v1/docs">API Docs</a>
             </div>
         </div>
     </footer>
@@ -758,12 +759,12 @@
             const content = document.getElementById('demoContent');
             const mode = document.getElementById('demoMode');
 
-            if (!desc) { alert('请填写影像描述'); return; }
+            if (!desc) { alert('Please fill in image description'); return; }
 
             btn.disabled = true;
-            btn.textContent = '诊断中...';
+            btn.textContent = 'Diagnosing...';
             result.style.display = 'block';
-            content.innerHTML = '<p style="color:var(--gray);">AI 正在分析...</p>';
+            content.innerHTML = '<p style="color:var(--gray);">AI is analyzing...</p>';
 
             try {
                 const url = `/api/v1/diagnosis/diagnose?organ=${encodeURIComponent(organ)}&image_description=${encodeURIComponent(desc)}&context=&filling_status=已充盈`;
@@ -771,21 +772,21 @@
                 const data = await res.json();
 
                 const prob = (data.probability * 100).toFixed(0);
-                const modeText = data.mode === 'mock' ? 'Mock 模式' : data.mode === 'nvidia' ? 'NVIDIA' : data.mode;
+                const modeText = data.mode === 'mock' ? 'Mock Mode' : data.mode === 'nvidia' ? 'NVIDIA' : data.mode;
                 mode.textContent = modeText;
 
                 content.innerHTML = `
-                    <p><strong>器官：</strong>${data.organ || organ}</p>
-                    <p><strong>诊断：</strong><span style="color:var(--primary);font-weight:600;">${data.disease || '待明确'}</span></p>
-                    <p><strong>置信度：</strong>${prob}%</p>
-                    <p><strong>建议：</strong>${data.suggestion || '建议进一步检查'}</p>
-                    ${data.latency ? `<p><strong>响应时间：</strong>${data.latency}s</p>` : ''}
+                    <p><strong>Organ:</strong> ${data.organ || organ}</p>
+                    <p><strong>Diagnosis:</strong> <span style="color:var(--primary);font-weight:600;">${data.disease || 'To be determined'}</span></p>
+                    <p><strong>Confidence:</strong> ${prob}%</p>
+                    <p><strong>Suggestion:</strong> ${data.suggestion || 'Further examination recommended'}</p>
+                    ${data.latency ? `<p><strong>Response Time:</strong> ${data.latency}s</p>` : ''}
                 `;
             } catch (e) {
-                content.innerHTML = `<p style="color:#ef4440;">诊断失败：${e.message}</p>`;
+                content.innerHTML = `<p style="color:#ef4440;">Diagnosis failed: ${e.message}</p>`;
             } finally {
                 btn.disabled = false;
-                btn.textContent = '开始诊断 →';
+                btn.textContent = 'Start Diagnosis →';
             }
         }
     </script>
