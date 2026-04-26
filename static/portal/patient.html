@@ -481,8 +481,19 @@
 
             try {
                 const context = extra ? `患者补充信息：${extra}` : '';
-                const url = `${API_BASE}/diagnosis/diagnose?organ=${encodeURIComponent(organ)}&image_description=${encodeURIComponent('患者症状描述：' + desc)}&context=${encodeURIComponent(context)}&filling_status=已充盈`;
-                const res = await fetch(url, { method: 'POST' });
+                const url = `${API_BASE}/diagnosis/diagnose`;
+                const body = {
+                    organ: organ,
+                    image_description: '患者症状描述：' + desc,
+                    context: context,
+                    filling_status: "已充盈",
+                    model_preference: "mock"
+                };
+                const res = await fetch(url, { 
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
+                });
                 const data = await res.json();
                 
                 showResult(data, desc);

@@ -46,7 +46,7 @@ class DiagnosisResponse(BaseModel):
     image_quality: str
     mode: str  # 使用的模型：nvidia/mock
     model: Optional[str] = None  # 具体模型名称
-    timestamp: datetime
+    timestamp: str  # ISO 格式时间字符串
     raw_text: Optional[str] = None  # 原始诊断文本
 
 
@@ -118,7 +118,7 @@ async def diagnose(request: DiagnosisRequest):
                 image_quality="unknown",
                 mode="rejected",
                 model=None,
-                timestamp=datetime.now(),
+                timestamp=datetime.now().isoformat(),
                 raw_text=None
             )
         
@@ -141,7 +141,7 @@ async def diagnose(request: DiagnosisRequest):
                     image_quality='good',
                     mode='nvidia',
                     model=result.get('model', 'meta/llama-3.3-70b-instruct'),
-                    timestamp=datetime.now(),  # Python 3.6 兼容
+                    timestamp=datetime.now().isoformat(),  # Python 3.6 兼容
                     raw_text=result['diagnosis'].get('raw_text', '')
                 )
             else:
@@ -158,7 +158,7 @@ async def diagnose(request: DiagnosisRequest):
                     image_quality=mock_result['image_quality'],
                     mode='mock',
                     model='mock',
-                    timestamp=datetime.now(),
+                    timestamp=datetime.now().isoformat(),
                     raw_text=None
                 )
         else:
@@ -174,7 +174,7 @@ async def diagnose(request: DiagnosisRequest):
                 image_quality=mock_result['image_quality'],
                 mode='mock',
                 model='mock',
-                timestamp=datetime.now(),
+                timestamp=datetime.now().isoformat(),
                 raw_text=None
             )
         
@@ -194,7 +194,7 @@ async def diagnose(request: DiagnosisRequest):
             image_quality="unknown",
             mode="error",
             model=None,
-            timestamp=datetime.now(),
+            timestamp=datetime.now().isoformat(),
             raw_text=None
         )
 

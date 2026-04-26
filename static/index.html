@@ -766,8 +766,19 @@
             content.innerHTML = '<p style="color:var(--gray);">AI 正在分析...</p>';
 
             try {
-                const url = `/api/v1/diagnosis/diagnose?organ=${encodeURIComponent(organ)}&image_description=${encodeURIComponent(desc)}&context=&filling_status=已充盈`;
-                const res = await fetch(url, { method: 'POST' });
+                const url = `/api/v1/diagnosis/diagnose`;
+                const body = {
+                    organ: organ,
+                    image_description: desc,
+                    context: "",
+                    filling_status: "已充盈",
+                    model_preference: "mock"
+                };
+                const res = await fetch(url, { 
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
+                });
                 const data = await res.json();
 
                 const prob = (data.probability * 100).toFixed(0);

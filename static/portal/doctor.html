@@ -620,8 +620,19 @@
             `;
 
             try {
-                const url = `${API_BASE}/diagnosis/diagnose?organ=${encodeURIComponent(organ)}&image_description=${encodeURIComponent(desc)}&context=${encodeURIComponent(context)}&filling_status=${encodeURIComponent(filling)}`;
-                const res = await fetch(url, { method: 'POST' });
+                const url = `${API_BASE}/diagnosis/diagnose`;
+                const body = {
+                    organ: organ,
+                    image_description: desc,
+                    context: context,
+                    filling_status: filling,
+                    model_preference: "mock"
+                };
+                const res = await fetch(url, { 
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
+                });
                 const data = await res.json();
                 
                 lastResult = data;
