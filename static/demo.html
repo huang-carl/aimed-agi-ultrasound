@@ -39,6 +39,24 @@
             opacity: 0.9;
         }
         
+        .header-nav {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .header-nav a {
+            color: white;
+            text-decoration: none;
+            background: rgba(255,255,255,0.2);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            margin: 0 5px;
+        }
+        .header-nav a:hover {
+            background: rgba(255,255,255,0.35);
+        }
+        
         .status-card {
             background: white;
             border-radius: 12px;
@@ -174,6 +192,11 @@
 <body>
     <div class="container">
         <header>
+            <div class="header-nav">
+                <a href="/">🏠 官网首页</a>
+                <a href="/portal/">🏥 AI 平台</a>
+                <a href="/portal/login.html">🔑 登录</a>
+            </div>
             <h1>🏥 AIMED 充盈视界</h1>
             <p>胃胰超声造影 AI 诊断演示平台</p>
         </header>

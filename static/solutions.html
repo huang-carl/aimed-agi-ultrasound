@@ -86,6 +86,21 @@
             color: var(--primary-color);
         }
         
+        /* AI 平台登录按钮 */
+        .nav-login-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2) !important;
+            color: white !important;
+            padding: 8px 20px !important;
+            border-radius: 25px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s !important;
+            box-shadow: 0 2px 10px rgba(102,126,234,0.3) !important;
+        }
+        .nav-login-btn:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 15px rgba(102,126,234,0.4) !important;
+        }
+        
         /* 页面头部 */
         .page-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -505,6 +520,7 @@
                 <li><a href="/static/upload.html">数据上传</a></li>
                 <li><a href="/static/demo.html">演示系统</a></li>
                 <li><a href="/#contact">联系我们</a></li>
+                <li><a href="/portal/login.html" class="nav-login-btn">🔑 AI 平台</a></li>
             </ul>
         </div>
     </nav>

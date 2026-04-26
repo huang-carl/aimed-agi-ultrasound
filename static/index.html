@@ -66,6 +66,99 @@
         }
         .nav-links a:hover { color: var(--primary-color); }
         
+        /* 登录按钮 */
+        .nav-login-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 600 !important;
+            transition: all 0.3s !important;
+            box-shadow: 0 2px 10px rgba(102,126,234,0.3);
+        }
+        .nav-login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102,126,234,0.4) !important;
+        }
+        
+        /* AI 平台入口区 */
+        .portal-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 80px 30px;
+            color: white;
+        }
+        .portal-section h2 {
+            text-align: center;
+            font-size: 2.2em;
+            margin-bottom: 15px;
+        }
+        .portal-section .desc {
+            text-align: center;
+            font-size: 1.1em;
+            opacity: 0.9;
+            margin-bottom: 50px;
+        }
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .portal-card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 16px;
+            padding: 30px 25px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+        }
+        .portal-card:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-5px);
+        }
+        .portal-card .icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            display: block;
+        }
+        .portal-card h4 {
+            font-size: 1.15em;
+            margin-bottom: 8px;
+        }
+        .portal-card p {
+            font-size: 0.85em;
+            opacity: 0.85;
+            line-height: 1.5;
+        }
+        .portal-card .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            margin-top: 10px;
+        }
+        
+        /* 登录按钮 */
+        .nav-login-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white !important;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 600 !important;
+            transition: all 0.3s !important;
+            box-shadow: 0 2px 10px rgba(102,126,234,0.3);
+        }
+        .nav-login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102,126,234,0.4) !important;
+        }
+        
         /* Hero 区域 */
         .hero {
             min-height: 100vh;
@@ -314,6 +407,7 @@
                 <li><a href="#collaboration">科研合作</a></li>
                 <li><a href="#technology">技术架构</a></li>
                 <li><a href="#contact">联系我们</a></li>
+                <li><a href="/portal/login.html" class="nav-login-btn">🔑 AI 平台登录</a></li>
             </ul>
         </div>
     </nav>
@@ -597,6 +691,51 @@
         </div>
     </section>
 
+    <!-- AI 平台入口 -->
+    <section class="portal-section" id="portal">
+        <div class="container">
+            <h2>🏥 AI 智能诊断平台</h2>
+            <p class="desc">统一入口 · 多角色适配 · 区块链身份 · 数字资产</p>
+            <div class="portal-grid">
+                <a href="/portal/login.html" class="portal-card">
+                    <span class="icon">🔑</span>
+                    <h4>统一登录</h4>
+                    <p>账号密码 / 区块链身份验证登录</p>
+                    <span class="badge">入口</span>
+                </a>
+                <a href="/portal/doctor.html" class="portal-card">
+                    <span class="icon">👨‍⚕️</span>
+                    <h4>医生工作台</h4>
+                    <p>影像上传 → AI 诊断 → 报告导出</p>
+                    <span class="badge">核心功能</span>
+                </a>
+                <a href="/portal/patient.html" class="portal-card">
+                    <span class="icon">👤</span>
+                    <h4>患者咨询台</h4>
+                    <p>症状描述 → AI 初步建议</p>
+                    <span class="badge">简单易用</span>
+                </a>
+                <a href="/portal/blockchain-identity.html" class="portal-card">
+                    <span class="icon">🔐</span>
+                    <h4>区块链身份</h4>
+                    <p>身份注册 → 链上存证 → 不可篡改</p>
+                    <span class="badge">安全可信</span>
+                </a>
+                <a href="/portal/digital-assets.html" class="portal-card">
+                    <span class="icon">💎</span>
+                    <h4>数字资产</h4>
+                    <p>诊断报告 → NFT 化存证 → 可追溯</p>
+                    <span class="badge">资产管理</span>
+                </a>
+            </div>
+            <div style="text-align:center;margin-top:50px;">
+                <a href="/portal/" style="display:inline-block;background:white;color:#764ba2;padding:15px 45px;border-radius:30px;font-size:1.15em;font-weight:700;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,0.2);transition:all 0.3s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 30px rgba(0,0,0,0.3)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 20px rgba(0,0,0,0.2)'">
+                    🚀 进入 AI 平台
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- 联系我们 -->
     <section class="section section-light" id="contact">
         <div class="container">
@@ -648,6 +787,16 @@
                     <li><a href="#technology">OpenClaw 前端</a></li>
                     <li><a href="#technology">Hermes 后端</a></li>
                     <li><a href="https://github.com/huang-carl/aimed-agi-ultrasound">GitHub 开源</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>🏥 AI 平台</h4>
+                <ul>
+                    <li><a href="/portal/login.html">统一登录</a></li>
+                    <li><a href="/portal/doctor.html">医生工作台</a></li>
+                    <li><a href="/portal/patient.html">患者咨询台</a></li>
+                    <li><a href="/portal/blockchain-identity.html">区块链身份</a></li>
+                    <li><a href="/portal/digital-assets.html">数字资产</a></li>
                 </ul>
             </div>
             <div class="footer-section">
