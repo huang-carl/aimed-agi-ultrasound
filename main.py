@@ -173,6 +173,12 @@ async def startup_event():
         app.mount("/static", StaticFiles(directory=static_dir), name="static")
         print(f"✅ 静态文件目录已挂载：{static_dir}")
     
+    # 9. 挂载 AI 平台入口
+    portal_dir = os.path.join(os.path.dirname(__file__), "static", "portal")
+    if os.path.exists(portal_dir):
+        app.mount("/portal", StaticFiles(directory=portal_dir), name="portal")
+        print(f"✅ AI 平台入口已挂载：/portal")
+    
     print("=" * 60)
 
 

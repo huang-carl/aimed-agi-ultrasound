@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIMED 充盈视界 - AI 诊断平台</title>
+    <meta name="description" content="阿尔麦德智慧医疗 - 基于口服超声造影剂 + AI 多智能体诊断的胃胰疾病早筛平台">
+    <link rel="icon" type="image/jpeg" href="../aimed-logo-new.jpg">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --accent: #8b5cf6;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --text: #334155;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 1px 10px rgba(0,0,0,0.05);
+            z-index: 1000;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--primary);
+            font-size: 1.3em;
+            font-weight: 700;
+        }
+        .logo img { height: 40px; width: auto; }
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.95em;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--primary); }
+        .nav-links a.active { color: var(--primary); }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 30px 60px;
+            text-align: center;
+            color: white;
+        }
+        .hero-content { max-width: 800px; }
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+        .hero .subtitle {
+            font-size: 1.3em;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        .hero .tagline {
+            font-size: 1em;
+            opacity: 0.75;
+            margin-bottom: 40px;
+        }
+
+        /* 角色选择卡片 */
+        .roles-section {
+            padding: 80px 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        .section-desc {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 1.1em;
+            margin-bottom: 50px;
+        }
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .role-card {
+            background: white;
+            border-radius: 16px;
+            padding: 35px 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text);
+            border: 2px solid transparent;
+        }
+        .role-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
+        }
+        .role-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+        .role-card h3 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        .role-card p {
+            color: var(--text-light);
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .role-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            margin-top: 12px;
+        }
+
+        /* 功能特性 */
+        .features-section {
+            background: white;
+            padding: 80px 30px;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .feature-item {
+            text-align: center;
+            padding: 20px;
+        }
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+        .feature-item h4 {
+            font-size: 1.15em;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+        .feature-item p {
+            color: var(--text-light);
+            font-size: 0.9em;
+        }
+
+        /* 快速体验 */
+        .quick-demo {
+            padding: 80px 30px;
+            text-align: center;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+        .quick-demo .section-title { margin-bottom: 20px; }
+        .demo-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102,126,234,0.4);
+        }
+        .demo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102,126,234,0.5);
+        }
+
+        /* 页脚 */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .footer p { opacity: 0.7; font-size: 0.9em; }
+        .footer a { color: #93c5fd; text-decoration: none; }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2em; }
+            .hero .subtitle { font-size: 1em; }
+            .roles-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <img src="../aimed-logo-new.jpg" alt="AIMED">
+                <span>AIMED 充盈视界</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="/">首页</a></li>
+                <li><a href="/portal/" class="active">AI 平台</a></li>
+                <li><a href="/products.html">产品</a></li>
+                <li><a href="/solutions.html">解决方案</a></li>
+                <li><a href="/technology.html">技术</a></li>
+                <li><a href="https://www.aius.xin" target="_blank">官网</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>🏥 AI 智能诊断平台</h1>
+            <p class="subtitle">基于口服超声造影剂 + AI 多智能体诊断</p>
+            <p class="tagline">胃胰疾病早筛 · 智能降级 · 多角色适配</p>
+        </div>
+    </section>
+
+    <!-- 角色选择 -->
+    <section class="roles-section">
+        <h2 class="section-title">选择您的角色</h2>
+        <p class="section-desc">不同角色，专属工作台，一键直达</p>
+        <div class="roles-grid">
+            <a href="/portal/doctor.html" class="role-card">
+                <span class="role-icon">👨‍⚕️</span>
+                <h3>医生工作台</h3>
+                <p>影像上传 → AI 诊断 → 报告导出<br>支持胃/胰腺双器官诊断</p>
+                <span class="role-badge">核心功能</span>
+            </a>
+            <a href="/portal/patient.html" class="role-card">
+                <span class="role-icon">👤</span>
+                <h3>患者咨询台</h3>
+                <p>症状描述 → 初步建议<br>快速了解是否需要进一步检查</p>
+                <span class="role-badge">简单易用</span>
+            </a>
+            <a href="/portal/developer.html" class="role-card">
+                <span class="role-icon">👨‍💻</span>
+                <h3>开发者中心</h3>
+                <p>API 文档 · 在线调试 · SDK 下载<br>快速集成 AI 诊断能力</p>
+                <span class="role-badge">即将上线</span>
+            </a>
+            <a href="/portal/hospital.html" class="role-card">
+                <span class="role-icon">🏥</span>
+                <h3>医院管理台</h3>
+                <p>病例管理 · 数据统计 · 团队管理<br>批量诊断与报告管理</p>
+                <span class="role-badge">即将上线</span>
+            </a>
+            <a href="/portal/research.html" class="role-card">
+                <span class="role-icon">🔬</span>
+                <h3>科研工作台</h3>
+                <p>数据集浏览 · 知识库检索 · 模型训练<br>科研合作与数据共享</p>
+                <span class="role-badge">即将上线</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- 功能特性 -->
+    <section class="features-section">
+        <h2 class="section-title">核心能力</h2>
+        <p class="section-desc">4 层架构，12 个服务，智能降级保障</p>
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon">🤖</div>
+                <h4>AI 智能诊断</h4>
+                <p>4 个模型智能降级，Mock 兜底保障</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🔍</div>
+                <h4>向量检索 RAG</h4>
+                <p>ChromaDB 23 条医疗知识文档</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🖼️</div>
+                <h4>图像分割</h4>
+                <p>SAM ViT-B 模型，超声图像精准分割</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">📊</div>
+                <h4>病例管理</h4>
+                <p>上传、查询、统计、导出全流程</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 快速体验 -->
+    <section class="quick-demo">
+        <h2 class="section-title">快速体验 AI 诊断</h2>
+        <p class="section-desc" style="margin-bottom:30px;">无需注册，直接体验胃/胰腺 AI 诊断能力</p>
+        <a href="/portal/doctor.html" class="demo-btn">🚀 开始体验</a>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>阿尔麦德智慧医疗（湖州）有限公司 | <a href="https://www.aius.xin" target="_blank">www.aius.xin</a></p>
+        <p style="margin-top:8px;">AIMED 充盈视界 FillingVision - 胃胰疾病早筛平台</p>
+    </footer>
+</body>
+</html>

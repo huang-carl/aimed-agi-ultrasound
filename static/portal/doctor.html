@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>医生工作台 - AIMED 充盈视界</title>
+    <link rel="icon" type="image/jpeg" href="../aimed-logo-new.jpg">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --accent: #8b5cf6;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --text: #334155;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --success: #10b981;
+            --shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: #f1f5f9;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            background: white;
+            box-shadow: var(--shadow);
+            padding: 0 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+        .nav-logo img { height: 36px; }
+        .nav-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-light);
+            font-size: 0.9em;
+        }
+        .nav-breadcrumb a { color: var(--primary); text-decoration: none; }
+
+        /* 主布局 */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 25px 30px;
+        }
+
+        /* 状态栏 */
+        .status-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        .status-item {
+            background: white;
+            border-radius: 10px;
+            padding: 15px 20px;
+            flex: 1;
+            min-width: 180px;
+            box-shadow: var(--shadow);
+        }
+        .status-item .label {
+            font-size: 0.85em;
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+        .status-item .value {
+            font-size: 1.4em;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        .status-item .value.online { color: var(--success); }
+        .status-item .value.warning { color: var(--warning); }
+
+        /* 工作区 */
+        .workspace {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+        @media (max-width: 900px) {
+            .workspace { grid-template-columns: 1fr; }
+        }
+
+        /* 卡片 */
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        .card-header {
+            padding: 18px 22px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card-header h3 {
+            font-size: 1.05em;
+            color: var(--dark);
+        }
+        .card-body {
+            padding: 22px;
+        }
+
+        /* 表单 */
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--dark);
+            font-size: 0.9em;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.95em;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+        }
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* 上传区域 */
+        .upload-zone {
+            border: 2px dashed var(--border);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #fafbfc;
+        }
+        .upload-zone:hover {
+            border-color: var(--primary);
+            background: #f0f7ff;
+        }
+        .upload-zone.has-file {
+            border-color: var(--success);
+            background: #f0fdf4;
+        }
+        .upload-zone .icon { font-size: 2.5em; margin-bottom: 10px; }
+        .upload-zone .text { color: var(--text-light); font-size: 0.9em; }
+        .upload-zone .filename {
+            margin-top: 10px;
+            font-weight: 600;
+            color: var(--success);
+        }
+        #fileInput { display: none; }
+
+        /* 按钮 */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(102,126,234,0.4);
+        }
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .btn-secondary {
+            background: var(--light);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover { background: #e2e8f0; }
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+            padding: 12px;
+            font-size: 1em;
+        }
+
+        /* 诊断结果 */
+        .result-area {
+            min-height: 200px;
+        }
+        .result-placeholder {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-light);
+        }
+        .result-placeholder .icon { font-size: 3em; margin-bottom: 15px; opacity: 0.5; }
+        .result-content {
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        .result-header h4 { color: var(--dark); }
+        .result-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        .badge-success { background: #dcfce7; color: #166534; }
+        .badge-warning { background: #fef3c7; color: #92400e; }
+        .badge-info { background: #dbeafe; color: #1e40af; }
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .result-row:last-child { border-bottom: none; }
+        .result-row .label { color: var(--text-light); font-size: 0.9em; }
+        .result-row .value { font-weight: 600; color: var(--dark); }
+        .result-suggestion {
+            background: #f0f9ff;
+            border-left: 3px solid var(--primary);
+            padding: 12px 15px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+
+        /* 加载动画 */
+        .loading {
+            text-align: center;
+            padding: 30px;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 15px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* 历史记录 */
+        .history-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .history-item:last-child { border-bottom: none; }
+        .history-info h5 { font-size: 0.9em; color: var(--dark); }
+        .history-info p { font-size: 0.8em; color: var(--text-light); }
+        .history-time { font-size: 0.8em; color: var(--text-light); }
+
+        /* 免责声明 */
+        .disclaimer {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-top: 20px;
+            font-size: 0.85em;
+            color: #92400e;
+        }
+        .disclaimer strong { color: #b45309; }
+
+        /* 全宽卡片 */
+        .card-full {
+            grid-column: 1 / -1;
+        }
+
+        /* Toast 通知 */
+        .toast {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: white;
+            border-radius: 10px;
+            padding: 15px 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+            max-width: 350px;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .toast.success { border-left: 4px solid var(--success); }
+        .toast.error { border-left: 4px solid var(--danger); }
+        .toast.info { border-left: 4px solid var(--primary); }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="/portal/" class="nav-logo">
+                <img src="../aimed-logo-new.jpg" alt="AIMED">
+                <span>AIMED 充盈视界</span>
+            </a>
+            <div class="nav-breadcrumb">
+                <a href="/portal/">AI 平台</a>
+                <span>›</span>
+                <span>医生工作台</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主容器 -->
+    <div class="main-container">
+        <!-- 状态栏 -->
+        <div class="status-bar">
+            <div class="status-item">
+                <div class="label">诊断服务</div>
+                <div class="value online" id="status-diagnosis">检测中...</div>
+            </div>
+            <div class="status-item">
+                <div class="label">向量检索</div>
+                <div class="value" id="status-vector">检测中...</div>
+            </div>
+            <div class="status-item">
+                <div class="label">图像分割</div>
+                <div class="value" id="status-segment">检测中...</div>
+            </div>
+            <div class="status-item">
+                <div class="label">知识库文档</div>
+                <div class="value" id="status-docs">--</div>
+            </div>
+        </div>
+
+        <!-- 工作区 -->
+        <div class="workspace">
+            <!-- 左侧：诊断输入 -->
+            <div class="card">
+                <div class="card-header">
+                    <h3>📋 诊断输入</h3>
+                    <span style="font-size:0.85em;color:var(--text-light)">AI 辅助诊断</span>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>检查器官 *</label>
+                        <select id="organ">
+                            <option value="胃">胃 (Stomach)</option>
+                            <option value="胰腺">胰腺 (Pancreas)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>充盈状态 *</label>
+                        <select id="fillingStatus">
+                            <option value="已充盈">✅ 已充盈（可诊断）</option>
+                            <option value="未充盈">❌ 未充盈（无法诊断）</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>影像描述 *</label>
+                        <textarea id="imageDesc" placeholder="请描述超声影像特征，例如：&#10;胃窦部黏膜充血水肿，可见点状糜烂&#10;胰腺回声均匀，胰管无扩张"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>病历信息（可选）</label>
+                        <textarea id="context" placeholder="患者症状、病史等补充信息..." style="min-height:70px"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>影像文件（可选）</label>
+                        <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
+                            <div class="icon">📁</div>
+                            <div class="text">点击上传或拖拽文件到此处</div>
+                            <div class="filename" id="fileName"></div>
+                        </div>
+                        <input type="file" id="fileInput" accept="image/*">
+                    </div>
+                    <button class="btn btn-primary btn-block" id="diagnoseBtn" onclick="runDiagnosis()">
+                        🤖 开始 AI 诊断
+                    </button>
+                </div>
+            </div>
+
+            <!-- 右侧：诊断结果 -->
+            <div class="card">
+                <div class="card-header">
+                    <h3>📊 诊断结果</h3>
+                    <div>
+                        <button class="btn btn-secondary" onclick="copyResult()" style="font-size:0.85em;padding:6px 14px">📋 复制</button>
+                        <button class="btn btn-secondary" onclick="exportJSON()" style="font-size:0.85em;padding:6px 14px">💾 导出 JSON</button>
+                    </div>
+                </div>
+                <div class="card-body result-area" id="resultArea">
+                    <div class="result-placeholder">
+                        <div class="icon">🔬</div>
+                        <p>填写诊断信息后点击"开始 AI 诊断"</p>
+                        <p style="font-size:0.85em;margin-top:8px">支持胃/胰腺双器官诊断</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 底部：历史记录 -->
+            <div class="card card-full">
+                <div class="card-header">
+                    <h3>📜 诊断历史</h3>
+                    <button class="btn btn-secondary" onclick="clearHistory()" style="font-size:0.85em;padding:6px 14px">🗑️ 清空</button>
+                </div>
+                <div class="card-body">
+                    <div class="history-list" id="historyList">
+                        <div class="result-placeholder" style="padding:20px">
+                            <p style="color:var(--text-light)">暂无诊断记录</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 免责声明 -->
+        <div class="disclaimer">
+            <strong>⚠️ 免责声明：</strong>本报告由 AI 辅助生成，仅供医生参考，最终诊断请以执业医师判断为准。Phase 1 阶段为科研工具，非临床诊断设备。
+        </div>
+    </div>
+
+    <script>
+        // API 基础地址
+        const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:18792/api/v1'
+            : '/api/v1';
+
+        // 诊断历史
+        let diagnosisHistory = JSON.parse(localStorage.getItem('diagnosisHistory') || '[]');
+        let lastResult = null;
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            checkStatus();
+            renderHistory();
+            setupFileUpload();
+        });
+
+        // 检查服务状态
+        async function checkStatus() {
+            try {
+                const res = await fetch(`${API_BASE}/status`);
+                const data = await res.json();
+                
+                const diag = data.features?.diagnosis;
+                document.getElementById('status-diagnosis').textContent = diag ? '✅ 在线' : '❌ 离线';
+                document.getElementById('status-diagnosis').className = `value ${diag ? 'online' : ''}`;
+                
+                const vec = data.features?.vector_search;
+                document.getElementById('status-vector').textContent = vec ? '✅ 在线' : '❌ 离线';
+                document.getElementById('status-vector').className = `value ${vec ? 'online' : ''}`;
+                
+                const seg = data.features?.segmentation;
+                document.getElementById('status-segment').textContent = seg ? '✅ 在线' : '❌ 离线';
+                document.getElementById('status-segment').className = `value ${seg ? 'online' : ''}`;
+                
+                const docs = data.vector_search?.document_count || 0;
+                document.getElementById('status-docs').textContent = docs + ' 条';
+            } catch (e) {
+                document.getElementById('status-diagnosis').textContent = '❌ 连接失败';
+                document.getElementById('status-vector').textContent = '❌ 连接失败';
+                document.getElementById('status-segment').textContent = '❌ 连接失败';
+            }
+        }
+
+        // 文件上传
+        function setupFileUpload() {
+            const fileInput = document.getElementById('fileInput');
+            const uploadZone = document.getElementById('uploadZone');
+            
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    const file = e.target.files[0];
+                    document.getElementById('fileName').textContent = `📎 ${file.name} (${(file.size/1024).toFixed(1)} KB)`;
+                    uploadZone.classList.add('has-file');
+                }
+            });
+
+            // 拖拽支持
+            uploadZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadZone.style.borderColor = 'var(--primary)';
+            });
+            uploadZone.addEventListener('dragleave', () => {
+                uploadZone.style.borderColor = '';
+            });
+            uploadZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadZone.style.borderColor = '';
+                if (e.dataTransfer.files.length > 0) {
+                    fileInput.files = e.dataTransfer.files;
+                    fileInput.dispatchEvent(new Event('change'));
+                }
+            });
+        }
+
+        // 执行诊断
+        async function runDiagnosis() {
+            const organ = document.getElementById('organ').value;
+            const filling = document.getElementById('fillingStatus').value;
+            const desc = document.getElementById('imageDesc').value.trim();
+            const context = document.getElementById('context').value.trim();
+
+            // 验证
+            if (!desc) {
+                showToast('请填写影像描述', 'error');
+                return;
+            }
+            if (filling === '未充盈') {
+                showRejectedResult();
+                return;
+            }
+
+            // 显示加载
+            const btn = document.getElementById('diagnoseBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner" style="width:20px;height:20px;border-width:3px;margin:0"></span> AI 诊断中...';
+            
+            document.getElementById('resultArea').innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>AI 正在分析影像特征...</p>
+                    <p style="font-size:0.85em;color:var(--text-light)">智能降级：4 个模型自动切换</p>
+                </div>
+            `;
+
+            try {
+                const url = `${API_BASE}/diagnose?organ=${encodeURIComponent(organ)}&image_description=${encodeURIComponent(desc)}&context=${encodeURIComponent(context)}&filling_status=${encodeURIComponent(filling)}`;
+                const res = await fetch(url, { method: 'POST' });
+                const data = await res.json();
+                
+                lastResult = data;
+                showResult(data);
+                addToHistory(data);
+                showToast('诊断完成', 'success');
+            } catch (e) {
+                document.getElementById('resultArea').innerHTML = `
+                    <div class="result-placeholder">
+                        <div class="icon">⚠️</div>
+                        <p>诊断请求失败</p>
+                        <p style="font-size:0.85em;color:var(--text-light);margin-top:8px">${e.message}</p>
+                    </div>
+                `;
+                showToast('诊断失败：' + e.message, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '🤖 开始 AI 诊断';
+            }
+        }
+
+        // 显示结果
+        function showResult(data) {
+            const mode = data.mode || 'unknown';
+            const modeLabel = {
+                'mock': 'Mock 模式',
+                'fallback': '降级模式',
+                'nvidia': 'NVIDIA 模型',
+                'dashscope': '阿里云模型',
+                'zhipu': '智谱模型',
+                'deepseek': 'DeepSeek 模型'
+            }[mode] || mode;
+
+            const modeClass = mode === 'mock' ? 'badge-warning' : mode === 'fallback' ? 'badge-info' : 'badge-success';
+            const prob = (data.probability * 100).toFixed(0);
+            const time = new Date(data.timestamp).toLocaleString('zh-CN');
+
+            document.getElementById('resultArea').innerHTML = `
+                <div class="result-content">
+                    <div class="result-header">
+                        <h4>📋 诊断报告</h4>
+                        <span class="result-badge ${modeClass}">${modeLabel}</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="label">检查器官</span>
+                        <span class="value">${data.organ || '--'}</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="label">诊断结果</span>
+                        <span class="value" style="color:var(--primary)">${data.disease || '待明确'}</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="label">置信度</span>
+                        <span class="value">${prob}%</span>
+                    </div>
+                    <div class="result-row">
+                        <span class="label">影像质量</span>
+                        <span class="value">${data.image_quality || '--'}</span>
+                    </div>
+                    ${data.provider ? `<div class="result-row">
+                        <span class="label">AI 提供商</span>
+                        <span class="value">${data.provider}</span>
+                    </div>` : ''}
+                    ${data.latency ? `<div class="result-row">
+                        <span class="label">响应时间</span>
+                        <span class="value">${data.latency}s</span>
+                    </div>` : ''}
+                    <div class="result-row">
+                        <span class="label">诊断时间</span>
+                        <span class="value">${time}</span>
+                    </div>
+                    <div class="result-suggestion">
+                        <strong>💡 建议：</strong>${data.suggestion || '建议进一步检查'}
+                    </div>
+                </div>
+            `;
+        }
+
+        // 显示拒绝结果
+        function showRejectedResult() {
+            document.getElementById('resultArea').innerHTML = `
+                <div class="result-content">
+                    <div class="result-header">
+                        <h4>⚠️ 无法诊断</h4>
+                        <span class="result-badge badge-warning">未充盈</span>
+                    </div>
+                    <div class="result-suggestion" style="background:#fffbeb;border-color:var(--warning)">
+                        <strong>⚠️ 未充盈状态下无法进行诊断。</strong><br>
+                        请口服造影剂后重新检查，确保胃部/胰腺充分充盈。
+                    </div>
+                </div>
+            `;
+        }
+
+        // 复制结果
+        function copyResult() {
+            if (!lastResult) {
+                showToast('没有可复制的结果', 'error');
+                return;
+            }
+            const text = JSON.stringify(lastResult, null, 2);
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('已复制到剪贴板', 'success');
+            }).catch(() => {
+                showToast('复制失败', 'error');
+            });
+        }
+
+        // 导出 JSON
+        function exportJSON() {
+            if (!lastResult) {
+                showToast('没有可导出的结果', 'error');
+                return;
+            }
+            const blob = new Blob([JSON.stringify(lastResult, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `diagnosis_${Date.now()}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('JSON 已导出', 'success');
+        }
+
+        // 添加到历史
+        function addToHistory(data) {
+            const record = {
+                time: new Date().toLocaleString('zh-CN'),
+                organ: data.organ,
+                disease: data.disease,
+                probability: data.probability,
+                mode: data.mode
+            };
+            diagnosisHistory.unshift(record);
+            if (diagnosisHistory.length > 20) diagnosisHistory.pop();
+            localStorage.setItem('diagnosisHistory', JSON.stringify(diagnosisHistory));
+            renderHistory();
+        }
+
+        // 渲染历史
+        function renderHistory() {
+            const list = document.getElementById('historyList');
+            if (diagnosisHistory.length === 0) {
+                list.innerHTML = '<div class="result-placeholder" style="padding:20px"><p style="color:var(--text-light)">暂无诊断记录</p></div>';
+                return;
+            }
+            list.innerHTML = diagnosisHistory.map(h => `
+                <div class="history-item">
+                    <div class="history-info">
+                        <h5>${h.organ} - ${h.disease}</h5>
+                        <p>置信度 ${(h.probability*100).toFixed(0)}% · ${h.mode}</p>
+                    </div>
+                    <span class="history-time">${h.time}</span>
+                </div>
+            `).join('');
+        }
+
+        // 清空历史
+        function clearHistory() {
+            if (confirm('确定清空所有诊断历史？')) {
+                diagnosisHistory = [];
+                localStorage.removeItem('diagnosisHistory');
+                renderHistory();
+                showToast('历史已清空', 'info');
+            }
+        }
+
+        // Toast 通知
+        function showToast(msg, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `<span>${type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️'}</span> ${msg}`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>患者咨询台 - AIMED 充盈视界</title>
+    <link rel="icon" type="image/jpeg" href="../aimed-logo-new.jpg">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --accent: #8b5cf6;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --text: #334155;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --success: #10b981;
+            --shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--text);
+        }
+
+        /* 导航栏 */
+        .navbar {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            padding: 0 30px;
+        }
+        .nav-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+        }
+        .nav-logo img { height: 36px; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 0.9em;
+        }
+
+        /* 主容器 */
+        .main-container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* 欢迎区 */
+        .welcome {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        .welcome h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .welcome p {
+            opacity: 0.9;
+            font-size: 1.05em;
+        }
+
+        /* 咨询卡片 */
+        .consult-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            overflow: hidden;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .card-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+        }
+        .card-header h2 {
+            font-size: 1.3em;
+            margin-bottom: 5px;
+        }
+        .card-header p {
+            opacity: 0.85;
+            font-size: 0.9em;
+        }
+        .card-body {
+            padding: 30px;
+        }
+
+        /* 表单 */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+        .form-group label .required {
+            color: var(--danger);
+        }
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(37,99,235,0.1);
+        }
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        /* 快捷症状标签 */
+        .symptom-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .symptom-tag {
+            padding: 6px 14px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: var(--light);
+        }
+        .symptom-tag:hover {
+            border-color: var(--primary);
+            background: #f0f7ff;
+            color: var(--primary);
+        }
+        .symptom-tag.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* 按钮 */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.05em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            width: 100%;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102,126,234,0.4);
+        }
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* 结果区 */
+        .result-area {
+            margin-top: 25px;
+            animation: fadeIn 0.4s ease;
+        }
+        .result-box {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 12px;
+            padding: 25px;
+        }
+        .result-box h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        .result-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+            font-size: 0.95em;
+        }
+        .result-item .icon { font-size: 1.2em; }
+        .result-item .content { flex: 1; }
+        .result-item .content strong { color: var(--dark); }
+        .result-item .content p { color: var(--text-light); font-size: 0.9em; margin-top: 2px; }
+
+        .suggestion-box {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 10px;
+            padding: 18px;
+            margin-top: 15px;
+        }
+        .suggestion-box h4 {
+            color: var(--success);
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+        .suggestion-box ul {
+            padding-left: 20px;
+            color: var(--text);
+            font-size: 0.9em;
+        }
+        .suggestion-box li { margin-bottom: 5px; }
+
+        .disclaimer-box {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 0.85em;
+            color: #92400e;
+        }
+        .disclaimer-box strong { color: #b45309; }
+
+        /* 加载 */
+        .loading {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .spinner {
+            width: 45px;
+            height: 45px;
+            border: 4px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 15px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading p { color: var(--text-light); }
+
+        /* 占位 */
+        .placeholder {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-light);
+        }
+        .placeholder .icon { font-size: 3em; margin-bottom: 15px; opacity: 0.4; }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: white;
+            border-radius: 10px;
+            padding: 14px 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+            max-width: 320px;
+            font-size: 0.9em;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .toast.success { border-left: 4px solid var(--success); }
+        .toast.error { border-left: 4px solid var(--danger); }
+        .toast.info { border-left: 4px solid var(--primary); }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            .welcome h1 { font-size: 1.5em; }
+            .card-body { padding: 20px; }
+            .symptom-tags { gap: 6px; }
+            .symptom-tag { font-size: 0.8em; padding: 5px 10px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="/portal/" class="nav-logo">
+                <img src="../aimed-logo-new.jpg" alt="AIMED">
+                <span>AIMED 充盈视界</span>
+            </a>
+            <div class="nav-links">
+                <a href="/portal/">← 返回 AI 平台</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主容器 -->
+    <div class="main-container">
+        <!-- 欢迎区 -->
+        <div class="welcome">
+            <h1>🏥 患者咨询台</h1>
+            <p>描述您的症状，AI 为您提供初步建议</p>
+        </div>
+
+        <!-- 咨询卡片 -->
+        <div class="consult-card">
+            <div class="card-header">
+                <h2>📝 症状描述</h2>
+                <p>选择或输入您的症状，AI 将为您分析</p>
+            </div>
+            <div class="card-body">
+                <!-- 快捷症状标签 -->
+                <div class="form-group">
+                    <label>🔍 快捷选择症状（可多选）</label>
+                    <div class="symptom-tags" id="symptomTags">
+                        <span class="symptom-tag" onclick="toggleTag(this)">胃部不适</span>
+                        <span class="symptom-tag" onclick="toggleTag(this)">饭后胀气</span>
+                        <span class="symptom-tag" onclick="toggleTag(this)">胃痛</span>
+                        <span class="symptom-tag" onclick="toggleTag(this)">反酸</span>
+                        <span class="symptom-tag" onclick="toggleTag(this)">恶心呕吐</span>
+                        <span class="symptom-tag" onclick="toggleTag(this)">食欲不振</span>
+                        <span class="symptom-tag" onclick="toggleTag(this)">腹部肿块</span>
+                        <span class="symptom-tag" onclick="toggleTag(this)">黄疸</span>
+                        <span class="symptom-tag" onclick="toggleTag(this)">体重下降</span>
+                        <span class="symptom-tag" onclick="toggleTag(this)">黑便</span>
+                    </div>
+                </div>
+
+                <!-- 检查部位 -->
+                <div class="form-group">
+                    <label>🎯 不适部位 <span class="required">*</span></label>
+                    <select id="organ">
+                        <option value="胃">胃部（上腹部）</option>
+                        <option value="胰腺">胰腺（中上腹/背部）</option>
+                        <option value="胃和胰腺">胃部 + 胰腺</option>
+                    </select>
+                </div>
+
+                <!-- 症状描述 -->
+                <div class="form-group">
+                    <label>📋 详细描述 <span class="required">*</span></label>
+                    <textarea id="symptomDesc" placeholder="请详细描述您的症状，例如：&#10;· 症状持续了多久？&#10;· 疼痛的性质（胀痛/刺痛/隐痛）？&#10;· 什么情况下加重或缓解？&#10;· 是否伴有其他症状？"></textarea>
+                </div>
+
+                <!-- 补充信息 -->
+                <div class="form-group">
+                    <label>💬 补充信息（可选）</label>
+                    <textarea id="extraInfo" placeholder="年龄、既往病史、家族史等..." style="min-height:70px"></textarea>
+                </div>
+
+                <!-- 提交按钮 -->
+                <button class="btn btn-primary" id="consultBtn" onclick="runConsult()">
+                    🤖 获取 AI 建议
+                </button>
+
+                <!-- 结果区 -->
+                <div class="result-area" id="resultArea">
+                    <div class="placeholder">
+                        <div class="icon">💡</div>
+                        <p>填写症状后点击"获取 AI 建议"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部免责声明 -->
+        <div style="text-align:center;margin-top:25px;padding:0 20px 40px">
+            <p style="color:rgba(255,255,255,0.7);font-size:0.85em">
+                ⚠️ AI 建议仅供参考，不能替代执业医师诊断<br>
+                如有严重症状，请立即就医
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:18792/api/v1'
+            : '/api/v1';
+
+        // 标签切换
+        function toggleTag(el) {
+            el.classList.toggle('active');
+            updateTextarea();
+        }
+
+        // 更新文本框
+        function updateTextarea() {
+            const activeTags = document.querySelectorAll('.symptom-tag.active');
+            const tags = Array.from(activeTags).map(t => t.textContent);
+            const textarea = document.getElementById('symptomDesc');
+            if (tags.length > 0 && !textarea.value.includes(tags[0])) {
+                textarea.value = tags.join('、');
+            } else if (tags.length === 0) {
+                textarea.value = '';
+            }
+        }
+
+        // 执行咨询
+        async function runConsult() {
+            const organ = document.getElementById('organ').value;
+            const desc = document.getElementById('symptomDesc').value.trim();
+            const extra = document.getElementById('extraInfo').value.trim();
+
+            if (!desc) {
+                showToast('请描述您的症状', 'error');
+                return;
+            }
+
+            const btn = document.getElementById('consultBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner" style="width:20px;height:20px;border-width:3px;margin:0"></span> AI 分析中...';
+
+            document.getElementById('resultArea').innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>AI 正在分析您的症状...</p>
+                    <p style="font-size:0.85em;color:rgba(255,255,255,0.7)">请稍候，正在为您生成建议</p>
+                </div>
+            `;
+
+            try {
+                const context = extra ? `患者补充信息：${extra}` : '';
+                const url = `${API_BASE}/diagnose?organ=${encodeURIComponent(organ)}&image_description=${encodeURIComponent('患者症状描述：' + desc)}&context=${encodeURIComponent(context)}&filling_status=已充盈`;
+                const res = await fetch(url, { method: 'POST' });
+                const data = await res.json();
+                
+                showResult(data, desc);
+                showToast('建议已生成', 'success');
+            } catch (e) {
+                document.getElementById('resultArea').innerHTML = `
+                    <div class="result-box" style="background:#fef2f2;border-color:#fecaca">
+                        <h3 style="color:var(--danger)">⚠️ 请求失败</h3>
+                        <p style="color:var(--text-light)">${e.message}</p>
+                        <p style="margin-top:10px;font-size:0.9em">请稍后重试，或前往医院就诊</p>
+                    </div>
+                `;
+                showToast('请求失败', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '🤖 获取 AI 建议';
+            }
+        }
+
+        // 显示结果
+        function showResult(data, originalDesc) {
+            const disease = data.disease || '待明确';
+            const prob = (data.probability * 100).toFixed(0);
+            const suggestion = data.suggestion || '建议进一步检查';
+
+            // 根据置信度给出不同建议
+            const probNum = parseFloat(prob);
+            let suggestions = [];
+            if (probNum >= 80) {
+                suggestions.push('建议尽快前往医院消化内科就诊');
+                suggestions.push('可考虑口服超声造影检查');
+                suggestions.push('带上此建议供医生参考');
+            } else if (probNum >= 50) {
+                suggestions.push('建议关注症状变化');
+                suggestions.push('如症状持续或加重，请及时就医');
+                suggestions.push('可预约消化内科门诊检查');
+            } else {
+                suggestions.push('症状较轻，建议观察');
+                suggestions.push('注意饮食规律，避免刺激性食物');
+                suggestions.push('如症状持续，建议就医检查');
+            }
+
+            document.getElementById('resultArea').innerHTML = `
+                <div class="result-box">
+                    <h3>📊 AI 分析结果</h3>
+                    <div class="result-item">
+                        <span class="icon">🎯</span>
+                        <div class="content">
+                            <strong>分析部位</strong>
+                            <p>${data.organ || organ}</p>
+                        </div>
+                    </div>
+                    <div class="result-item">
+                        <span class="icon">🔍</span>
+                        <div class="content">
+                            <strong>初步判断</strong>
+                            <p>${disease}</p>
+                        </div>
+                    </div>
+                    <div class="result-item">
+                        <span class="icon">📈</span>
+                        <div class="content">
+                            <strong>置信度</strong>
+                            <p>${prob}% ${probNum >= 80 ? '（较高）' : probNum >= 50 ? '（中等）' : '（较低）'}</p>
+                        </div>
+                    </div>
+                    <div class="result-item">
+                        <span class="icon">💬</span>
+                        <div class="content">
+                            <strong>您的描述</strong>
+                            <p>${originalDesc.substring(0, 100)}${originalDesc.length > 100 ? '...' : ''}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="suggestion-box">
+                    <h4>💡 AI 建议</h4>
+                    <ul>
+                        ${suggestions.map(s => `<li>${s}</li>`).join('')}
+                        <li style="margin-top:8px;color:var(--text-light);font-style:italic">${suggestion}</li>
+                    </ul>
+                </div>
+
+                <div class="disclaimer-box">
+                    <strong>⚠️ 重要提醒：</strong>此建议由 AI 生成，仅供参考，不能替代执业医师的专业诊断。如有严重症状（剧烈疼痛、呕血、黑便等），请立即前往医院急诊。
+                </div>
+            `;
+        }
+
+        // Toast
+        function showToast(msg, type) {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `${type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️'} ${msg}`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+    </script>
+</body>
+</html>
