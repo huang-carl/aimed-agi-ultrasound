@@ -326,6 +326,7 @@
             </a>
             <div class="nav-links">
                 <a href="/portal/">← 返回 AI 平台</a>
+                <a href="/portal/login.html" class="nav-user" style="color:rgba(255,255,255,0.9);text-decoration:none;font-size:0.9em;">🔑 登录</a>
             </div>
         </div>
     </nav>
@@ -409,9 +410,33 @@
     </div>
 
     <script>
-        const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-            ? 'http://localhost:18792/api/v1'
-            : '/api/v1';
+        const API_BASE = '/api/v1';
+
+        // 登录检查
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginStatus = localStorage.getItem('loginStatus');
+            if (loginStatus) {
+                const data = JSON.parse(loginStatus);
+                const loginTime = new Date(data.timestamp).getTime();
+                const now = Date.now();
+                if (now - loginTime < 24 * 60 * 60 * 1000) {
+                    const navUser = document.querySelector('.nav-user');
+                    if (navUser) {
+                        navUser.innerHTML = `👤 ${data.username || data.identityId}`;
+                        navUser.href = '#';
+                        navUser.onclick = (e) => {
+                            e.preventDefault();
+                            if (confirm('确定要退出登录吗？')) {
+                                localStorage.removeItem('loginStatus');
+                                window.location.href = '/portal/login.html';
+                            }
+                        };
+                    }
+                } else {
+                    localStorage.removeItem('loginStatus');
+                }
+            }
+        });
 
         // 标签切换
         function toggleTag(el) {

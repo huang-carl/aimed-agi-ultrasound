@@ -375,6 +375,7 @@
                 <span>›</span>
                 <span>医生工作台</span>
             </div>
+            <a href="/portal/login.html" class="nav-user" style="color:var(--primary);text-decoration:none;font-size:0.9em;">🔑 登录</a>
         </div>
     </nav>
 
@@ -487,10 +488,35 @@
     </div>
 
     <script>
-        // API 基础地址
-        const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-            ? 'http://localhost:18792/api/v1'
-            : '/api/v1';
+        // API 基础地址（相对路径，兼容本地和生产环境）
+        const API_BASE = '/api/v1';
+
+        // 登录检查
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginStatus = localStorage.getItem('loginStatus');
+            if (loginStatus) {
+                const data = JSON.parse(loginStatus);
+                const loginTime = new Date(data.timestamp).getTime();
+                const now = Date.now();
+                if (now - loginTime < 24 * 60 * 60 * 1000) {
+                    // 已登录，显示用户信息
+                    const navUser = document.querySelector('.nav-user');
+                    if (navUser) {
+                        navUser.innerHTML = `👤 ${data.username || data.identityId} (${data.roleLabel})`;
+                        navUser.href = '#';
+                        navUser.onclick = (e) => {
+                            e.preventDefault();
+                            if (confirm('确定要退出登录吗？')) {
+                                localStorage.removeItem('loginStatus');
+                                window.location.href = '/portal/login.html';
+                            }
+                        };
+                    }
+                } else {
+                    localStorage.removeItem('loginStatus');
+                }
+            }
+        });
 
         // 诊断历史
         let diagnosisHistory = JSON.parse(localStorage.getItem('diagnosisHistory') || '[]');
