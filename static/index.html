@@ -431,6 +431,7 @@
                 <li><a href="#features">技术</a></li>
                 <li><a href="#partners">合作</a></li>
                 <li><a href="#roadmap">规划</a></li>
+                <li><a href="#demo">体验</a></li>
                 <li><a href="#portal">平台</a></li>
                 <li><a href="#contact">联系</a></li>
                 <li><a href="/portal/login.html" class="nav-login">登录</a></li>
@@ -590,6 +591,40 @@
         </div>
     </section>
 
+    <!-- 快速体验 -->
+    <section class="section" id="demo">
+        <div class="container section-center">
+            <div class="section-label">快速体验</div>
+            <h2 class="section-title">AI 诊断演示</h2>
+            <p class="section-desc">无需登录，直接体验 AI 诊断能力</p>
+        </div>
+        <div class="container">
+            <div style="max-width:600px;margin:36px auto 0;background:var(--white);border-radius:16px;padding:32px;border:1px solid rgba(0,0,0,0.05);">
+                <div style="margin-bottom:16px;">
+                    <label style="font-size:0.85em;font-weight:500;display:block;margin-bottom:6px;">检查器官</label>
+                    <select id="demoOrgan" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:10px;font-size:0.95em;font-family:inherit;">
+                        <option value="胃">胃 (Stomach)</option>
+                        <option value="胰腺">胰腺 (Pancreas)</option>
+                    </select>
+                </div>
+                <div style="margin-bottom:16px;">
+                    <label style="font-size:0.85em;font-weight:500;display:block;margin-bottom:6px;">影像描述</label>
+                    <textarea id="demoDesc" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:10px;font-size:0.95em;font-family:inherit;min-height:80px;resize:vertical;" placeholder="请描述超声影像特征...">胃窦部黏膜充血水肿，可见点状糜烂</textarea>
+                </div>
+                <button id="demoBtn" onclick="runDemo()" style="width:100%;padding:12px;background:var(--primary);color:white;border:none;border-radius:10px;font-size:0.95em;font-weight:500;cursor:pointer;font-family:inherit;">开始诊断 →</button>
+                <div id="demoResult" style="margin-top:20px;display:none;">
+                    <div style="background:var(--light);border-radius:12px;padding:20px;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                            <h4 style="font-size:0.95em;">诊断结果</h4>
+                            <span id="demoMode" style="background:var(--primary);color:white;padding:3px 10px;border-radius:12px;font-size:0.75em;font-weight:500;">Mock 模式</span>
+                        </div>
+                        <div id="demoContent" style="font-size:0.9em;line-height:1.7;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- 平台入口 -->
     <section class="section section-light" id="portal">
         <div class="container section-center">
@@ -664,8 +699,50 @@
                 <a href="/portal/login.html">联合实验室</a>
                 <a href="/portal/doctor.html">医生工作台</a>
                 <a href="/portal/patient.html">患者咨询台</a>
+                <a href="/api/v1/docs">API 文档</a>
             </div>
         </div>
     </footer>
+
+    <script>
+        async function runDemo() {
+            const organ = document.getElementById('demoOrgan').value;
+            const desc = document.getElementById('demoDesc').value.trim();
+            const btn = document.getElementById('demoBtn');
+            const result = document.getElementById('demoResult');
+            const content = document.getElementById('demoContent');
+            const mode = document.getElementById('demoMode');
+
+            if (!desc) { alert('请填写影像描述'); return; }
+
+            btn.disabled = true;
+            btn.textContent = '诊断中...';
+            result.style.display = 'block';
+            content.innerHTML = '<p style="color:var(--gray);">AI 正在分析...</p>';
+
+            try {
+                const url = `/api/v1/diagnosis/diagnose?organ=${encodeURIComponent(organ)}&image_description=${encodeURIComponent(desc)}&context=&filling_status=已充盈`;
+                const res = await fetch(url, { method: 'POST' });
+                const data = await res.json();
+
+                const prob = (data.probability * 100).toFixed(0);
+                const modeText = data.mode === 'mock' ? 'Mock 模式' : data.mode === 'nvidia' ? 'NVIDIA' : data.mode;
+                mode.textContent = modeText;
+
+                content.innerHTML = `
+                    <p><strong>器官：</strong>${data.organ || organ}</p>
+                    <p><strong>诊断：</strong><span style="color:var(--primary);font-weight:600;">${data.disease || '待明确'}</span></p>
+                    <p><strong>置信度：</strong>${prob}%</p>
+                    <p><strong>建议：</strong>${data.suggestion || '建议进一步检查'}</p>
+                    ${data.latency ? `<p><strong>响应时间：</strong>${data.latency}s</p>` : ''}
+                `;
+            } catch (e) {
+                content.innerHTML = `<p style="color:#ef4440;">诊断失败：${e.message}</p>`;
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '开始诊断 →';
+            }
+        }
+    </script>
 </body>
 </html>

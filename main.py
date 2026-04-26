@@ -365,6 +365,47 @@ async def list_models():
     return models_info
 
 
+# ===== 公开诊断 API（无需认证，限流） =====
+
+_public_diagnose_count = {}  # IP -> count
+
+@app.post("/api/v1/public/diagnose")
+async def public_diagnose(
+    organ: str = Query(..., description="器官类型（胃/胰腺）"),
+    image_description: str = Query(..., description="影像描述"),
+    context: Optional[str] = Query("", description="病历信息"),
+    filling_status: str = Query("已充盈", description="充盈状态"),
+    request: Any = None
+):
+    """公开诊断 API（无需认证，限流 100 次/天/IP）"""
+    client_ip = request.client.host if request else "unknown"
+    today = datetime.now().strftime('%Y-%m-%d')
+    key = f"{client_ip}:{today}"
+    
+    if key not in _public_diagnose_count:
+        _public_diagnose_count[key] = 0
+    
+    if _public_diagnose_count[key] >= 100:
+        raise HTTPException(status_code=429, detail="请求过于频繁，请稍后再试")
+    
+    _public_diagnose_count[key] += 1
+    
+    if not diagnosis_service:
+        raise HTTPException(status_code=503, detail="诊断服务不可用")
+    
+    result = diagnosis_service.diagnose(
+        organ=organ,
+        image_description=image_description,
+        context=context,
+        filling_status=filling_status
+    )
+    
+    result['api'] = 'public'
+    result['remaining'] = 100 - _public_diagnose_count[key]
+    
+    return result
+
+
 if __name__ == "__main__":
     import uvicorn
     
