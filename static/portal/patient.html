@@ -481,7 +481,7 @@
 
             try {
                 const context = extra ? `患者补充信息：${extra}` : '';
-                const url = `${API_BASE}/diagnose?organ=${encodeURIComponent(organ)}&image_description=${encodeURIComponent('患者症状描述：' + desc)}&context=${encodeURIComponent(context)}&filling_status=已充盈`;
+                const url = `${API_BASE}/diagnosis/diagnose?organ=${encodeURIComponent(organ)}&image_description=${encodeURIComponent('患者症状描述：' + desc)}&context=${encodeURIComponent(context)}&filling_status=已充盈`;
                 const res = await fetch(url, { method: 'POST' });
                 const data = await res.json();
                 

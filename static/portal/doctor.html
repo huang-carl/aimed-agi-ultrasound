@@ -491,39 +491,41 @@
         // API 基础地址（相对路径，兼容本地和生产环境）
         const API_BASE = '/api/v1';
 
-        // 登录检查
-        document.addEventListener('DOMContentLoaded', () => {
-            const loginStatus = localStorage.getItem('loginStatus');
-            if (loginStatus) {
-                const data = JSON.parse(loginStatus);
-                const loginTime = new Date(data.timestamp).getTime();
-                const now = Date.now();
-                if (now - loginTime < 24 * 60 * 60 * 1000) {
-                    // 已登录，显示用户信息
-                    const navUser = document.querySelector('.nav-user');
-                    if (navUser) {
-                        navUser.innerHTML = `👤 ${data.username || data.identityId} (${data.roleLabel})`;
-                        navUser.href = '#';
-                        navUser.onclick = (e) => {
-                            e.preventDefault();
-                            if (confirm('确定要退出登录吗？')) {
-                                localStorage.removeItem('loginStatus');
-                                window.location.href = '/portal/login.html';
-                            }
-                        };
-                    }
-                } else {
-                    localStorage.removeItem('loginStatus');
-                }
-            }
-        });
-
         // 诊断历史
         let diagnosisHistory = JSON.parse(localStorage.getItem('diagnosisHistory') || '[]');
         let lastResult = null;
 
         // 初始化
         document.addEventListener('DOMContentLoaded', () => {
+            // 登录检查
+            const loginStatus = localStorage.getItem('loginStatus');
+            if (loginStatus) {
+                try {
+                    const data = JSON.parse(loginStatus);
+                    const loginTime = new Date(data.timestamp).getTime();
+                    const now = Date.now();
+                    if (now - loginTime < 24 * 60 * 60 * 1000) {
+                        const navUser = document.querySelector('.nav-user');
+                        if (navUser) {
+                            navUser.innerHTML = `👤 ${data.username || data.identityId} (${data.roleLabel})`;
+                            navUser.href = '#';
+                            navUser.onclick = (e) => {
+                                e.preventDefault();
+                                if (confirm('确定要退出登录吗？')) {
+                                    localStorage.removeItem('loginStatus');
+                                    window.location.href = '/portal/login.html';
+                                }
+                            };
+                        }
+                    } else {
+                        localStorage.removeItem('loginStatus');
+                    }
+                } catch (e) {
+                    localStorage.removeItem('loginStatus');
+                }
+            }
+            
+            // 初始化功能
             checkStatus();
             renderHistory();
             setupFileUpload();
@@ -618,7 +620,7 @@
             `;
 
             try {
-                const url = `${API_BASE}/diagnose?organ=${encodeURIComponent(organ)}&image_description=${encodeURIComponent(desc)}&context=${encodeURIComponent(context)}&filling_status=${encodeURIComponent(filling)}`;
+                const url = `${API_BASE}/diagnosis/diagnose?organ=${encodeURIComponent(organ)}&image_description=${encodeURIComponent(desc)}&context=${encodeURIComponent(context)}&filling_status=${encodeURIComponent(filling)}`;
                 const res = await fetch(url, { method: 'POST' });
                 const data = await res.json();
                 
