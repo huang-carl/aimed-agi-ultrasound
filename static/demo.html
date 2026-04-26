@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>AIMED 胃/胰腺超声造影诊断 - 演示平台</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -24,7 +23,7 @@
             --doctor-annotation: #2563EB; /* 医生标注蓝色 */
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Sans SC', sans-serif; background: var(--bg-deep); color: var(--text-main); line-height: 1.5; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans SC', sans-serif; background: var(--bg-deep); color: var(--text-main); line-height: 1.5; }
         .app { max-width: 800px; margin: 0 auto; padding-bottom: 100px; }
         
         /* 顶部导航 */
@@ -39,21 +38,26 @@
             z-index: 100;
         }
         .top-nav a {
-            color: rgba(255,255,255,0.9);
-            text-decoration: none;
-            font-size: 13px;
+            color: rgba(255,255,255,0.9) !important;
+            text-decoration: none !important;
+            font-size: 13px !important;
             padding: 6px 14px;
             border-radius: 8px;
             transition: all 0.2s;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans SC', sans-serif !important;
         }
         .top-nav a:hover {
             background: rgba(255,255,255,0.15);
-            color: white;
+            color: white !important;
         }
         .top-nav .nav-brand {
             font-weight: 600;
-            color: white;
-            font-size: 14px;
+            color: white !important;
+            font-size: 14px !important;
+        }
+        .top-nav-links {
+            display: flex;
+            gap: 4px;
         }
         /* 实验室抬头 */
         .lab-header {
@@ -293,11 +297,11 @@
 <div class="app">
     <!-- 顶部导航 -->
     <nav class="top-nav">
-        <a href="/" class="nav-brand">🏥 AIMED 充盈视界</a>
-        <div style="display:flex;gap:4px;">
-            <a href="/">🏠 首页</a>
-            <a href="/portal/">🏥 平台</a>
-            <a href="/portal/login.html">🔑 登录</a>
+        <a href="/" class="nav-brand">AIMED 充盈视界</a>
+        <div class="top-nav-links">
+            <a href="/">首页</a>
+            <a href="/portal/">平台</a>
+            <a href="/portal/login.html">登录</a>
         </div>
     </nav>
 
