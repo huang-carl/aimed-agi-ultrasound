@@ -11,13 +11,10 @@
         :root {
             --primary: #0071e3;
             --primary-dark: #0055b3;
-            --secondary: #00c853;
             --dark: #1d1d1f;
             --gray: #86868b;
             --light: #f5f5f7;
             --white: #ffffff;
-            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-2: linear-gradient(135deg, #0071e3 0%, #00c853 100%);
         }
         html { scroll-behavior: smooth; }
         body {
@@ -28,12 +25,10 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 导航栏 - Apple 风格 */
+        /* 导航栏 */
         .navbar {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             background: rgba(255,255,255,0.72);
             backdrop-filter: saturate(180%) blur(20px);
             -webkit-backdrop-filter: saturate(180%) blur(20px);
@@ -41,10 +36,10 @@
             border-bottom: 0.5px solid rgba(0,0,0,0.08);
         }
         .nav-container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 0 24px;
-            height: 52px;
+            height: 48px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -52,24 +47,22 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             text-decoration: none;
             color: var(--dark);
-            font-size: 1.1em;
+            font-size: 1em;
             font-weight: 600;
-            letter-spacing: -0.02em;
         }
-        .logo img { height: 32px; width: auto; }
+        .logo img { height: 30px; width: auto; }
         .nav-links {
             display: flex;
-            gap: 32px;
+            gap: 28px;
             list-style: none;
         }
         .nav-links a {
             text-decoration: none;
             color: var(--dark);
-            font-size: 0.85em;
-            font-weight: 400;
+            font-size: 0.82em;
             opacity: 0.8;
             transition: opacity 0.3s;
         }
@@ -77,407 +70,305 @@
         .nav-login {
             background: var(--primary);
             color: white !important;
-            padding: 6px 18px;
-            border-radius: 20px;
+            padding: 5px 16px;
+            border-radius: 18px;
             font-weight: 500 !important;
             opacity: 1 !important;
             transition: all 0.3s !important;
         }
-        .nav-login:hover {
-            background: var(--primary-dark);
-            transform: scale(1.02);
-        }
+        .nav-login:hover { background: var(--primary-dark); }
 
-        /* Hero - Apple 风格 */
+        /* Hero */
         .hero {
-            min-height: 100vh;
+            min-height: 92vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 120px 24px 80px;
+            padding: 100px 24px 60px;
             background: var(--white);
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(ellipse at 30% 50%, rgba(102,126,234,0.08) 0%, transparent 50%),
-                        radial-gradient(ellipse at 70% 50%, rgba(118,75,162,0.06) 0%, transparent 50%);
-            animation: float 20s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(30px, -30px) rotate(2deg); }
-            66% { transform: translate(-20px, 20px) rotate(-1deg); }
-        }
-        .hero-content { position: relative; z-index: 1; max-width: 900px; }
-        .hero-badge {
-            display: inline-block;
-            background: var(--light);
-            color: var(--primary);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: 500;
-            margin-bottom: 24px;
         }
         .hero h1 {
-            font-size: clamp(2.5em, 6vw, 4.5em);
+            font-size: clamp(2.2em, 5.5vw, 4em);
             font-weight: 700;
             letter-spacing: -0.04em;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            background: var(--gradient-1);
+            line-height: 1.15;
+            margin-bottom: 18px;
+            color: var(--dark);
+        }
+        .hero h1 span {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         .hero .subtitle {
-            font-size: clamp(1.1em, 2.5vw, 1.5em);
+            font-size: clamp(1em, 2vw, 1.25em);
             color: var(--gray);
             font-weight: 400;
-            max-width: 600px;
-            margin: 0 auto 40px;
+            max-width: 560px;
+            margin: 0 auto 36px;
             line-height: 1.5;
         }
         .hero-buttons {
             display: flex;
-            gap: 16px;
+            gap: 14px;
             justify-content: center;
             flex-wrap: wrap;
         }
         .btn-primary {
             background: var(--primary);
             color: white;
-            padding: 14px 32px;
-            border-radius: 28px;
+            padding: 12px 28px;
+            border-radius: 24px;
             text-decoration: none;
-            font-size: 1em;
+            font-size: 0.95em;
             font-weight: 500;
             transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
         }
-        .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: scale(1.02);
-        }
+        .btn-primary:hover { background: var(--primary-dark); transform: scale(1.02); }
         .btn-secondary {
             background: transparent;
             color: var(--primary);
-            padding: 14px 32px;
-            border-radius: 28px;
+            padding: 12px 28px;
+            border-radius: 24px;
             text-decoration: none;
-            font-size: 1em;
+            font-size: 0.95em;
             font-weight: 500;
             transition: all 0.3s;
             border: 1.5px solid var(--primary);
         }
-        .btn-secondary:hover {
-            background: rgba(0,113,227,0.05);
-        }
+        .btn-secondary:hover { background: rgba(0,113,227,0.04); }
 
-        /* Section 通用 */
-        .section {
-            padding: 120px 24px;
-        }
-        .section-dark {
-            background: var(--dark);
-            color: var(--white);
-        }
-        .section-light {
-            background: var(--light);
-        }
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
+        /* Section */
+        .section { padding: 90px 24px; }
+        .section-light { background: var(--light); }
+        .section-dark { background: var(--dark); color: var(--white); }
+        .container { max-width: 1000px; margin: 0 auto; }
         .section-label {
-            font-size: 0.85em;
+            font-size: 0.8em;
             color: var(--primary);
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 12px;
+            letter-spacing: 0.08em;
+            margin-bottom: 10px;
         }
         .section-dark .section-label { color: #64d98c; }
         .section-title {
-            font-size: clamp(2em, 4vw, 3.2em);
+            font-size: clamp(1.8em, 3.5vw, 2.8em);
             font-weight: 700;
             letter-spacing: -0.03em;
             line-height: 1.15;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
         .section-desc {
-            font-size: 1.15em;
+            font-size: 1.05em;
             color: var(--gray);
-            max-width: 600px;
+            max-width: 560px;
             line-height: 1.6;
         }
-        .section-dark .section-desc { color: rgba(255,255,255,0.6); }
+        .section-dark .section-desc { color: rgba(255,255,255,0.55); }
+        .section-center { text-align: center; }
+        .section-center .section-desc { margin: 0 auto; }
 
-        /* 产品特性 - Google 风格卡片 */
+        /* 统计 */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+            text-align: center;
+        }
+        .stat-item .number {
+            font-size: clamp(2em, 4vw, 3em);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: var(--primary);
+        }
+        .stat-item .label {
+            color: var(--gray);
+            font-size: 0.85em;
+            margin-top: 2px;
+        }
+
+        /* 特性卡片 */
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-            margin-top: 60px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 48px;
         }
         .feature-card {
             background: var(--white);
-            border-radius: 20px;
-            padding: 40px 32px;
+            border-radius: 16px;
+            padding: 32px 28px;
             transition: all 0.3s;
-            border: 1px solid rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.05);
         }
         .feature-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 36px rgba(0,0,0,0.07);
         }
-        .feature-icon {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
+        .feature-card .icon { font-size: 2em; margin-bottom: 14px; }
         .feature-card h3 {
-            font-size: 1.3em;
+            font-size: 1.15em;
             font-weight: 600;
-            margin-bottom: 12px;
-            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
         }
         .feature-card p {
             color: var(--gray);
-            font-size: 0.95em;
-            line-height: 1.6;
-        }
-
-        /* 合作伙伴 - Microsoft 风格 */
-        .partners-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 24px;
-            margin-top: 60px;
-        }
-        .partner-card {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 16px;
-            padding: 32px;
-            transition: all 0.3s;
-        }
-        .partner-card:hover {
-            background: rgba(255,255,255,0.08);
-            border-color: rgba(255,255,255,0.2);
-        }
-        .partner-card h3 {
-            font-size: 1.2em;
-            margin-bottom: 8px;
-        }
-        .partner-card .partner-type {
-            color: #64d98c;
-            font-size: 0.85em;
-            font-weight: 500;
-            margin-bottom: 12px;
-        }
-        .partner-card p {
-            color: rgba(255,255,255,0.6);
             font-size: 0.9em;
             line-height: 1.6;
         }
 
-        /* 时间线 - Apple 风格 */
+        /* 合作伙伴 */
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 48px;
+        }
+        .partner-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+            padding: 28px 24px;
+            transition: all 0.3s;
+        }
+        .partner-card:hover {
+            background: rgba(255,255,255,0.07);
+            border-color: rgba(255,255,255,0.15);
+        }
+        .partner-card h4 {
+            font-size: 1.05em;
+            margin-bottom: 6px;
+        }
+        .partner-card .type {
+            color: #64d98c;
+            font-size: 0.8em;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        .partner-card p {
+            color: rgba(255,255,255,0.55);
+            font-size: 0.85em;
+            line-height: 1.6;
+        }
+
+        /* 时间线 */
         .timeline {
-            margin-top: 60px;
+            margin-top: 48px;
             position: relative;
-            max-width: 700px;
+            max-width: 600px;
             margin-left: auto;
             margin-right: auto;
         }
         .timeline::before {
             content: '';
             position: absolute;
-            left: 24px;
-            top: 0;
-            bottom: 0;
+            left: 18px;
+            top: 0; bottom: 0;
             width: 2px;
-            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            background: linear-gradient(to bottom, var(--primary), #64d98c);
         }
         .timeline-item {
-            padding-left: 64px;
-            padding-bottom: 48px;
+            padding-left: 52px;
+            padding-bottom: 36px;
             position: relative;
         }
         .timeline-item:last-child { padding-bottom: 0; }
         .timeline-dot {
             position: absolute;
-            left: 16px;
-            top: 4px;
-            width: 18px;
-            height: 18px;
+            left: 11px; top: 4px;
+            width: 16px; height: 16px;
             border-radius: 50%;
             background: var(--primary);
             border: 3px solid var(--white);
             box-shadow: 0 0 0 2px var(--primary);
         }
-        .timeline-item h4 {
-            font-size: 1.1em;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
         .timeline-item .phase {
             display: inline-block;
             background: var(--light);
             color: var(--primary);
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 0.8em;
-            font-weight: 500;
-            margin-bottom: 8px;
+            padding: 2px 10px;
+            border-radius: 10px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .timeline-item h4 {
+            font-size: 1.05em;
+            font-weight: 600;
+            margin-bottom: 6px;
         }
         .timeline-item p {
             color: var(--gray);
-            font-size: 0.95em;
-            line-height: 1.6;
-        }
-
-        /* 技术架构 - 深色卡片 */
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            margin-top: 60px;
-        }
-        .tech-card {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 16px;
-            padding: 32px;
-            transition: all 0.3s;
-        }
-        .tech-card:hover {
-            background: rgba(255,255,255,0.08);
-            transform: translateY(-2px);
-        }
-        .tech-card .icon {
-            font-size: 2em;
-            margin-bottom: 16px;
-        }
-        .tech-card h4 {
-            font-size: 1.1em;
-            margin-bottom: 8px;
-        }
-        .tech-card p {
-            color: rgba(255,255,255,0.6);
             font-size: 0.9em;
             line-height: 1.6;
         }
 
-        /* AI 平台入口 - 渐变卡片 */
-        .portal-section {
-            padding: 120px 24px;
-            background: linear-gradient(180deg, var(--white) 0%, var(--light) 100%);
-        }
+        /* 平台入口 */
         .portal-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            max-width: 1100px;
-            margin: 40px auto 0;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 14px;
+            max-width: 900px;
+            margin: 36px auto 0;
         }
         .portal-card {
             background: var(--white);
-            border-radius: 16px;
-            padding: 28px 24px;
+            border-radius: 14px;
+            padding: 24px 16px;
             text-align: center;
             text-decoration: none;
             color: var(--dark);
             transition: all 0.3s;
-            border: 1px solid rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.05);
         }
         .portal-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 36px rgba(0,0,0,0.07);
             border-color: var(--primary);
         }
-        .portal-card .icon {
-            font-size: 2.2em;
-            margin-bottom: 12px;
-        }
+        .portal-card .icon { font-size: 1.8em; margin-bottom: 10px; }
         .portal-card h4 {
-            font-size: 1em;
+            font-size: 0.9em;
             font-weight: 600;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
         .portal-card p {
-            font-size: 0.8em;
+            font-size: 0.72em;
             color: var(--gray);
-            line-height: 1.5;
+            line-height: 1.4;
         }
         .portal-cta {
             text-align: center;
-            margin-top: 48px;
+            margin-top: 36px;
         }
 
-        /* 统计数字 */
-        .stats-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 32px;
-            margin-top: 60px;
-            text-align: center;
-        }
-        .stat-item .number {
-            font-size: clamp(2.5em, 5vw, 3.5em);
-            font-weight: 700;
-            letter-spacing: -0.04em;
-            background: var(--gradient-2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .stat-item .label {
-            color: var(--gray);
-            font-size: 0.9em;
-            margin-top: 4px;
-        }
-
-        /* 联系我们 */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 32px;
-            margin-top: 48px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+        /* 联系 */
+        .contact-row {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            margin-top: 36px;
+            flex-wrap: wrap;
         }
         .contact-item {
             text-align: center;
-            padding: 24px;
         }
-        .contact-item .icon {
-            font-size: 2em;
-            margin-bottom: 12px;
-        }
-        .contact-item h4 {
-            font-size: 0.85em;
+        .contact-item .icon { font-size: 1.5em; margin-bottom: 6px; }
+        .contact-item h5 {
+            font-size: 0.78em;
             color: var(--gray);
-            margin-bottom: 6px;
+            font-weight: 400;
+            margin-bottom: 4px;
         }
-        .contact-item p {
-            font-size: 1em;
+        .contact-item a, .contact-item p {
+            font-size: 0.92em;
             color: var(--primary);
             font-weight: 500;
-        }
-        .contact-item a {
-            color: var(--primary);
             text-decoration: none;
         }
         .contact-item a:hover { text-decoration: underline; }
@@ -485,58 +376,45 @@
         /* 页脚 */
         .footer {
             background: var(--light);
-            padding: 48px 24px 32px;
+            padding: 32px 24px 24px;
             border-top: 0.5px solid rgba(0,0,0,0.08);
         }
-        .footer-grid {
-            max-width: 1100px;
+        .footer-inner {
+            max-width: 1000px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 32px;
-        }
-        .footer-col h5 {
-            font-size: 0.8em;
-            font-weight: 600;
-            margin-bottom: 16px;
-            color: var(--dark);
-        }
-        .footer-col ul { list-style: none; }
-        .footer-col li { margin-bottom: 10px; }
-        .footer-col a {
-            color: var(--gray);
-            text-decoration: none;
-            font-size: 0.85em;
-            transition: color 0.3s;
-        }
-        .footer-col a:hover { color: var(--dark); }
-        .footer-bottom {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding-top: 24px;
-            border-top: 0.5px solid rgba(0,0,0,0.08);
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 16px;
+            gap: 12px;
         }
-        .footer-bottom p {
+        .footer-inner p {
             color: var(--gray);
-            font-size: 0.8em;
+            font-size: 0.78em;
         }
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 0.78em;
+        }
+        .footer-links a:hover { color: var(--dark); }
 
         /* 响应式 */
         @media (max-width: 768px) {
             .nav-links { display: none; }
-            .hero { padding: 100px 20px 60px; }
-            .section { padding: 80px 20px; }
+            .hero { min-height: 80vh; padding: 90px 20px 50px; }
+            .section { padding: 70px 20px; }
             .hero-buttons { flex-direction: column; align-items: center; }
-            .timeline::before { left: 16px; }
-            .timeline-item { padding-left: 48px; }
-            .timeline-dot { left: 8px; }
-            .footer-bottom { flex-direction: column; text-align: center; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .features-grid { grid-template-columns: 1fr; }
+            .partners-grid { grid-template-columns: 1fr; }
+            .portal-grid { grid-template-columns: repeat(2, 1fr); }
+            .contact-row { gap: 24px; }
+            .footer-inner { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
@@ -561,15 +439,12 @@
     </nav>
 
     <!-- Hero -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <span class="hero-badge">🏥 胃胰疾病早筛平台</span>
-            <h1>超声造影<br>人工智能诊断</h1>
-            <p class="subtitle">基于口服超声造影剂 + AI 多智能体诊断<br>将三甲医院增强造影能力下沉至基层与体检中心</p>
-            <div class="hero-buttons">
-                <a href="/portal/" class="btn-primary">进入联合实验室 →</a>
-                <a href="#features" class="btn-secondary">了解技术</a>
-            </div>
+    <section class="hero">
+        <h1>让超声造影诊断<br><span>触手可及</span></h1>
+        <p class="subtitle">口服超声造影剂 + AI 多智能体诊断<br>将三甲医院增强造影能力下沉至基层与体检中心</p>
+        <div class="hero-buttons">
+            <a href="/portal/" class="btn-primary">进入联合实验室 →</a>
+            <a href="#features" class="btn-secondary">了解技术</a>
         </div>
     </section>
 
@@ -578,20 +453,20 @@
         <div class="container">
             <div class="stats-row">
                 <div class="stat-item">
-                    <div class="number">10+</div>
-                    <div class="label">标注病例</div>
-                </div>
-                <div class="stat-item">
                     <div class="number">2</div>
                     <div class="label">核心器官</div>
                 </div>
                 <div class="stat-item">
                     <div class="number">85%</div>
-                    <div class="label">准确率目标</div>
+                    <div class="label">AI 准确率目标</div>
                 </div>
                 <div class="stat-item">
                     <div class="number">4</div>
                     <div class="label">AI 模型</div>
+                </div>
+                <div class="stat-item">
+                    <div class="number">4</div>
+                    <div class="label">合作伙伴</div>
                 </div>
             </div>
         </div>
@@ -599,47 +474,48 @@
 
     <!-- 关于 -->
     <section class="section" id="about">
-        <div class="container">
-            <div class="section-label">关于我们</div>
-            <h2 class="section-title">医学影像 AI<br>诊断创新者</h2>
-            <p class="section-desc">阿尔麦德智慧医疗（湖州）有限公司，致力于通过口服超声造影剂与 AI 技术的结合，让精准诊断触手可及。</p>
-            <div style="margin-top:48px;background:var(--light);border-radius:20px;padding:40px;">
-                <h3 style="font-size:1.3em;margin-bottom:16px;">核心公式</h3>
-                <p style="font-size:1.2em;font-weight:600;color:var(--primary);margin-bottom:16px;">AIMED = 二剂 + 一法 + 一系统</p>
-                <p style="color:var(--gray);line-height:1.8;">
-                    二剂：胰腺型 + 胃肠型口服超声造影剂<br>
-                    一法：标准化充盈超声造影检查流程<br>
-                    一系统：AI 多智能体诊断平台（OpenClaw 前端 + Hermes 后端）
+        <div class="container section-center">
+            <div class="section-label">关于阿尔麦德</div>
+            <h2 class="section-title">医学影像 AI 诊断创新者</h2>
+            <p class="section-desc">基于口服超声造影剂 + AI 多智能体诊断，构建胃胰疾病早筛完整技术体系</p>
+            <div style="margin-top:40px;background:var(--light);border-radius:16px;padding:32px;max-width:640px;margin-left:auto;margin-right:auto;">
+                <p style="font-size:1.1em;font-weight:600;color:var(--primary);margin-bottom:12px;">AIMED = 二剂 + 一法 + 一系统</p>
+                <p style="color:var(--gray);font-size:0.9em;line-height:1.7;">
+                    胰腺型 + 胃肠型口服超声造影剂 · 标准化检查流程 · AI 多智能体诊断平台
                 </p>
-                <p style="margin-top:16px;color:var(--dark);font-weight:500;">简单说：患者喝一杯造影剂 → 做超声检查 → AI 辅助分析 → 10 分钟出报告</p>
+                <p style="margin-top:12px;font-size:0.92em;font-weight:500;color:var(--dark);">
+                    喝一杯造影剂 → 做超声检查 → AI 辅助分析 → 10 分钟出报告
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- 技术特性 -->
+    <!-- 技术 -->
     <section class="section section-light" id="features">
-        <div class="container">
+        <div class="container section-center">
             <div class="section-label">核心技术</div>
             <h2 class="section-title">四大技术支柱</h2>
-            <p class="section-desc">从造影剂到 AI 诊断，构建完整的胃胰疾病早筛技术体系</p>
+            <p class="section-desc">从造影剂到 AI 诊断，构建完整的胃胰疾病早筛体系</p>
+        </div>
+        <div class="container">
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">💊</div>
+                    <div class="icon">💊</div>
                     <h3>口服超声造影剂</h3>
-                    <p>胰腺型、胃肠型、胆管型三款造影剂，安全无创，显著提升超声成像质量，让医生看得更清楚。</p>
+                    <p>胰腺型、胃肠型、胆管型三款造影剂，安全无创，显著提升超声成像质量。</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🤖</div>
+                    <div class="icon">🤖</div>
                     <h3>AI 多智能体诊断</h3>
-                    <p>Conductor 总指挥 + 胃/胰腺专科 Agent，4 个 AI 模型智能降级，Mock 兜底保障，诊断不中断。</p>
+                    <p>Conductor 总指挥 + 胃/胰腺专科 Agent，4 个 AI 模型智能降级，诊断不中断。</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🔍</div>
+                    <div class="icon">🔍</div>
                     <h3>RAG 向量检索</h3>
-                    <p>ChromaDB 医疗知识库 + SAM 图像分割，诊断前检索相似病例，提升诊断准确率。</p>
+                    <p>ChromaDB 医疗知识库 + SAM 图像分割，诊断前检索相似病例，提升准确率。</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🔐</div>
+                    <div class="icon">🔐</div>
                     <h3>区块链身份 & 数字资产</h3>
                     <p>身份注册上链存证，诊断报告 NFT 化，确保数据不可篡改、可追溯。</p>
                 </div>
@@ -649,118 +525,91 @@
 
     <!-- 合作伙伴 -->
     <section class="section section-dark" id="partners">
-        <div class="container">
+        <div class="container section-center">
             <div class="section-label">合作伙伴</div>
-            <h2 class="section-title">产学研医<br>协同创新</h2>
+            <h2 class="section-title">产学研医协同创新</h2>
             <p class="section-desc">与顶尖医疗机构和高校合作，推动技术临床转化</p>
+        </div>
+        <div class="container">
             <div class="partners-grid">
                 <div class="partner-card">
-                    <h3>🎓 南京大学</h3>
-                    <div class="partner-type">人工智能与医学影像交叉研究</div>
-                    <p>聚焦超声造影 AI 诊断算法研发，开展多模态医学影像分析、深度学习模型优化等前沿技术研究。</p>
+                    <h4>🎓 南京大学</h4>
+                    <div class="type">AI 算法研发</div>
+                    <p>多模态医学影像分析、深度学习模型优化</p>
                 </div>
                 <div class="partner-card">
-                    <h3>🏥 301 医院</h3>
-                    <div class="partner-type">消化内科 / 超声科临床验证</div>
-                    <p>开展胃胰疾病超声造影临床验证，提供高质量病例数据与专家标注，推动技术临床转化。</p>
+                    <h4>🏥 301 医院</h4>
+                    <div class="type">临床验证</div>
+                    <p>高质量病例数据与专家标注，技术临床转化</p>
                 </div>
                 <div class="partner-card">
-                    <h3>🏥 湖州师范学院附属第一医院</h3>
-                    <div class="partner-type">有症状基层医疗临床模式</div>
-                    <p>面向有消化道症状的基层就诊患者，开展胃胰疾病临床诊断应用，验证 AI 辅助诊断在真实医疗场景中的准确性。</p>
+                    <h4>🏥 湖州师范学院附属第一医院</h4>
+                    <div class="type">基层临床</div>
+                    <p>有症状患者诊断应用，真实场景验证</p>
                 </div>
                 <div class="partner-card">
-                    <h3>🏥 湖州市健康体检中心</h3>
-                    <div class="partner-type">无症状基层体检普筛、早查模式</div>
-                    <p>面向无症状健康人群的胃胰疾病普筛与早查，探索 AI 辅助筛查在体检场景中的价值。</p>
+                    <h4>🏥 湖州市健康体检中心</h4>
+                    <div class="type">体检普筛</div>
+                    <p>无症状人群普筛，AI 辅助筛查价值验证</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 实施规划 -->
+    <!-- 规划 -->
     <section class="section" id="roadmap">
-        <div class="container">
+        <div class="container section-center">
             <div class="section-label">实施规划</div>
             <h2 class="section-title">三阶段路线图</h2>
-            <p class="section-desc">从技术验证到规模化部署，稳步推进</p>
+            <p class="section-desc">从技术验证到规模化部署</p>
+        </div>
+        <div class="container">
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
-                    <span class="phase">Phase 1 · 2026 Q2-Q4</span>
-                    <h4>技术验证期</h4>
-                    <p>胃 + 胰腺双核心，500+ 标注病例，AI 准确率 ≥85%，科研合作模式验证商业价值。</p>
+                    <div class="phase">Phase 1 · 2026</div>
+                    <h4>技术验证</h4>
+                    <p>胃 + 胰腺双核心，500+ 标注病例，AI 准确率 ≥85%</p>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
-                    <span class="phase">Phase 2 · 2027 Q1-Q3</span>
-                    <h4>产品化期</h4>
-                    <p>扩展胆管 + 食道，二类器械备案，试点医院验证，建立标准化操作流程。</p>
+                    <div class="phase">Phase 2 · 2027</div>
+                    <h4>产品化</h4>
+                    <p>扩展胆管 + 食道，二类器械备案，试点医院验证</p>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
-                    <span class="phase">Phase 3 · 2027 Q4+</span>
-                    <h4>规模化期</h4>
-                    <p>NMPA 三类证申报，规模化部署，覆盖全国基层医疗机构和体检中心。</p>
+                    <div class="phase">Phase 3 · 2027+</div>
+                    <h4>规模化</h4>
+                    <p>NMPA 三类证申报，覆盖全国基层医疗机构</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 技术架构 -->
-    <section class="section section-dark" id="technology">
-        <div class="container">
-            <div class="section-label">技术架构</div>
-            <h2 class="section-title">四层架构<br>智能降级</h2>
-            <p class="section-desc">Gateway → Router → Service → Agent，4 个 AI 模型自动切换</p>
-            <div class="tech-grid">
-                <div class="tech-card">
-                    <div class="icon">🌐</div>
-                    <h4>Gateway 网关层</h4>
-                    <p>FastAPI + CORS + 静态文件服务，统一入口，健康检查。</p>
-                </div>
-                <div class="tech-card">
-                    <div class="icon">🔀</div>
-                    <h4>Router 路由层</h4>
-                    <p>6 组 API 路由，诊断/病例/向量检索/图像分割，版本化管理。</p>
-                </div>
-                <div class="tech-card">
-                    <div class="icon">⚙️</div>
-                    <h4>Service 服务层</h4>
-                    <p>12 个服务模块，Key 池管理 + 模型路由 + 智能降级 + 熔断机制。</p>
-                </div>
-                <div class="tech-card">
-                    <div class="icon">🧠</div>
-                    <h4>Agent 智能体层</h4>
-                    <p>Conductor 总指挥 + 胃/胰腺/报告 Agent，多智能体协同诊断。</p>
-                </div>
-            </div>
+    <!-- 平台入口 -->
+    <section class="section section-light" id="portal">
+        <div class="container section-center">
+            <div class="section-label">联合实验室</div>
+            <h2 class="section-title">超声造影人工智能诊断联合实验室</h2>
+            <p class="section-desc">统一入口 · 多角色适配 · 区块链身份 · 数字资产</p>
         </div>
-    </section>
-
-    <!-- AI 平台入口 -->
-    <section class="portal-section" id="portal">
         <div class="container">
-            <div style="text-align:center;">
-                <div class="section-label">联合实验室</div>
-                <h2 class="section-title">超声造影人工智能<br>诊断联合实验室</h2>
-                <p class="section-desc" style="margin:0 auto;">统一入口 · 多角色适配 · 区块链身份 · 数字资产</p>
-            </div>
             <div class="portal-grid">
                 <a href="/portal/login.html" class="portal-card">
                     <div class="icon">🔑</div>
                     <h4>统一登录</h4>
-                    <p>账号密码 / 区块链身份验证</p>
+                    <p>账号密码 / 区块链</p>
                 </a>
                 <a href="/portal/doctor.html" class="portal-card">
                     <div class="icon">👨‍⚕️</div>
                     <h4>医生工作台</h4>
-                    <p>影像上传 → AI 诊断 → 报告导出</p>
+                    <p>影像上传 → AI 诊断</p>
                 </a>
                 <a href="/portal/patient.html" class="portal-card">
                     <div class="icon">👤</div>
                     <h4>患者咨询台</h4>
-                    <p>症状描述 → AI 初步建议</p>
+                    <p>症状描述 → AI 建议</p>
                 </a>
                 <a href="/portal/blockchain-identity.html" class="portal-card">
                     <div class="icon">🔐</div>
@@ -770,7 +619,7 @@
                 <a href="/portal/digital-assets.html" class="portal-card">
                     <div class="icon">💎</div>
                     <h4>数字资产</h4>
-                    <p>诊断报告 → NFT 化存证</p>
+                    <p>诊断报告 → NFT 存证</p>
                 </a>
             </div>
             <div class="portal-cta">
@@ -779,28 +628,25 @@
         </div>
     </section>
 
-    <!-- 联系我们 -->
-    <section class="section section-light" id="contact">
-        <div class="container">
-            <div style="text-align:center;">
-                <div class="section-label">联系我们</div>
-                <h2 class="section-title">期待与您携手</h2>
-                <p class="section-desc" style="margin:0 auto;">共创智慧医疗新未来</p>
-            </div>
-            <div class="contact-grid">
+    <!-- 联系 -->
+    <section class="section" id="contact">
+        <div class="container section-center">
+            <div class="section-label">联系我们</div>
+            <h2 class="section-title">期待与您携手</h2>
+            <div class="contact-row">
                 <div class="contact-item">
                     <div class="icon">📧</div>
-                    <h4>电子邮箱</h4>
-                    <p><a href="mailto:aimed@aius.xin">aimed@aius.xin</a></p>
+                    <h5>邮箱</h5>
+                    <a href="mailto:aimed@aius.xin">aimed@aius.xin</a>
                 </div>
                 <div class="contact-item">
                     <div class="icon">🌐</div>
-                    <h4>官方网站</h4>
-                    <p><a href="https://www.aius.xin">www.aius.xin</a></p>
+                    <h5>官网</h5>
+                    <a href="https://www.aius.xin">www.aius.xin</a>
                 </div>
                 <div class="contact-item">
                     <div class="icon">📍</div>
-                    <h4>公司地址</h4>
+                    <h5>地址</h5>
                     <p>浙江省湖州市吴兴区</p>
                 </div>
             </div>
@@ -809,44 +655,13 @@
 
     <!-- 页脚 -->
     <footer class="footer">
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h5>关于阿尔麦德</h5>
-                <ul>
-                    <li><a href="#about">公司简介</a></li>
-                    <li><a href="#partners">合作伙伴</a></li>
-                    <li><a href="#roadmap">实施规划</a></li>
-                </ul>
+        <div class="footer-inner">
+            <p>© 2026 阿尔麦德智慧医疗（湖州）有限公司</p>
+            <div class="footer-links">
+                <a href="/portal/login.html">联合实验室</a>
+                <a href="/portal/doctor.html">医生工作台</a>
+                <a href="/portal/patient.html">患者咨询台</a>
             </div>
-            <div class="footer-col">
-                <h5>技术架构</h5>
-                <ul>
-                    <li><a href="#features">核心技术</a></li>
-                    <li><a href="#technology">四层架构</a></li>
-                    <li><a href="/docs">API 文档</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h5>联合实验室</h5>
-                <ul>
-                    <li><a href="/portal/login.html">统一登录</a></li>
-                    <li><a href="/portal/doctor.html">医生工作台</a></li>
-                    <li><a href="/portal/patient.html">患者咨询台</a></li>
-                    <li><a href="/portal/blockchain-identity.html">区块链身份</a></li>
-                    <li><a href="/portal/digital-assets.html">数字资产</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h5>联系我们</h5>
-                <ul>
-                    <li><a href="mailto:aimed@aius.xin">aimed@aius.xin</a></li>
-                    <li><a href="https://www.aius.xin">www.aius.xin</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2026 阿尔麦德智慧医疗（湖州）有限公司 版权所有</p>
-            <p>AIMED 充盈视界 FillingVision · 浙江省湖州市吴兴区</p>
         </div>
     </footer>
 </body>
