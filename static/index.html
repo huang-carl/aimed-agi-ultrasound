@@ -636,39 +636,16 @@
         </div>
     </section>
 
-    <!-- 快速体验 -->
+    <!-- 完整诊断演示 -->
     <section class="section" id="demo">
         <div class="container section-center">
             <div class="section-label">快速体验</div>
             <h2 class="section-title">AI 诊断演示</h2>
-            <p class="section-desc">无需登录，直接体验 AI 诊断能力</p>
-            <div style="text-align:center;margin-top:8px;">
-                <a href="/demo.html" style="display:inline-block;padding:8px 24px;background:var(--primary);color:white;border-radius:10px;text-decoration:none;font-size:0.9em;font-weight:500;">🏥 进入完整诊断演示 →</a>
-            </div>
+            <p class="section-desc">无需登录，直接体验完整 AI 诊断工作流</p>
         </div>
-        <div class="container">
-            <div style="max-width:600px;margin:36px auto 0;background:var(--white);border-radius:16px;padding:32px;border:1px solid rgba(0,0,0,0.05);">
-                <div style="margin-bottom:16px;">
-                    <label style="font-size:0.85em;font-weight:500;display:block;margin-bottom:6px;">检查器官</label>
-                    <select id="demoOrgan" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:10px;font-size:0.95em;font-family:inherit;">
-                        <option value="胃">胃 (Stomach)</option>
-                        <option value="胰腺">胰腺 (Pancreas)</option>
-                    </select>
-                </div>
-                <div style="margin-bottom:16px;">
-                    <label style="font-size:0.85em;font-weight:500;display:block;margin-bottom:6px;">影像描述</label>
-                    <textarea id="demoDesc" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:10px;font-size:0.95em;font-family:inherit;min-height:80px;resize:vertical;" placeholder="请描述超声影像特征...">胃窦部黏膜充血水肿，可见点状糜烂</textarea>
-                </div>
-                <button id="demoBtn" onclick="runDemo()" style="width:100%;padding:12px;background:var(--primary);color:white;border:none;border-radius:10px;font-size:0.95em;font-weight:500;cursor:pointer;font-family:inherit;">开始诊断 →</button>
-                <div id="demoResult" style="margin-top:20px;display:none;">
-                    <div style="background:var(--light);border-radius:12px;padding:20px;">
-                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                            <h4 style="font-size:0.95em;">诊断结果</h4>
-                            <span id="demoMode" style="background:var(--primary);color:white;padding:3px 10px;border-radius:12px;font-size:0.75em;font-weight:500;">Mock 模式</span>
-                        </div>
-                        <div id="demoContent" style="font-size:0.9em;line-height:1.7;"></div>
-                    </div>
-                </div>
+        <div class="container" style="padding: 0 20px;">
+            <div style="max-width:900px;margin:0 auto;border-radius:16px;overflow:hidden;border:1px solid rgba(0,0,0,0.08);box-shadow:0 4px 20px rgba(0,0,0,0.06);">
+                <iframe src="/demo.html" style="width:100%;height:700px;border:none;" frameborder="0"></iframe>
             </div>
         </div>
     </section>
