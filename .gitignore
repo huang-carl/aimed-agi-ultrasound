@@ -234,6 +234,12 @@ logs/
 data/vectors/
 data/cases/
 data/uploads/
+data/cases.db
+data/confirmations.json
+
+# 配置文件（含 API 密钥）
+config.py
+config/*.json
 
 # 临时文件
 *.tmp
@@ -249,3 +255,18 @@ scripts/test_*.py
 scripts/demo.py
 scripts/quick_test.py
 scripts/api_test.py
+
+# SSL 证书（服务器端）
+*.pem
+*.key
+*.crt
+
+# 数据库文件
+*.db
+*.sqlite3
+
+# 模型权重
+*.pth
+*.pt
+*.onnx
+*.h5
