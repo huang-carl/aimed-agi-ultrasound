@@ -61,7 +61,7 @@ from agents.pancreas_agent import pancreas_agent
 from agents.report_agent import report_agent
 
 # ===== 导入路由层 =====
-from routers.v1 import diagnosis, conductor, cases, stomach, pancreas, report
+from routers.v1 import diagnosis, conductor, cases, stomach, pancreas, report, blockchain
 
 # 创建 FastAPI 应用
 app = FastAPI(
@@ -163,6 +163,7 @@ async def startup_event():
         app.include_router(stomach.router, prefix="/api/v1/stomach", tags=["v1-胃部诊断"])
         app.include_router(pancreas.router, prefix="/api/v1/pancreas", tags=["v1-胰腺诊断"])
         app.include_router(report.router, prefix="/api/v1/report", tags=["v1-报告生成"])
+        app.include_router(blockchain.router, prefix="/api/v1", tags=["v1-区块链服务"])
         print("✅ API 路由层已挂载 (6 个路由组)")
     except Exception as e:
         print(f"⚠️ 路由挂载失败: {e}")
@@ -237,7 +238,7 @@ async def get_status():
         "timestamp": datetime.now().isoformat(),
         "architecture": {
             "gateway": "FastAPI (main.py)",
-            "router_layer": "routers/v1/ (6 组)",
+            "router_layer": "routers/v1/ (7 组)",
             "service_layer": "services/ (12 个服务)",
             "agent_layer": "agents/ (4 个 Agent)"
         },

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>登录测试</title>
+<style>
+body { font-family: sans-serif; padding: 20px; }
+.test { margin: 10px 0; padding: 10px; border: 1px solid #ddd; }
+.success { background: #d1fae5; }
+.error { background: #fee2e2; }
+</style>
+</head>
+<body>
+<h1>AIMED 平台登录测试</h1>
+<div id="results"></div>
+
+<script>
+function hashPwd(p) { return btoa(encodeURIComponent(p + '_aimed_salt')); }
+function verifyPwd(p, h) { return hashPwd(p) === h; }
+
+const results = document.getElementById('results');
+
+// 测试 1: 密码哈希
+const testPass = 'aimed2026';
+const hashed = hashPwd(testPass);
+const test1 = document.createElement('div');
+test1.className = 'test ' + (hashed === 'YWltZWQyMDI2X2FpbWVkX3NhbHQ=' ? 'success' : 'error');
+test1.innerHTML = `<strong>测试 1: 密码哈希</strong><br>原始密码：${testPass}<br>哈希密码：${hashed}<br>预期：YWltZWQyMDI2X2FpbWVkX3NhbHQ=`;
+results.appendChild(test1);
+
+// 测试 2: 密码验证
+const test2 = document.createElement('div');
+const verifyResult = verifyPwd(testPass, hashed);
+test2.className = 'test ' + (verifyResult ? 'success' : 'error');
+test2.innerHTML = `<strong>测试 2: 密码验证</strong><br>验证结果：${verifyResult}`;
+results.appendChild(test2);
+
+// 测试 3: 数据库初始化
+try {
+  const DB_KEY = 'aimed_ecosystem_db';
+  const testDB = {
+    users: [
+      { id:'u1', name:'黄伟', user:'hw', pass:hashPwd('aimed2026'), role:'gm', company:'AIMED 智慧医疗生态', status:'active' }
+    ]
+  };
+  localStorage.setItem(DB_KEY, JSON.stringify(testDB));
+  const savedDB = JSON.parse(localStorage.getItem(DB_KEY));
+  const test3 = document.createElement('div');
+  test3.className = 'test ' + (savedDB.users.length > 0 ? 'success' : 'error');
+  test3.innerHTML = `<strong>测试 3: 数据库初始化</strong><br>用户数量：${savedDB.users.length}<br>用户：${savedDB.users[0].name}`;
+  results.appendChild(test3);
+} catch (e) {
+  const test3 = document.createElement('div');
+  test3.className = 'test error';
+  test3.innerHTML = `<strong>测试 3: 数据库初始化</strong><br>错误：${e.message}`;
+  results.appendChild(test3);
+}
+
+// 测试 4: 登录验证
+try {
+  const DB_KEY = 'aimed_ecosystem_db';
+  const db = JSON.parse(localStorage.getItem(DB_KEY));
+  const testUser = 'hw';
+  const testPass = 'aimed2026';
+  const user = db.users.find(x => x.user === testUser && verifyPwd(testPass, x.pass));
+  const test4 = document.createElement('div');
+  test4.className = 'test ' + (user ? 'success' : 'error');
+  test4.innerHTML = `<strong>测试 4: 登录验证</strong><br>账号：${testUser}<br>密码：${testPass}<br>用户：${user ? user.name : '未找到'}<br>角色：${user ? user.role : '无'}`;
+  results.appendChild(test4);
+} catch (e) {
+  const test4 = document.createElement('div');
+  test4.className = 'test error';
+  test4.innerHTML = `<strong>测试 4: 登录验证</strong><br>错误：${e.message}`;
+  results.appendChild(test4);
+}
+</script>
+</body>
+</html>

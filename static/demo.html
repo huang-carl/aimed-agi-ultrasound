@@ -301,7 +301,8 @@
         <div class="top-nav-links">
             <a href="/">首页</a>
             <a href="/portal/">平台</a>
-            <a href="/portal/login.html">登录</a>
+            <a href="javascript:void(0)" id="navUser" style="opacity:0.8;"></a>
+            <a href="javascript:void(0)" id="navLogout" style="opacity:0.8;">退出</a>
         </div>
     </nav>
 
@@ -681,6 +682,56 @@
 </div>
 
 <script>
+// ======================
+// 登录检查 - 必须先登录才能访问演示
+// ======================
+(function() {
+    const loginStatus = localStorage.getItem('loginStatus');
+    if (!loginStatus) {
+        // 未登录，跳转到登录页，登录后跳回演示页
+        window.location.href = '/portal/login.html?redirect=demo.html';
+        return;
+    }
+    try {
+        const data = JSON.parse(loginStatus);
+        const loginTime = new Date(data.timestamp).getTime();
+        const now = Date.now();
+        // 登录超过24小时视为过期
+        if (now - loginTime > 24 * 60 * 60 * 1000) {
+            localStorage.removeItem('loginStatus');
+            window.location.href = '/portal/login.html?redirect=demo.html';
+            return;
+        }
+        // 显示当前登录用户
+        window.currentUser = data;
+    } catch(e) {
+        localStorage.removeItem('loginStatus');
+        window.location.href = '/portal/login.html?redirect=demo.html';
+    }
+})();
+
+// 显示登录用户信息
+(function() {
+    const data = window.currentUser;
+    if (data) {
+        const userName = data.username || data.identityId || '用户';
+        const roleLabel = data.roleLabel || '';
+        const navUser = document.getElementById('navUser');
+        if (navUser) {
+            navUser.textContent = `${userName} ${roleLabel}`;
+        }
+        const navLogout = document.getElementById('navLogout');
+        if (navLogout) {
+            navLogout.addEventListener('click', function() {
+                if (confirm('确定要退出登录吗？')) {
+                    localStorage.removeItem('loginStatus');
+                    window.location.href = '/portal/login.html?redirect=demo.html';
+                }
+            });
+        }
+    }
+})();
+
 // ======================
 // 核心数据结构 (融入共识)
 // ======================

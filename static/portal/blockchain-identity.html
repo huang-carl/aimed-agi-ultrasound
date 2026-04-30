@@ -464,19 +464,43 @@
             btn.innerHTML = '<span class="spinner" style="width:20px;height:20px;border-width:3px;margin:0"></span> 上链中...';
 
             try {
-                // 模拟区块链交易
+                // 调用 Hermes 后端区块链 API
+                const response = await fetch('/api/v1/blockchain/did/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        user_id: name,
+                        user_type: type,
+                        metadata: {
+                            name: name,
+                            certificate: certificate,
+                            contact: contact,
+                            extra: extra
+                        }
+                    })
+                });
+
+                const result = await response.json();
+                
+                if (!result.success) {
+                    throw new Error(result.detail || '注册失败');
+                }
+
+                // 构造身份对象
                 const identity = {
-                    id: generateId(),
+                    id: result.data.did,
                     type: getTypeLabel(type),
                     name: name,
                     certificate: certificate,
                     contact: contact,
                     extra: extra,
-                    timestamp: new Date().toISOString(),
-                    txHash: generateTxHash(),
-                    blockNumber: Math.floor(Math.random() * 1000000) + 10000000,
-                    confirmations: Math.floor(Math.random() * 12) + 1,
-                    status: 'verified'
+                    timestamp: result.data.timestamp,
+                    txHash: result.data.tx_hash,
+                    blockNumber: null,
+                    confirmations: null,
+                    status: 'verified',
+                    chain: result.data.chain,
+                    did: result.data.did
                 };
 
                 currentIdentity = identity;
@@ -487,7 +511,7 @@
                 showIdentity(identity);
                 showBlockchainInfo(identity);
                 updateStatus(identity);
-                showToast('身份已成功注册到区块链', 'success');
+                showToast('✅ 身份已成功注册到区块链！', 'success');
             } catch (e) {
                 showToast('注册失败：' + e.message, 'error');
             } finally {
@@ -530,24 +554,32 @@
 
         // 显示区块链信息
         function showBlockchainInfo(identity) {
+            const chainName = identity.chain === 'tencent_zhixin' ? '腾讯至信链' : 
+                             identity.chain === 'antchain' ? '蚂蚁链' : 
+                             identity.chain === 'fisco_bcos' ? 'FISCO BCOS' : 'AIMED Testnet';
+            
             document.getElementById('blockchainArea').innerHTML = `
                 <div class="blockchain-info">
                     <h4>⛓️ 链上存证信息</h4>
                     <div class="hash-row">
+                        <span class="label">DID</span>
+                        <span class="value" style="font-size:0.85em;word-break:break-all;">${identity.did || identity.id}</span>
+                    </div>
+                    <div class="hash-row">
                         <span class="label">交易哈希</span>
-                        <span class="value">${identity.txHash}</span>
+                        <span class="value" style="font-size:0.85em;word-break:break-all;">${identity.txHash}</span>
                     </div>
                     <div class="hash-row">
                         <span class="label">区块高度</span>
-                        <span class="value">#${identity.blockNumber}</span>
+                        <span class="value">${identity.blockNumber || '待确认'}</span>
                     </div>
                     <div class="hash-row">
                         <span class="label">确认数</span>
-                        <span class="value">${identity.confirmations} 个确认</span>
+                        <span class="value">${identity.confirmations || '待确认'} 个确认</span>
                     </div>
                     <div class="hash-row">
                         <span class="label">网络</span>
-                        <span class="value">AIMED Testnet (模拟)</span>
+                        <span class="value">${chainName}</span>
                     </div>
                     <div class="hash-row">
                         <span class="label">存证内容</span>

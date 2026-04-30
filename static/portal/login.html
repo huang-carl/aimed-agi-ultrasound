@@ -425,7 +425,9 @@
                 showToast('登录成功！欢迎回来，' + username, 'success');
                 
                 setTimeout(() => {
-                    window.location.href = getRedirectUrl(selectedRole);
+                    const params = new URLSearchParams(window.location.search);
+                    const redirect = params.get('redirect');
+                    window.location.href = redirect ? '/' + redirect : getRedirectUrl(selectedRole);
                 }, 800);
             } catch (e) {
                 showToast('登录失败：' + e.message, 'error');
@@ -447,29 +449,75 @@
                 return;
             }
 
-            const identityHistory = JSON.parse(localStorage.getItem('identityHistory') || '[]');
-            const identity = identityHistory.find(i => i.id === identityId);
-            
-            if (!identity) {
-                showToast('身份 ID 不存在，请先注册', 'error');
-                return;
+            try {
+                // 调用后端 API 验证 DID
+                const response = await fetch('/api/v1/blockchain/did/verify', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ did: identityId })
+                });
+
+                const result = await response.json();
+                
+                if (!result.success || !result.data.valid) {
+                    // 如果 API 验证失败，回退到本地检查
+                    const identityHistory = JSON.parse(localStorage.getItem('identityHistory') || '[]');
+                    const identity = identityHistory.find(i => i.id === identityId);
+                    
+                    if (!identity) {
+                        showToast('身份 ID 不存在，请先注册', 'error');
+                        return;
+                    }
+                    
+                    // 使用本地身份
+                    result.data = { valid: true, did: identityId, source: 'local' };
+                }
+
+                const loginData = {
+                    identityId: identityId,
+                    role: selectedRole,
+                    roleLabel: getRoleLabel(selectedRole),
+                    identity: result.data,
+                    timestamp: new Date().toISOString(),
+                    authMethod: 'blockchain'
+                };
+
+                localStorage.setItem('loginStatus', JSON.stringify(loginData));
+                showToast('✅ 区块链身份验证成功！', 'success');
+
+                setTimeout(() => {
+                    const params = new URLSearchParams(window.location.search);
+                    const redirect = params.get('redirect');
+                    window.location.href = redirect ? '/' + redirect : getRedirectUrl(selectedRole);
+                }, 800);
+            } catch (e) {
+                // API 不可用时，回退到本地检查
+                const identityHistory = JSON.parse(localStorage.getItem('identityHistory') || '[]');
+                const identity = identityHistory.find(i => i.id === identityId);
+                
+                if (!identity) {
+                    showToast('身份 ID 不存在，请先注册', 'error');
+                    return;
+                }
+
+                const loginData = {
+                    identityId: identityId,
+                    role: selectedRole,
+                    roleLabel: getRoleLabel(selectedRole),
+                    identity: identity,
+                    timestamp: new Date().toISOString(),
+                    authMethod: 'blockchain'
+                };
+
+                localStorage.setItem('loginStatus', JSON.stringify(loginData));
+                showToast('✅ 区块链身份验证成功！', 'success');
+
+                setTimeout(() => {
+                    const params = new URLSearchParams(window.location.search);
+                    const redirect = params.get('redirect');
+                    window.location.href = redirect ? '/' + redirect : getRedirectUrl(selectedRole);
+                }, 800);
             }
-
-            const loginData = {
-                identityId: identityId,
-                role: selectedRole,
-                roleLabel: getRoleLabel(selectedRole),
-                identity: identity,
-                timestamp: new Date().toISOString(),
-                authMethod: 'blockchain'
-            };
-
-            localStorage.setItem('loginStatus', JSON.stringify(loginData));
-            showToast('✅ 区块链身份验证成功！', 'success');
-
-            setTimeout(() => {
-                window.location.href = getRedirectUrl(selectedRole);
-            }, 800);
         }
 
         function getRoleLabel(role) {
@@ -508,7 +556,9 @@
                 const loginTime = new Date(data.timestamp).getTime();
                 const now = Date.now();
                 if (now - loginTime < 24 * 60 * 60 * 1000) {
-                    window.location.href = getRedirectUrl(data.role);
+                    const params = new URLSearchParams(window.location.search);
+                    const redirect = params.get('redirect');
+                    window.location.href = redirect ? '/' + redirect : getRedirectUrl(data.role);
                 } else {
                     localStorage.removeItem('loginStatus');
                 }

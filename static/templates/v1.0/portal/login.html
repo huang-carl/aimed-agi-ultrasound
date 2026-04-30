@@ -425,7 +425,8 @@
                 showToast('登录成功！欢迎回来，' + username, 'success');
                 
                 setTimeout(() => {
-                    window.location.href = getRedirectUrl(selectedRole);
+                    const redirect = getRedirectParam();
+                    window.location.href = redirect ? '/' + redirect : getRedirectUrl(selectedRole);
                 }, 800);
             } catch (e) {
                 showToast('登录失败：' + e.message, 'error');
@@ -468,7 +469,8 @@
             showToast('✅ 区块链身份验证成功！', 'success');
 
             setTimeout(() => {
-                window.location.href = getRedirectUrl(selectedRole);
+                const redirect = getRedirectParam();
+                window.location.href = redirect ? '/' + redirect : getRedirectUrl(selectedRole);
             }, 800);
         }
 
@@ -500,6 +502,12 @@
             setTimeout(() => toast.remove(), 3000);
         }
 
+        // 获取 redirect 参数
+        function getRedirectParam() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('redirect');
+        }
+
         // 检查是否已登录
         document.addEventListener('DOMContentLoaded', () => {
             const loginStatus = localStorage.getItem('loginStatus');
@@ -508,7 +516,8 @@
                 const loginTime = new Date(data.timestamp).getTime();
                 const now = Date.now();
                 if (now - loginTime < 24 * 60 * 60 * 1000) {
-                    window.location.href = getRedirectUrl(data.role);
+                    const redirect = getRedirectParam();
+                    window.location.href = redirect ? '/' + redirect : getRedirectUrl(data.role);
                 } else {
                     localStorage.removeItem('loginStatus');
                 }
