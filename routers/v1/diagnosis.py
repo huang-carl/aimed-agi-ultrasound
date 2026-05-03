@@ -1,5 +1,7 @@
 """
-诊断 API v1 - 仅 NVIDIA 模型（Python 3.6 兼容）
+诊断 API v2 - V2.0 架构
+通过 Orchestrator + Agent 处理诊断请求
+支持多模型路由（NVIDIA / DashScope / Mock）
 """
 
 from fastapi import APIRouter, HTTPException
@@ -8,22 +10,13 @@ from typing import Optional, Dict, Any
 from datetime import datetime
 import uuid
 import os
-import sys
 
-# 添加项目路径
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
-
-from services.nvidia_service import NVIDIAClient, DualModelService
+from agents.conductor_agent import conductor_agent
+from agents.stomach_agent import stomach_agent
+from agents.pancreas_agent import pancreas_agent
+from agents.base_agent import AgentMessage
 
 router = APIRouter()
-
-# 初始化 NVIDIA 客户端
-nvidia_client = None
-if os.getenv('NVIDIA_API_KEY'):
-    try:
-        nvidia_client = NVIDIAClient()
-    except Exception as e:
-        print(f"NVIDIA 客户端初始化失败：{e}")
 
 
 class DiagnosisRequest(BaseModel):
@@ -32,7 +25,7 @@ class DiagnosisRequest(BaseModel):
     image_description: str  # 影像描述
     context: Optional[str] = ""  # 额外上下文（病历等）
     model_preference: Optional[str] = "nvidia"  # 模型偏好：nvidia/mock
-    filling_status: Optional[str] = "已充盈"  # 充盈状态：必须为已充盈
+    filling_status: Optional[str] = "已充盈"  # 充盈状态
 
 
 class DiagnosisResponse(BaseModel):
@@ -44,10 +37,11 @@ class DiagnosisResponse(BaseModel):
     probability: float
     suggestion: str
     image_quality: str
-    mode: str  # 使用的模型：nvidia/mock
-    model: Optional[str] = None  # 具体模型名称
-    timestamp: str  # ISO 格式时间字符串
-    raw_text: Optional[str] = None  # 原始诊断文本
+    mode: str
+    model: Optional[str] = None
+    timestamp: str
+    raw_text: Optional[str] = None
+    agent_version: str = "2.0"
 
 
 def mock_diagnose(organ: str, image_description: str) -> Dict[str, Any]:
@@ -64,7 +58,6 @@ def mock_diagnose(organ: str, image_description: str) -> Dict[str, Any]:
             'suggestion': '未见明显异常，建议定期体检'
         }
     }
-    
     result = mock_results.get(organ, mock_results['胃'])
     return {
         'organ': organ,
@@ -80,33 +73,25 @@ def mock_diagnose(organ: str, image_description: str) -> Dict[str, Any]:
 @router.post("/diagnose", response_model=DiagnosisResponse, tags=["v1-诊断服务"])
 async def diagnose(request: DiagnosisRequest):
     """
-    AI 诊断接口 v1（NVIDIA 模型）
+    AI 诊断接口 v2 (V2.0 架构)
     
-    支持器官：
-    - 胃 (stomach)
-    - 胰腺 (pancreas)
-    
-    降级机制：
-    - NVIDIA API 故障时自动降级到 Mock 模式
+    通过 Orchestrator + Agent 处理诊断请求
+    支持器官：胃 (stomach) / 胰腺 (pancreas)
+    降级机制：NVIDIA → DashScope → Mock
     """
     try:
-        # 验证器官类型
         organ_map = {
-            "胃": "胃",
-            "stomach": "胃",
-            "胰腺": "胰腺",
-            "pancreas": "胰腺"
+            "胃": "胃", "stomach": "胃",
+            "胰腺": "胰腺", "pancreas": "胰腺"
         }
         
         if request.organ not in organ_map:
-            raise HTTPException(
-                status_code=400,
-                detail=f"不支持的器官类型：{request.organ}，支持：胃/stomach/胰腺/pancreas"
-            )
+            raise HTTPException(status_code=400,
+                detail=f"不支持的器官类型：{request.organ}")
         
         organ_cn = organ_map[request.organ]
         
-        # 检查充盈状态 - 只接受已充盈
+        # 检查充盈状态
         if request.filling_status != "已充盈":
             return DiagnosisResponse(
                 success=False,
@@ -122,47 +107,30 @@ async def diagnose(request: DiagnosisRequest):
                 raw_text=None
             )
         
-        # 调用 NVIDIA 诊断
-        if nvidia_client and request.model_preference != 'mock':
-            result = nvidia_client.diagnose(
-                organ=organ_cn,
-                image_description=request.image_description,
-                context=request.context or ""
-            )
-            
-            if result.get('success'):
-                return DiagnosisResponse(
-                    success=True,
-                    task_id=f"diag_{datetime.now().strftime('%Y%m%d%H%M%S')}_{uuid.uuid4().hex[:8]}",
-                    organ=organ_cn,
-                    disease=result['diagnosis'].get('disease', '待明确诊断'),
-                    probability=float(result['diagnosis'].get('probability', 0.8)),
-                    suggestion=result['diagnosis'].get('suggestion', '建议进一步检查'),
-                    image_quality='good',
-                    mode='nvidia',
-                    model=result.get('model', 'meta/llama-3.3-70b-instruct'),
-                    timestamp=datetime.now().isoformat(),  # Python 3.6 兼容
-                    raw_text=result['diagnosis'].get('raw_text', '')
-                )
-            else:
-                # NVIDIA 失败，降级到 Mock
-                print(f"NVIDIA 诊断失败：{result.get('error')}，降级到 Mock")
-                mock_result = mock_diagnose(organ_cn, request.image_description)
-                return DiagnosisResponse(
-                    success=True,  # Mock 成功
-                    task_id=f"diag_{datetime.now().strftime('%Y%m%d%H%M%S')}_{uuid.uuid4().hex[:8]}",
-                    organ=organ_cn,
-                    disease=mock_result['disease'],
-                    probability=mock_result['probability'],
-                    suggestion=mock_result['suggestion'],
-                    image_quality=mock_result['image_quality'],
-                    mode='mock',
-                    model='mock',
-                    timestamp=datetime.now().isoformat(),
-                    raw_text=None
-                )
-        else:
-            # 强制使用 Mock
+        # 通过对应 Agent 处理诊断
+        agent_map = {"胃": stomach_agent, "胰腺": pancreas_agent}
+        agent = agent_map.get(organ_cn)
+        
+        if not agent:
+            raise HTTPException(status_code=400, detail=f"未找到 {organ_cn} 诊断 Agent")
+        
+        # 构建诊断消息
+        message = AgentMessage(
+            sender_id="diagnosis_api",
+            receiver_id=agent.agent_id,
+            message_type="diagnose",
+            payload={
+                "image_data": None,  # 文本描述模式，无图像
+                "image_format": "text",
+                "image_description": request.image_description,
+                "context": request.context or ""
+            }
+        )
+        
+        response = await agent.process(message)
+        
+        if response.message_type == "error":
+            # Agent 失败，降级到 Mock
             mock_result = mock_diagnose(organ_cn, request.image_description)
             return DiagnosisResponse(
                 success=True,
@@ -178,10 +146,27 @@ async def diagnose(request: DiagnosisRequest):
                 raw_text=None
             )
         
+        result = response.payload
+        mode = result.get('mode', 'agent_v2')
+        model_name = result.get('ai_model', f"{agent.agent_id}_v2.0")
+        
+        return DiagnosisResponse(
+            success=True,
+            task_id=f"diag_{datetime.now().strftime('%Y%m%d%H%M%S')}_{uuid.uuid4().hex[:8]}",
+            organ=result.get("organ", organ_cn),
+            disease=result.get("diagnosis", "待明确诊断"),
+            probability=result.get("probability", 0.8),
+            suggestion=result.get("suggestion", "建议进一步检查"),
+            image_quality=result.get("image_quality", {}).get("level", "good") if isinstance(result.get("image_quality"), dict) else "good",
+            mode=mode,
+            model=model_name,
+            timestamp=datetime.now().isoformat(),
+            raw_text=None
+        )
+        
     except HTTPException:
         raise
     except Exception as e:
-        # 未知错误，返回 Mock 结果
         print(f"诊断异常：{str(e)}")
         mock_result = mock_diagnose(organ_cn, request.image_description)
         return DiagnosisResponse(
@@ -201,12 +186,31 @@ async def diagnose(request: DiagnosisRequest):
 
 @router.get("/models", tags=["v1-诊断服务"])
 async def get_available_models():
-    """
-    获取可用模型列表
-    """
-    models = []
+    """获取可用模型/Agent 列表"""
+    models = [
+        {
+            "name": "Stomach Agent V2.0",
+            "id": "stomach_v2",
+            "provider": "local",
+            "capabilities": ["stomach_diagnosis", "image_quality_check", "lesion_detection"],
+            "status": "available"
+        },
+        {
+            "name": "Pancreas Agent V2.0",
+            "id": "pancreas_v2",
+            "provider": "local",
+            "capabilities": ["pancreas_diagnosis", "image_quality_check", "organ_segmentation", "risk_prediction"],
+            "status": "available"
+        },
+        {
+            "name": "Report Agent V2.0",
+            "id": "report_v2",
+            "provider": "local",
+            "capabilities": ["report_generation", "multi_language_support", "pdf_export"],
+            "status": "available"
+        }
+    ]
     
-    # NVIDIA
     if os.getenv('NVIDIA_API_KEY'):
         models.append({
             "name": "NVIDIA Llama-3.3-70B",
@@ -216,17 +220,8 @@ async def get_available_models():
             "status": "available"
         })
     
-    # Mock 模式始终可用
-    models.append({
-        "name": "Mock 模式",
-        "id": "mock",
-        "provider": "local",
-        "context_length": "N/A",
-        "status": "available"
-    })
-    
     return {
         "models": models,
-        "routing_mode": "nvidia",
-        "mock_mode": os.getenv('MOCK_MODE', 'true').lower() == 'true'
+        "architecture": "V2.0 (Agent Swarm)",
+        "agents_registered": len(conductor_agent.agent_registry) + 3  # +3 for stomach/pancreas/report
     }

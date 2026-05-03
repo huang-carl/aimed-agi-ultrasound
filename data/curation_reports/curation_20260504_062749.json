@@ -1,0 +1,24 @@
+{
+  "generated_at": "2026-05-04T06:27:49.495713",
+  "feedback_count": 1,
+  "patterns": {
+    "format_issues": 1,
+    "accuracy_issues": 0,
+    "communication_issues": 0,
+    "suggestions": 1
+  },
+  "updates": [
+    {
+      "skill": "diagnostic-report-standard",
+      "action": "update",
+      "reason": "发现 1 个格式问题反馈",
+      "suggested_changes": "- 在报告中增加病变位置示意图"
+    },
+    {
+      "skill": "new_skill",
+      "action": "create",
+      "reason": "收到 1 个 skill 创建建议",
+      "suggested_changes": "- 在报告中增加病变位置示意图"
+    }
+  ]
+}

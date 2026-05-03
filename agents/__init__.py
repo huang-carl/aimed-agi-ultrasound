@@ -1,6 +1,16 @@
-from agents.conductor_agent import ConductorAgent
-from agents.stomach_agent import StomachAgent
-from agents.pancreas_agent import PancreasAgent
-from agents.report_agent import ReportAgent
+"""
+AIMED Agent Swarm - Agent 模块
+"""
 
-__all__ = ["ConductorAgent", "StomachAgent", "PancreasAgent", "ReportAgent"]
+from .base_agent import BaseAgent, DiagnosticAgent, SupportAgent, AgentMessage
+from .message_bus import MessageBus
+from .orchestrator import AgentOrchestrator
+
+__all__ = [
+    'BaseAgent',
+    'DiagnosticAgent', 
+    'SupportAgent',
+    'AgentMessage',
+    'MessageBus',
+    'AgentOrchestrator'
+]

@@ -59,9 +59,10 @@ from agents.conductor_agent import conductor_agent
 from agents.stomach_agent import stomach_agent
 from agents.pancreas_agent import pancreas_agent
 from agents.report_agent import report_agent
+from agents.orchestrator import AgentOrchestrator
 
 # ===== 导入路由层 =====
-from routers.v1 import diagnosis, conductor, cases, stomach, pancreas, report, blockchain
+from routers.v1 import diagnosis, conductor, cases, stomach, pancreas, report, blockchain, chat, workflow_test, auth, knowledge, upload, feedback
 
 # 创建 FastAPI 应用
 app = FastAPI(
@@ -87,12 +88,14 @@ vector_search = None
 segmentation_service = None
 model_router = None
 key_pool = None
+orchestrator = None
+skill_manager = None
 
 
 @app.on_event("startup")
 async def startup_event():
     """应用启动事件 - 分层初始化"""
-    global diagnosis_service, vector_search, segmentation_service, model_router, key_pool
+    global diagnosis_service, vector_search, segmentation_service, model_router, key_pool, orchestrator
     
     print("=" * 60)
     print("AIMED Hermes 后端启动 v2.1.0")
@@ -124,7 +127,7 @@ async def startup_event():
         try:
             vector_search = VectorSearchService(
                 provider="chromadb",
-                persist_dir="./data/vectors/medical"
+                persist_dir="./data/vectors"
             )
             print(f"✅ 向量检索服务已初始化 - 文档数: {vector_search.get_stats().get('document_count', 0)}")
         except Exception as e:
@@ -155,6 +158,32 @@ async def startup_event():
     except Exception as e:
         print(f"⚠️ 智能体注册失败: {e}")
     
+    # 6.5 初始化 Orchestrator（V2.0 架构）
+    try:
+        orchestrator_config = {
+            'max_workers': 4,
+            'timeout_seconds': 300,
+            'enable_message_bus': True
+        }
+        orchestrator = AgentOrchestrator(orchestrator_config)
+        orchestrator.register_agent(conductor_agent)
+        orchestrator.register_agent(stomach_agent)
+        orchestrator.register_agent(pancreas_agent)
+        orchestrator.register_agent(report_agent)
+        orchestrator.initialize_default_workflows()
+        orchestrator.start()
+        print(f"✅ Orchestrator 初始化完成 - {len(orchestrator.message_bus.agents)} 个 Agent")
+    except Exception as e:
+        print(f"⚠️ Orchestrator 初始化失败: {e}")
+    
+    # 6.6 初始化 Skills 管理器
+    try:
+        from services.skill_manager import get_skill_manager
+        skill_manager = get_skill_manager()
+        print(f"✅ Skills 管理器已初始化 - {len(skill_manager.skills)} 个技能")
+    except Exception as e:
+        print(f"⚠️ Skills 管理器初始化失败: {e}")
+    
     # 7. 挂载路由层
     try:
         app.include_router(diagnosis.router, prefix="/api/v1/diagnosis", tags=["v1-诊断服务"])
@@ -164,7 +193,13 @@ async def startup_event():
         app.include_router(pancreas.router, prefix="/api/v1/pancreas", tags=["v1-胰腺诊断"])
         app.include_router(report.router, prefix="/api/v1/report", tags=["v1-报告生成"])
         app.include_router(blockchain.router, prefix="/api/v1", tags=["v1-区块链服务"])
-        print("✅ API 路由层已挂载 (6 个路由组)")
+        app.include_router(chat.router, prefix="/api/v1", tags=["v1-聊天服务"])
+        app.include_router(workflow_test.router, prefix="/api/v1/test", tags=["v1-工作流测试"])
+        app.include_router(auth.router, prefix="/api/v1", tags=["v1-认证与授权"])
+        app.include_router(knowledge.router, prefix="/api/v1", tags=["v1-统一知识库"])
+        app.include_router(upload.router, prefix="/api/v1/upload", tags=["v1-文件上传"])
+        app.include_router(feedback.router, prefix="/api/v1", tags=["v1-用户反馈"])
+        print("✅ API 路由层已挂载 (8 个路由组)")
     except Exception as e:
         print(f"⚠️ 路由挂载失败: {e}")
     
@@ -270,6 +305,9 @@ async def get_status():
     
     if key_pool:
         status["key_pool"] = key_pool.get_stats()
+    
+    if orchestrator:
+        status["orchestrator"] = orchestrator.get_statistics()
     
     return status
 

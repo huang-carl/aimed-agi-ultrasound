@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIMED 智慧医疗生态系统管理平台</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Microsoft YaHei','PingFang SC',sans-serif; background:#f0f2f5; }
+
+/* 登录页 */
+#loginPage {
+  display:flex; align-items:center; justify-content:center;
+  height:100vh; background:linear-gradient(135deg,#1a3a5c 0%,#1a1a2e 100%);
+}
+.login-box {
+  background:#fff; border-radius:16px; padding:48px 40px; width:400px;
+  box-shadow:0 20px 60px rgba(0,0,0,.3); text-align:center;
+}
+.login-box .logo {
+  width:64px; height:64px; background:linear-gradient(135deg,#1a3a5c,#2980b9);
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  margin:0 auto 16px; font-size:28px;
+}
+.login-box h1 { font-size:20px; color:#1a3a5c; margin-bottom:4px; }
+.login-box p { color:#888; font-size:13px; margin-bottom:24px; }
+
+.field { margin-bottom:16px; text-align:left; }
+.field label { display:block; font-size:12px; color:#666; margin-bottom:6px; font-weight:500; }
+.field input {
+  width:100%; padding:10px 12px; border:1.5px solid #ddd; border-radius:8px;
+  font-size:14px; transition:.2s;
+}
+.field input:focus { outline:none; border-color:#2980b9; box-shadow:0 0 0 3px rgba(41,128,185,.1); }
+
+.btn {
+  display:inline-flex; align-items:center; justify-content:center; gap:6px;
+  padding:11px 24px; border:none; border-radius:8px; font-size:14px;
+  font-weight:600; cursor:pointer; transition:.2s; width:100%;
+}
+.btn-primary { background:#1a3a5c; color:#fff; }
+.btn-primary:hover { background:#143152; }
+
+.toast {
+  position:fixed; top:20px; left:50%; transform:translateX(-50%);
+  padding:12px 24px; border-radius:8px; font-size:14px; font-weight:600;
+  z-index:9999; opacity:0; transition:.3s; pointer-events:none;
+}
+.toast.show { opacity:1; }
+.toast.success { background:#d1fae5; color:#047857; }
+.toast.error { background:#fee2e2; color:#c0392b; }
+.toast.warning { background:#fef3c7; color:#92400e; }
+
+.hidden { display:none !important; }
+
+/* 主应用 */
+#mainApp { display:flex; height:100vh; }
+.sidebar {
+  width:220px; background:linear-gradient(180deg,#1a1a2e 0%,#1a3a5c 100%);
+  color:#fff; padding:20px 0; overflow-y:auto;
+}
+.sidebar .user-info {
+  padding:0 20px 20px; border-bottom:1px solid rgba(255,255,255,.1);
+  margin-bottom:16px;
+}
+.sidebar .user-info .name { font-size:16px; font-weight:700; }
+.sidebar .user-info .company { font-size:12px; opacity:.7; margin-top:4px; }
+.sidebar .user-info .role {
+  display:inline-block; padding:2px 8px; border-radius:12px; font-size:11px;
+  margin-top:8px; background:rgba(255,255,255,.2);
+}
+
+.nav-item {
+  padding:10px 20px; cursor:pointer; transition:.2s; font-size:14px;
+  display:flex; align-items:center; gap:10px;
+}
+.nav-item:hover { background:rgba(255,255,255,.1); }
+.nav-item.active { background:rgba(255,255,255,.15); font-weight:600; }
+.nav-item .icon { font-size:16px; }
+
+.main-content { flex:1; padding:24px; overflow-y:auto; background:#f0f2f5; }
+.main-content h2 { font-size:20px; color:#1a3a5c; margin-bottom:16px; }
+
+.card {
+  background:#fff; border-radius:12px; padding:20px; margin-bottom:16px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+.card h3 { font-size:16px; color:#1a3a5c; margin-bottom:12px; }
+
+.stat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin-bottom:24px; }
+.stat-card {
+  background:linear-gradient(135deg,#1a3a5c,#2980b9); color:#fff;
+  border-radius:12px; padding:20px;
+}
+.stat-card .number { font-size:32px; font-weight:700; }
+.stat-card .label { font-size:13px; opacity:.8; margin-top:4px; }
+
+table { width:100%; border-collapse:collapse; }
+th, td { padding:10px 12px; text-align:left; border-bottom:1px solid #eee; font-size:13px; }
+th { background:#f4f6f8; font-weight:600; color:#1a3a5c; }
+tr:hover { background:#f8f9fa; }
+
+.btn-sm { padding:6px 14px; font-size:12px; width:auto; }
+.btn-danger { background:#fee2e2; color:#c0392b; }
+.btn-danger:hover { background:#fecaca; }
+.btn-success { background:#d1fae5; color:#047857; }
+.btn-success:hover { background:#a7f3d0; }
+</style>
+</head>
+<body>
+
+<!-- 登录页 -->
+<div id="loginPage">
+  <div class="login-box">
+    <div class="logo">🏥</div>
+    <h1>AIMED 智慧医疗生态系统</h1>
+    <p>统一管理平台 · 多公司协同运营</p>
+    <div class="field">
+      <label>账号</label>
+      <input type="text" id="loginUser" placeholder="输入账号" autofocus>
+    </div>
+    <div class="field">
+      <label>密码</label>
+      <input type="password" id="loginPass" placeholder="输入密码" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="btn btn-primary" onclick="doLogin()">登 录</button>
+    <p style="margin-top:16px;font-size:12px;color:#aaa;">默认账号：hw / aimed2026</p>
+  </div>
+</div>
+
+<!-- 主应用 -->
+<div id="mainApp" class="hidden">
+  <div class="sidebar">
+    <div class="user-info">
+      <div class="name" id="userName">-</div>
+      <div class="company" id="userCompany">-</div>
+      <div class="role" id="userRole">-</div>
+    </div>
+    <div class="nav-item active" onclick="showSection('dashboard')">
+      <span class="icon">📊</span><span>仪表盘</span>
+    </div>
+    <div class="nav-item" onclick="showSection('documents')">
+      <span class="icon">📄</span><span>文档管理</span>
+    </div>
+    <div class="nav-item" onclick="showSection('upload')">
+      <span class="icon">📤</span><span>上传文件</span>
+    </div>
+    <div class="nav-item" onclick="showSection('products')">
+      <span class="icon">📦</span><span>产品管理</span>
+    </div>
+    <div class="nav-item" onclick="showSection('sales')">
+      <span class="icon">💼</span><span>销售管理</span>
+    </div>
+    <div class="nav-item" onclick="showSection('users')" id="navUsers">
+      <span class="icon">👥</span><span>用户管理</span>
+    </div>
+    <div class="nav-item" onclick="showSection('settings')">
+      <span class="icon">⚙️</span><span>系统设置</span>
+    </div>
+    <div class="nav-item" onclick="doLogout()" style="margin-top:20px;border-top:1px solid rgba(255,255,255,.1);padding-top:16px;">
+      <span class="icon">🚪</span><span>退出登录</span>
+    </div>
+  </div>
+  <div class="main-content">
+    <div id="section-dashboard">
+      <h2>📊 仪表盘</h2>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="number" id="statDocs">0</div>
+          <div class="label">文档总数</div>
+        </div>
+        <div class="stat-card">
+          <div class="number" id="statUsers">0</div>
+          <div class="label">用户数量</div>
+        </div>
+        <div class="stat-card">
+          <div class="number" id="statCompanies">5</div>
+          <div class="label">成员企业</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>欢迎使用 AIMED 智慧医疗生态系统管理平台</h3>
+        <p style="color:#666;font-size:14px;line-height:1.8;">
+          本平台管理五家成员企业：天下牌·东亚医药、国械恒发、阿尔麦德、阿尔麦德上海、和七汇企业。<br>
+          当前登录：<strong id="welcomeUser">-</strong> | 公司：<strong id="welcomeCompany">-</strong>
+        </p>
+      </div>
+    </div>
+
+    <div id="section-documents" class="hidden">
+      <h2>📄 文档管理</h2>
+      <div class="card">
+        <table>
+          <thead><tr><th>文件名</th><th>公司</th><th>类型</th><th>日期</th></tr></thead>
+          <tbody id="docTable"><tr><td colspan="4" style="text-align:center;color:#aaa;">暂无文档</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="section-upload" class="hidden">
+      <h2>📤 上传文件</h2>
+      <div class="card">
+        <p style="color:#666;font-size:14px;">文件上传功能开发中...</p>
+      </div>
+    </div>
+
+    <!-- 产品管理 -->
+    <div id="section-products" class="hidden">
+      <h2>📦 产品管理</h2>
+      <div class="stat-grid" style="margin-bottom:24px;">
+        <div class="stat-card">
+          <div class="number" style="font-size:28px;">💊</div>
+          <div class="label">口服造影剂系列</div>
+          <div style="font-size:12px;color:#888;margin-top:4px;">胰腺型 · 胃肠型 · 胆管型</div>
+        </div>
+        <div class="stat-card">
+          <div class="number" style="font-size:28px;">🌿</div>
+          <div class="label">龙脑抑菌液</div>
+          <div style="font-size:12px;color:#888;margin-top:4px;">天下牌 · 天然植物</div>
+        </div>
+        <div class="stat-card">
+          <div class="number" style="font-size:28px;">🤖</div>
+          <div class="label">AI 诊断系统</div>
+          <div style="font-size:12px;color:#888;margin-top:4px;">FillingVision · V2.1</div>
+        </div>
+        <div class="stat-card">
+          <div class="number" style="font-size:28px;">🔗</div>
+          <div class="label">区块链服务</div>
+          <div style="font-size:12px;color:#888;margin-top:4px;">DID · 存证 · 验证</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <h3 style="margin-bottom:12px;">💊 口服超声造影剂系列</h3>
+        <table>
+          <thead><tr><th>产品名</th><th>类型</th><th>适用器官</th><th>状态</th><th>认证</th></tr></thead>
+          <tbody>
+            <tr><td>AIMED 胰腺型造影剂</td><td>口服</td><td>胰腺</td><td><span style="color:#10b981;">研发中</span></td><td>Phase 1</td></tr>
+            <tr><td>AIMED 胃肠型造影剂</td><td>口服</td><td>胃/肠道</td><td><span style="color:#10b981;">研发中</span></td><td>Phase 1</td></tr>
+            <tr><td>AIMED 胆管型造影剂</td><td>口服</td><td>胆管</td><td><span style="color:#f59e0b;">规划中</span></td><td>Phase 2</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <h3 style="margin-bottom:12px;">🌿 龙脑抑菌液（天下牌）</h3>
+        <table>
+          <thead><tr><th>产品名</th><th>规格</th><th>功效</th><th>状态</th><th>认证</th></tr></thead>
+          <tbody>
+            <tr><td>龙脑抑菌液 标准装</td><td>40ml × 6</td><td>2分钟抑菌率 97.86%</td><td><span style="color:#10b981;">已上市</span></td><td>浙卫消证字 (2024) 第 0010 号</td></tr>
+            <tr><td>龙脑抑菌液 便携装</td><td>20ml × 12</td><td>20分钟抑菌率 99.98%</td><td><span style="color:#10b981;">已上市</span></td><td>浙卫消证字 (2024) 第 0010 号</td></tr>
+            <tr><td>天下牌消毒喷雾</td><td>100ml</td><td>医院感染控制</td><td><span style="color:#f59e0b;">规划中</span></td><td>待认证</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:12px;padding:12px;background:#f0fdf4;border-radius:8px;font-size:13px;color:#047857;">
+          <strong>产品特点：</strong>精选天然龙脑叶提取精华，纯植物配方，温和无刺激。经权威机构检测，2 分钟抑菌率达 97.86%，20 分钟抑菌率超 99.98%。适用于慢性鼻炎辅助治疗、痔疮护理、医院感染控制、皮肤病防治等场景。
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <h3 style="margin-bottom:12px;">🤖 AI 诊断系统</h3>
+        <table>
+          <thead><tr><th>模块</th><th>版本</th><th>功能</th><th>状态</th></tr></thead>
+          <tbody>
+            <tr><td>FillingVision 诊断系统</td><td>V2.1</td><td>胃/胰腺 AI 诊断</td><td><span style="color:#10b981;">已部署</span></td></tr>
+            <tr><td>向量检索服务</td><td>V1.0</td><td>ChromaDB RAG 增强</td><td><span style="color:#10b981;">已部署</span></td></tr>
+            <tr><td>图像分割服务</td><td>V1.0</td><td>SAM ViT-B 分割</td><td><span style="color:#10b981;">已部署</span></td></tr>
+            <tr><td>区块链身份</td><td>V1.0</td><td>FISCO BCOS DID</td><td><span style="color:#10b981;">已部署</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 销售管理 -->
+    <div id="section-sales" class="hidden">
+      <h2>💼 销售管理</h2>
+      <div class="stat-grid" style="margin-bottom:24px;">
+        <div class="stat-card">
+          <div class="number" style="font-size:28px;">🎯</div>
+          <div class="label">目标市场</div>
+          <div style="font-size:12px;color:#888;margin-top:4px;">基层医疗 · 体检中心 · 医院</div>
+        </div>
+        <div class="stat-card">
+          <div class="number" style="font-size:28px;">🏥</div>
+          <div class="label">合作机构</div>
+          <div style="font-size:12px;color:#888;margin-top:4px;">4 家试点</div>
+        </div>
+        <div class="stat-card">
+          <div class="number" style="font-size:28px;">📊</div>
+          <div class="label">销售阶段</div>
+          <div style="font-size:12px;color:#888;margin-top:4px;">Phase 1 验证期</div>
+        </div>
+        <div class="stat-card">
+          <div class="number" style="font-size:28px;">📋</div>
+          <div class="label">培训资料</div>
+          <div style="font-size:12px;color:#888;margin-top:4px;">知识库销售专区</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <h3 style="margin-bottom:12px;">🎯 目标市场定位</h3>
+        <table>
+          <thead><tr><th>市场</th><th>目标客户</th><th>产品组合</th><th>阶段</th></tr></thead>
+          <tbody>
+            <tr><td>基层医疗</td><td>社区卫生服务中心/乡镇卫生院</td><td>造影剂 + AI 诊断</td><td><span style="color:#10b981;">验证中</span></td></tr>
+            <tr><td>体检中心</td><td>企事业单位团检/个人体检</td><td>造影剂 + 筛查</td><td><span style="color:#10b981;">验证中</span></td></tr>
+            <tr><td>三甲医院</td><td>消化科/胰腺外科</td><td>AI 诊断 + 报告</td><td><span style="color:#f59e0b;">规划中</span></td></tr>
+            <tr><td>公共卫生</td><td>区域普查项目</td><td>全套方案</td><td><span style="color:#f59e0b;">规划中</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <h3 style="margin-bottom:12px;">🏥 合作机构</h3>
+        <table>
+          <thead><tr><th>机构</th><th>类型</th><th>合作内容</th><th>状态</th></tr></thead>
+          <tbody>
+            <tr><td>南京大学</td><td>高校</td><td>AI 算法研发</td><td><span style="color:#10b981;">合作中</span></td></tr>
+            <tr><td>301 医院</td><td>三甲医院</td><td>临床验证</td><td><span style="color:#10b981;">合作中</span></td></tr>
+            <tr><td>湖州师范学院附属第一医院</td><td>基层医院</td><td>临床验证</td><td><span style="color:#10b981;">合作中</span></td></tr>
+            <tr><td>湖州市健康体检中心</td><td>体检中心</td><td>筛查验证</td><td><span style="color:#10b981;">合作中</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom:12px;">📋 销售培训资料</h3>
+        <p style="color:#666;font-size:14px;margin-bottom:12px;">销售团队必备知识，请访问 <a href="/portal/knowledge-base.html" target="_blank" style="color:var(--primary);">知识库 → 销售支持</a> 分类查看。</p>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;">
+          <div style="padding:12px;background:#f0f9ff;border-radius:8px;">
+            <strong>📦 产品知识手册</strong>
+            <p style="font-size:12px;color:#666;margin-top:4px;">造影剂/龙脑/AI 系统产品详解</p>
+          </div>
+          <div style="padding:12px;background:#f0fdf4;border-radius:8px;">
+            <strong>🎯 竞争分析</strong>
+            <p style="font-size:12px;color:#666;margin-top:4px;">市场竞品对比与差异化优势</p>
+          </div>
+          <div style="padding:12px;background:#fefce8;border-radius:8px;">
+            <strong>💬 客户问答</strong>
+            <p style="font-size:12px;color:#666;margin-top:4px;">常见客户问题标准回答</p>
+          </div>
+          <div style="padding:12px;background:#f3e8ff;border-radius:8px;">
+            <strong>📊 成功案例</strong>
+            <p style="font-size:12px;color:#666;margin-top:4px;">试点医院应用案例分享</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="section-users" class="hidden">
+      <h2>👥 用户管理</h2>
+      <div class="card">
+        <table>
+          <thead><tr><th>姓名</th><th>账号</th><th>角色</th><th>公司</th><th>状态</th></tr></thead>
+          <tbody id="userTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="section-settings" class="hidden">
+      <h2>⚙️ 系统设置</h2>
+      <div class="card">
+        <h3>平台信息</h3>
+        <p style="color:#666;font-size:14px;line-height:1.8;">
+          平台名称：AIMED 智慧医疗生态系统管理平台<br>
+          版本：v1.0<br>
+          成员企业：5 家<br>
+          数字员工：16 个
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="toast"></div>
+
+<script>
+// 常量
+const DB_KEY = 'aimed_ecosystem_db_v2';
+const SESSION_KEY = 'aimed_session_v2';
+
+// 密码哈希
+function hashPwd(p) { return btoa(encodeURIComponent(p + '_aimed_salt')); }
+function verifyPwd(p, h) { return hashPwd(p) === h; }
+
+// Toast 提示
+function toast(msg, type) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + type + ' show';
+  setTimeout(function(){ t.classList.remove('show'); }, 3000);
+}
+
+// 数据库
+function getDB() {
+  var raw = localStorage.getItem(DB_KEY);
+  if (raw) return JSON.parse(raw);
+  return initDB();
+}
+
+function saveDB(db) {
+  localStorage.setItem(DB_KEY, JSON.stringify(db));
+}
+
+function initDB() {
+  var db = {
+    version: '2.0',
+    created: '2026-04-30',
+    users: [
+      { id:'u1', name:'黄伟', user:'hw', pass:hashPwd('aimed2026'), role:'gm', company:'AIMED 智慧医疗生态', status:'active', note:'生态总监 · 超级管理员' },
+      { id:'u2', name:'东亚管理员', user:'admin', pass:hashPwd('aimed2026'), role:'admin', company:'东亚医药', status:'active', note:'天下牌管理员' },
+      { id:'u3', name:'恒发管理员', user:'admin', pass:hashPwd('aimed2026'), role:'admin', company:'国械恒发', status:'active', note:'造影剂管理员' },
+      { id:'u4', name:'麦德湖州管理员', user:'admin', pass:hashPwd('aimed2026'), role:'admin', company:'阿尔麦德', status:'active', note:'AI 系统管理员（湖州）' },
+      { id:'u5', name:'麦德上海管理员', user:'admin', pass:hashPwd('aimed2026'), role:'admin', company:'阿尔麦德上海', status:'active', note:'上海自贸区运营' },
+      { id:'u6', name:'和七汇管理员', user:'admin', pass:hashPwd('aimed2026'), role:'admin', company:'和七汇企业', status:'active', note:'合伙企业管理' },
+      { id:'u7', name:'东亚编辑', user:'editor_dy', pass:hashPwd('aimed2026'), role:'editor', company:'东亚医药', status:'active' },
+      { id:'u8', name:'东亚访客', user:'viewer_dy', pass:hashPwd('aimed2026'), role:'viewer', company:'东亚医药', status:'active' },
+      { id:'u9', name:'恒发编辑', user:'editor_gf', pass:hashPwd('aimed2026'), role:'editor', company:'国械恒发', status:'active' },
+      { id:'u10', name:'恒发访客', user:'viewer_gf', pass:hashPwd('aimed2026'), role:'viewer', company:'国械恒发', status:'active' },
+      { id:'u11', name:'麦德湖州编辑', user:'editor_mdlz', pass:hashPwd('aimed2026'), role:'editor', company:'阿尔麦德', status:'active' },
+      { id:'u12', name:'麦德湖州访客', user:'viewer_mdlz', pass:hashPwd('aimed2026'), role:'viewer', company:'阿尔麦德', status:'active' },
+      { id:'u13', name:'麦德上海编辑', user:'editor_mdsh', pass:hashPwd('aimed2026'), role:'editor', company:'阿尔麦德上海', status:'active' },
+      { id:'u14', name:'麦德上海访客', user:'viewer_mdsh', pass:hashPwd('aimed2026'), role:'viewer', company:'阿尔麦德上海', status:'active' },
+      { id:'u15', name:'和七汇编辑', user:'editor_hqh', pass:hashPwd('aimed2026'), role:'editor', company:'和七汇企业', status:'active' },
+      { id:'u16', name:'和七汇访客', user:'viewer_hqh', pass:hashPwd('aimed2026'), role:'viewer', company:'和七汇企业', status:'active' }
+    ],
+    documents: []
+  };
+  saveDB(db);
+  return db;
+}
+
+// 会话
+function getSession() {
+  var raw = sessionStorage.getItem(SESSION_KEY);
+  return raw ? JSON.parse(raw) : null;
+}
+
+function setSession(user) {
+  sessionStorage.setItem(SESSION_KEY, JSON.stringify(user));
+}
+
+function clearSession() {
+  sessionStorage.removeItem(SESSION_KEY);
+}
+
+// 登录 - 调用服务端 JWT 认证 API
+function doLogin() {
+  var u = document.getElementById('loginUser').value.trim();
+  var p = document.getElementById('loginPass').value;
+  if (!u || !p) { toast('请输入账号和密码', 'warning'); return; }
+  
+  // 先尝试服务端认证
+  fetch('/api/v1/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: u, password: p })
+  })
+  .then(function(res) {
+    if (!res.ok) throw new Error('登录失败');
+    return res.json();
+  })
+  .then(function(data) {
+    // 服务端认证成功，保存 JWT token
+    var token = data.access_token;
+    var user = {
+      id: data.user.id,
+      name: data.user.name,
+      user: data.user.username,
+      role: data.user.role,
+      company: data.user.company,
+      status: 'active',
+      token: token,
+      roleText: data.user.role_name
+    };
+    localStorage.setItem('jwt_token', token);
+    setSession(user);
+    showMainApp(user);
+    toast('欢迎回来，' + user.name + '！', 'success');
+  })
+  .catch(function(err) {
+    // 服务端不可用时，降级到本地认证（仅开发/调试）
+    console.warn('服务端认证不可用，降级到本地认证', err);
+    var db = getDB();
+    var user = null;
+    for (var i = 0; i < db.users.length; i++) {
+      if (db.users[i].user === u && verifyPwd(p, db.users[i].pass)) {
+        user = db.users[i];
+        break;
+      }
+    }
+    if (!user) {
+      toast('账号或密码错误', 'error');
+      return;
+    }
+    if (user.status === 'inactive') {
+      toast('账号已停用，请联系管理员', 'error');
+      return;
+    }
+    setSession(user);
+    showMainApp(user);
+    toast('欢迎回来，' + user.name + '！（本地模式）', 'success');
+  });
+}
+
+// 退出
+function doLogout() {
+  clearSession();
+  document.getElementById('loginPage').classList.remove('hidden');
+  document.getElementById('mainApp').classList.add('hidden');
+  toast('已退出登录', 'success');
+}
+
+// 显示主应用
+function showMainApp(user) {
+  document.getElementById('loginPage').classList.add('hidden');
+  document.getElementById('mainApp').classList.remove('hidden');
+  
+  document.getElementById('userName').textContent = user.name;
+  document.getElementById('userCompany').textContent = user.company;
+  
+  var roleText = user.role === 'gm' ? '生态总监' : user.role === 'admin' ? '管理员' : user.role === 'editor' ? '编辑者' : '访客';
+  document.getElementById('userRole').textContent = roleText;
+  
+  document.getElementById('welcomeUser').textContent = user.name;
+  document.getElementById('welcomeCompany').textContent = user.company;
+  
+  // 权限控制
+  var isAdmin = (user.role === 'gm' || user.role === 'admin');
+  document.getElementById('navUsers').style.display = isAdmin ? 'flex' : 'none';
+  
+  // 更新统计
+  var db = getDB();
+  document.getElementById('statDocs').textContent = db.documents.length;
+  document.getElementById('statUsers').textContent = db.users.length;
+  
+  // 渲染用户列表
+  renderUsers(db, user);
+  
+  // 默认显示仪表盘
+  showSection('dashboard');
+}
+
+// 渲染用户列表
+function renderUsers(db, currentUser) {
+  var tbody = document.getElementById('userTable');
+  var users = db.users;
+  
+  // 非 GM 只显示本公司用户
+  if (currentUser.role !== 'gm') {
+    users = users.filter(function(u) { return u.company === currentUser.company; });
+  }
+  
+  if (users.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#aaa;">暂无用户</td></tr>';
+    return;
+  }
+  
+  var html = '';
+  for (var i = 0; i < users.length; i++) {
+    var u = users[i];
+    var roleText = u.role === 'gm' ? '生态总监' : u.role === 'admin' ? '管理员' : u.role === 'editor' ? '编辑者' : '访客';
+    var statusText = u.status === 'active' ? '正常' : '停用';
+    var statusColor = u.status === 'active' ? '#27ae60' : '#c0392b';
+    html += '<tr>';
+    html += '<td>' + u.name + '</td>';
+    html += '<td>' + u.user + '</td>';
+    html += '<td>' + roleText + '</td>';
+    html += '<td>' + u.company + '</td>';
+    html += '<td style="color:' + statusColor + ';">' + statusText + '</td>';
+    html += '</tr>';
+  }
+  tbody.innerHTML = html;
+}
+
+// 切换页面
+function showSection(name) {
+  var sections = ['dashboard', 'documents', 'upload', 'products', 'sales', 'users', 'settings'];
+  for (var i = 0; i < sections.length; i++) {
+    var el = document.getElementById('section-' + sections[i]);
+    if (el) el.classList.add('hidden');
+  }
+  var target = document.getElementById('section-' + name);
+  if (target) target.classList.remove('hidden');
+  
+  // 更新导航激活状态
+  var items = document.querySelectorAll('.sidebar .nav-item');
+  for (var i = 0; i < items.length; i++) {
+    items[i].classList.remove('active');
+  }
+  event && event.target && event.target.closest('.nav-item') && event.target.closest('.nav-item').classList.add('active');
+}
+
+// 页面加载检查
+window.onload = function() {
+  var session = getSession();
+  if (session) {
+    showMainApp(session);
+  }
+};
+</script>
+</body>
+</html>

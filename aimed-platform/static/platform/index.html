@@ -145,6 +145,12 @@ tr:hover { background:#f8f9fa; }
     <div class="nav-item" onclick="showSection('upload')">
       <span class="icon">📤</span><span>上传文件</span>
     </div>
+    <div class="nav-item" onclick="showSection('products')">
+      <span class="icon">📦</span><span>产品管理</span>
+    </div>
+    <div class="nav-item" onclick="showSection('sales')">
+      <span class="icon">💼</span><span>销售管理</span>
+    </div>
     <div class="nav-item" onclick="showSection('users')" id="navUsers">
       <span class="icon">👥</span><span>用户管理</span>
     </div>
@@ -192,9 +198,219 @@ tr:hover { background:#f8f9fa; }
     </div>
 
     <div id="section-upload" class="hidden">
-      <h2>📤 上传文件</h2>
+      <h2>📤 文件上传</h2>
+      
+      <!-- 上传表单 -->
+      <div class="card" style="margin-bottom:24px;">
+        <h3 style="margin-bottom:16px;">上传新文件</h3>
+        <form id="uploadForm" onsubmit="handleUpload(event)">
+          <div style="margin-bottom:16px;">
+            <label style="display:block;margin-bottom:8px;font-weight:500;">选择文件</label>
+            <input type="file" id="fileInput" required style="width:100%;padding:8px;border:1px solid #ddd;border-radius:6px;">
+            <p style="font-size:12px;color:#888;margin-top:4px;">支持：PDF、Word、Excel、PPT、图片、JSON、CSV（最大 50MB）</p>
+          </div>
+          
+          <div style="margin-bottom:16px;">
+            <label style="display:block;margin-bottom:8px;font-weight:500;">文件分类</label>
+            <select id="uploadCategory" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:6px;">
+              <option value="">自动识别</option>
+              <option value="document">文档</option>
+              <option value="image">图片</option>
+              <option value="data">数据</option>
+            </select>
+          </div>
+          
+          <div style="margin-bottom:16px;">
+            <label style="display:block;margin-bottom:8px;font-weight:500;">标签（逗号分隔）</label>
+            <input type="text" id="uploadTags" placeholder="例如：产品手册，销售资料" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:6px;">
+          </div>
+          
+          <button type="submit" id="uploadBtn" style="padding:10px 24px;background:#1a3a5c;color:white;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;">
+            📤 上传文件
+          </button>
+        </form>
+        
+        <div id="uploadProgress" style="display:none;margin-top:16px;">
+          <div style="background:#e2e8f0;border-radius:8px;height:8px;overflow:hidden;">
+            <div id="progressBar" style="background:#1a3a5c;height:100%;width:0%;transition:width 0.3s;"></div>
+          </div>
+          <p id="uploadStatus" style="font-size:12px;color:#666;margin-top:8px;">上传中...</p>
+        </div>
+        
+        <div id="uploadResult" style="display:none;margin-top:16px;padding:12px;background:#d1fae5;border-radius:8px;color:#047857;">
+        </div>
+      </div>
+      
+      <!-- 已上传文件列表 -->
       <div class="card">
-        <p style="color:#666;font-size:14px;">文件上传功能开发中...</p>
+        <h3 style="margin-bottom:16px;">已上传文件</h3>
+        <div style="margin-bottom:12px;">
+          <select id="filterCategory" onchange="loadDocuments()" style="padding:6px 12px;border:1px solid #ddd;border-radius:6px;">
+            <option value="">全部分类</option>
+            <option value="document">文档</option>
+            <option value="image">图片</option>
+            <option value="data">数据</option>
+          </select>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>文件名</th>
+              <th>类型</th>
+              <th>大小</th>
+              <th>分类</th>
+              <th>上传人</th>
+              <th>日期</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="uploadTable">
+            <tr><td colspan="7" style="text-align:center;color:#aaa;">加载中...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 产品管理 -->
+    <div id="section-products" class="hidden">
+      <h2>📦 产品管理</h2>
+      <div class="stat-grid" style="margin-bottom:24px;">
+        <div class="stat-card">
+          <div class="number" style="font-size:28px;">💊</div>
+          <div class="label">口服造影剂系列</div>
+          <div style="font-size:12px;color:#888;margin-top:4px;">胰腺型 · 胃肠型 · 胆管型</div>
+        </div>
+        <div class="stat-card">
+          <div class="number" style="font-size:28px;">🌿</div>
+          <div class="label">龙脑抑菌液</div>
+          <div style="font-size:12px;color:#888;margin-top:4px;">天下牌 · 天然植物</div>
+        </div>
+        <div class="stat-card">
+          <div class="number" style="font-size:28px;">🤖</div>
+          <div class="label">AI 诊断系统</div>
+          <div style="font-size:12px;color:#888;margin-top:4px;">FillingVision · V2.1</div>
+        </div>
+        <div class="stat-card">
+          <div class="number" style="font-size:28px;">🔗</div>
+          <div class="label">区块链服务</div>
+          <div style="font-size:12px;color:#888;margin-top:4px;">DID · 存证 · 验证</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <h3 style="margin-bottom:12px;">💊 口服超声造影剂系列</h3>
+        <table>
+          <thead><tr><th>产品名</th><th>类型</th><th>适用器官</th><th>状态</th><th>认证</th></tr></thead>
+          <tbody>
+            <tr><td>AIMED 胰腺型造影剂</td><td>口服</td><td>胰腺</td><td><span style="color:#10b981;">研发中</span></td><td>Phase 1</td></tr>
+            <tr><td>AIMED 胃肠型造影剂</td><td>口服</td><td>胃/肠道</td><td><span style="color:#10b981;">研发中</span></td><td>Phase 1</td></tr>
+            <tr><td>AIMED 胆管型造影剂</td><td>口服</td><td>胆管</td><td><span style="color:#f59e0b;">规划中</span></td><td>Phase 2</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <h3 style="margin-bottom:12px;">🌿 龙脑抑菌液（天下牌）</h3>
+        <table>
+          <thead><tr><th>产品名</th><th>规格</th><th>功效</th><th>状态</th><th>认证</th></tr></thead>
+          <tbody>
+            <tr><td>龙脑抑菌液 标准装</td><td>40ml × 6</td><td>2分钟抑菌率 97.86%</td><td><span style="color:#10b981;">已上市</span></td><td>浙卫消证字 (2024) 第 0010 号</td></tr>
+            <tr><td>龙脑抑菌液 便携装</td><td>20ml × 12</td><td>20分钟抑菌率 99.98%</td><td><span style="color:#10b981;">已上市</span></td><td>浙卫消证字 (2024) 第 0010 号</td></tr>
+            <tr><td>天下牌消毒喷雾</td><td>100ml</td><td>医院感染控制</td><td><span style="color:#f59e0b;">规划中</span></td><td>待认证</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:12px;padding:12px;background:#f0fdf4;border-radius:8px;font-size:13px;color:#047857;">
+          <strong>产品特点：</strong>精选天然龙脑叶提取精华，纯植物配方，温和无刺激。经权威机构检测，2 分钟抑菌率达 97.86%，20 分钟抑菌率超 99.98%。适用于慢性鼻炎辅助治疗、痔疮护理、医院感染控制、皮肤病防治等场景。
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <h3 style="margin-bottom:12px;">🤖 AI 诊断系统</h3>
+        <table>
+          <thead><tr><th>模块</th><th>版本</th><th>功能</th><th>状态</th></tr></thead>
+          <tbody>
+            <tr><td>FillingVision 诊断系统</td><td>V2.1</td><td>胃/胰腺 AI 诊断</td><td><span style="color:#10b981;">已部署</span></td></tr>
+            <tr><td>向量检索服务</td><td>V1.0</td><td>ChromaDB RAG 增强</td><td><span style="color:#10b981;">已部署</span></td></tr>
+            <tr><td>图像分割服务</td><td>V1.0</td><td>SAM ViT-B 分割</td><td><span style="color:#10b981;">已部署</span></td></tr>
+            <tr><td>区块链身份</td><td>V1.0</td><td>FISCO BCOS DID</td><td><span style="color:#10b981;">已部署</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 销售管理 -->
+    <div id="section-sales" class="hidden">
+      <h2>💼 销售管理</h2>
+      <div class="stat-grid" style="margin-bottom:24px;">
+        <div class="stat-card">
+          <div class="number" style="font-size:28px;">🎯</div>
+          <div class="label">目标市场</div>
+          <div style="font-size:12px;color:#888;margin-top:4px;">基层医疗 · 体检中心 · 医院</div>
+        </div>
+        <div class="stat-card">
+          <div class="number" style="font-size:28px;">🏥</div>
+          <div class="label">合作机构</div>
+          <div style="font-size:12px;color:#888;margin-top:4px;">4 家试点</div>
+        </div>
+        <div class="stat-card">
+          <div class="number" style="font-size:28px;">📊</div>
+          <div class="label">销售阶段</div>
+          <div style="font-size:12px;color:#888;margin-top:4px;">Phase 1 验证期</div>
+        </div>
+        <div class="stat-card">
+          <div class="number" style="font-size:28px;">📋</div>
+          <div class="label">培训资料</div>
+          <div style="font-size:12px;color:#888;margin-top:4px;">知识库销售专区</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <h3 style="margin-bottom:12px;">🎯 目标市场定位</h3>
+        <table>
+          <thead><tr><th>市场</th><th>目标客户</th><th>产品组合</th><th>阶段</th></tr></thead>
+          <tbody>
+            <tr><td>基层医疗</td><td>社区卫生服务中心/乡镇卫生院</td><td>造影剂 + AI 诊断</td><td><span style="color:#10b981;">验证中</span></td></tr>
+            <tr><td>体检中心</td><td>企事业单位团检/个人体检</td><td>造影剂 + 筛查</td><td><span style="color:#10b981;">验证中</span></td></tr>
+            <tr><td>三甲医院</td><td>消化科/胰腺外科</td><td>AI 诊断 + 报告</td><td><span style="color:#f59e0b;">规划中</span></td></tr>
+            <tr><td>公共卫生</td><td>区域普查项目</td><td>全套方案</td><td><span style="color:#f59e0b;">规划中</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <h3 style="margin-bottom:12px;">🏥 合作机构</h3>
+        <table>
+          <thead><tr><th>机构</th><th>类型</th><th>合作内容</th><th>状态</th></tr></thead>
+          <tbody>
+            <tr><td>南京大学</td><td>高校</td><td>AI 算法研发</td><td><span style="color:#10b981;">合作中</span></td></tr>
+            <tr><td>301 医院</td><td>三甲医院</td><td>临床验证</td><td><span style="color:#10b981;">合作中</span></td></tr>
+            <tr><td>湖州师范学院附属第一医院</td><td>基层医院</td><td>临床验证</td><td><span style="color:#10b981;">合作中</span></td></tr>
+            <tr><td>湖州市健康体检中心</td><td>体检中心</td><td>筛查验证</td><td><span style="color:#10b981;">合作中</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom:12px;">📋 销售培训资料</h3>
+        <p style="color:#666;font-size:14px;margin-bottom:12px;">销售团队必备知识，请访问 <a href="/portal/knowledge-base.html" target="_blank" style="color:var(--primary);">知识库 → 销售支持</a> 分类查看。</p>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;">
+          <div style="padding:12px;background:#f0f9ff;border-radius:8px;">
+            <strong>📦 产品知识手册</strong>
+            <p style="font-size:12px;color:#666;margin-top:4px;">造影剂/龙脑/AI 系统产品详解</p>
+          </div>
+          <div style="padding:12px;background:#f0fdf4;border-radius:8px;">
+            <strong>🎯 竞争分析</strong>
+            <p style="font-size:12px;color:#666;margin-top:4px;">市场竞品对比与差异化优势</p>
+          </div>
+          <div style="padding:12px;background:#fefce8;border-radius:8px;">
+            <strong>💬 客户问答</strong>
+            <p style="font-size:12px;color:#666;margin-top:4px;">常见客户问题标准回答</p>
+          </div>
+          <div style="padding:12px;background:#f3e8ff;border-radius:8px;">
+            <strong>📊 成功案例</strong>
+            <p style="font-size:12px;color:#666;margin-top:4px;">试点医院应用案例分享</p>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -296,33 +512,63 @@ function clearSession() {
   sessionStorage.removeItem(SESSION_KEY);
 }
 
-// 登录
+// 登录 - 调用服务端 JWT 认证 API
 function doLogin() {
   var u = document.getElementById('loginUser').value.trim();
   var p = document.getElementById('loginPass').value;
   if (!u || !p) { toast('请输入账号和密码', 'warning'); return; }
   
-  var db = getDB();
-  var user = null;
-  for (var i = 0; i < db.users.length; i++) {
-    if (db.users[i].user === u && verifyPwd(p, db.users[i].pass)) {
-      user = db.users[i];
-      break;
+  // 先尝试服务端认证
+  fetch('/api/v1/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: u, password: p })
+  })
+  .then(function(res) {
+    if (!res.ok) throw new Error('登录失败');
+    return res.json();
+  })
+  .then(function(data) {
+    // 服务端认证成功，保存 JWT token
+    var token = data.access_token;
+    var user = {
+      id: data.user.id,
+      name: data.user.name,
+      user: data.user.username,
+      role: data.user.role,
+      company: data.user.company,
+      status: 'active',
+      token: token,
+      roleText: data.user.role_name
+    };
+    localStorage.setItem('jwt_token', token);
+    setSession(user);
+    showMainApp(user);
+    toast('欢迎回来，' + user.name + '！', 'success');
+  })
+  .catch(function(err) {
+    // 服务端不可用时，降级到本地认证（仅开发/调试）
+    console.warn('服务端认证不可用，降级到本地认证', err);
+    var db = getDB();
+    var user = null;
+    for (var i = 0; i < db.users.length; i++) {
+      if (db.users[i].user === u && verifyPwd(p, db.users[i].pass)) {
+        user = db.users[i];
+        break;
+      }
     }
-  }
-  
-  if (!user) {
-    toast('账号或密码错误', 'error');
-    return;
-  }
-  if (user.status === 'inactive') {
-    toast('账号已停用，请联系管理员', 'error');
-    return;
-  }
-  
-  setSession(user);
-  showMainApp(user);
-  toast('欢迎回来，' + user.name + '！', 'success');
+    if (!user) {
+      toast('账号或密码错误', 'error');
+      return;
+    }
+    if (user.status === 'inactive') {
+      toast('账号已停用，请联系管理员', 'error');
+      return;
+    }
+    setSession(user);
+    showMainApp(user);
+    toast('欢迎回来，' + user.name + '！（本地模式）', 'success');
+  });
 }
 
 // 退出
@@ -397,7 +643,7 @@ function renderUsers(db, currentUser) {
 
 // 切换页面
 function showSection(name) {
-  var sections = ['dashboard', 'documents', 'upload', 'users', 'settings'];
+  var sections = ['dashboard', 'documents', 'upload', 'products', 'sales', 'users', 'settings'];
   for (var i = 0; i < sections.length; i++) {
     var el = document.getElementById('section-' + sections[i]);
     if (el) el.classList.add('hidden');
@@ -420,6 +666,177 @@ window.onload = function() {
     showMainApp(session);
   }
 };
+
+// ============================================
+// 文件上传功能
+// ============================================
+
+// 处理文件上传
+function handleUpload(event) {
+  event.preventDefault();
+  
+  var fileInput = document.getElementById('fileInput');
+  var category = document.getElementById('uploadCategory').value;
+  var tags = document.getElementById('uploadTags').value;
+  var file = fileInput.files[0];
+  
+  if (!file) {
+    toast('请选择文件', 'error');
+    return;
+  }
+  
+  // 显示上传进度
+  document.getElementById('uploadProgress').style.display = 'block';
+  document.getElementById('uploadResult').style.display = 'none';
+  document.getElementById('progressBar').style.width = '30%';
+  document.getElementById('uploadStatus').textContent = '上传中...';
+  
+  // 创建 FormData
+  var formData = new FormData();
+  formData.append('file', file);
+  if (category) formData.append('category', category);
+  if (tags) formData.append('tags', tags);
+  
+  var session = getSession();
+  if (session && session.company) {
+    formData.append('company', session.company);
+  }
+  
+  // 获取 JWT token
+  var token = localStorage.getItem('jwt_token');
+  var headers = {};
+  if (token) {
+    headers['Authorization'] = 'Bearer ' + token;
+  }
+  
+  // 上传文件
+  fetch('/api/v1/upload/', {
+    method: 'POST',
+    headers: headers,
+    body: formData
+  })
+  .then(function(res) {
+    if (!res.ok) throw new Error('上传失败');
+    return res.json();
+  })
+  .then(function(data) {
+    document.getElementById('progressBar').style.width = '100%';
+    document.getElementById('uploadStatus').textContent = '上传成功！';
+    
+    document.getElementById('uploadResult').style.display = 'block';
+    document.getElementById('uploadResult').innerHTML = 
+      '✅ 上传成功！文件 ID: <strong>' + data.file_id + '</strong>，大小: ' + formatSize(data.file_size);
+    
+    // 清空表单
+    document.getElementById('uploadForm').reset();
+    
+    // 刷新列表
+    loadDocuments();
+    
+    toast('文件上传成功', 'success');
+  })
+  .catch(function(err) {
+    document.getElementById('uploadStatus').textContent = '上传失败：' + err.message;
+    document.getElementById('uploadResult').style.display = 'block';
+    document.getElementById('uploadResult').style.background = '#fee2e2';
+    document.getElementById('uploadResult').style.color = '#991b1b';
+    document.getElementById('uploadResult').innerHTML = '❌ 上传失败：' + err.message;
+    toast('上传失败', 'error');
+  });
+}
+
+// 加载文档列表
+function loadDocuments() {
+  var category = document.getElementById('filterCategory').value;
+  var token = localStorage.getItem('jwt_token');
+  var headers = {};
+  if (token) headers['Authorization'] = 'Bearer ' + token;
+  
+  var url = '/api/v1/upload/list?include_stats=true';
+  if (category) url += '&category=' + category;
+  
+  fetch(url, { headers })
+  .then(function(res) { return res.json(); })
+  .then(function(data) {
+    var tbody = document.getElementById('uploadTable');
+    var docs = data.documents || [];
+    
+    // 更新统计
+    if (data.stats) {
+      document.getElementById('statDocs').textContent = data.stats.total_files || 0;
+    }
+    
+    if (docs.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#aaa;">暂无文件</td></tr>';
+      return;
+    }
+    
+    var html = '';
+    for (var i = 0; i < docs.length; i++) {
+      var doc = docs[i];
+      var categoryText = doc.category === 'document' ? '📄 文档' : doc.category === 'image' ? '🖼️ 图片' : doc.category === 'data' ? '📊 数据' : '📁 其他';
+      var date = doc.created_at ? doc.created_at.slice(0, 10) : '-';
+      
+      html += '<tr>';
+      html += '<td><strong>' + escapeHtml(doc.filename) + '</strong></td>';
+      html += '<td>' + doc.file_type + '</td>';
+      html += '<td>' + formatSize(doc.file_size) + '</td>';
+      html += '<td>' + categoryText + '</td>';
+      html += '<td>' + escapeHtml(doc.uploader || '-') + '</td>';
+      html += '<td>' + date + '</td>';
+      html += '<td>';
+      html += '<a href="/api/v1/upload/' + doc.id + '" target="_blank" style="color:var(--primary);margin-right:8px;">下载</a>';
+      html += '<a href="#" onclick="deleteDocument(\'' + doc.id + '\');return false;" style="color:#ef4444;">删除</a>';
+      html += '</td>';
+      html += '</tr>';
+    }
+    tbody.innerHTML = html;
+  })
+  .catch(function(err) {
+    console.error('加载文档列表失败:', err);
+  });
+}
+
+// 删除文档
+function deleteDocument(fileId) {
+  if (!confirm('确定要删除这个文件吗？')) return;
+  
+  var token = localStorage.getItem('jwt_token');
+  var headers = {};
+  if (token) headers['Authorization'] = 'Bearer ' + token;
+  
+  fetch('/api/v1/upload/' + fileId, {
+    method: 'DELETE',
+    headers: headers
+  })
+  .then(function(res) { return res.json(); })
+  .then(function(data) {
+    if (data.success) {
+      toast('文件已删除', 'success');
+      loadDocuments();
+    } else {
+      toast('删除失败', 'error');
+    }
+  })
+  .catch(function(err) {
+    toast('删除失败：' + err.message, 'error');
+  });
+}
+
+// 格式化文件大小
+function formatSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  if (bytes < 1024 * 1024 * 1024) return (bytes / 1024 / 1024).toFixed(1) + ' MB';
+  return (bytes / 1024 / 1024 / 1024).toFixed(2) + ' GB';
+}
+
+// HTML 转义
+function escapeHtml(text) {
+  var div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
 </script>
-</body>
+<script src="/aimed-bot.js"></script></body>
 </html>

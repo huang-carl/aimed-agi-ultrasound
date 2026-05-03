@@ -15,6 +15,7 @@ try:
     OPENAI_AVAILABLE = True
 except ImportError:
     OPENAI_AVAILABLE = False
+    OpenAI = None  # 避免 NameError
 
 
 @dataclass

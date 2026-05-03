@@ -13,17 +13,29 @@ from datetime import datetime
 from loguru import logger
 import os
 
-class ReportAgent:
+from .base_agent import SupportAgent, AgentMessage
+
+from .base_agent import SupportAgent, AgentMessage
+
+
+class ReportAgent(SupportAgent):
     """
     报告生成 Agent - 生成结构化诊断报告
+    继承 SupportAgent 基类
     """
     
     def __init__(self):
+        config = {
+            'agent_name': 'Report Agent',
+            'agent_version': '2.0.0',
+            'description': '报告生成 Agent - 生成结构化诊断报告'
+        }
+        super().__init__(agent_id="report", config=config)
         self.template_dir = "templates"
         self.output_dir = "data/reports"
         self.supported_languages = ["zh", "en", "fr", "ja", "ko", "ru"]
         self.report_count = 0
-        logger.info("ReportAgent 初始化完成")
+        logger.info("ReportAgent 初始化完成 (V2.0 架构)")
     
     def generate_report(self, 
                        patient_info: Dict[str, Any],
@@ -112,6 +124,84 @@ class ReportAgent:
         
         return True
     
+    async def process(self, message: AgentMessage) -> Optional[AgentMessage]:
+        """
+        处理消息（实现 SupportAgent 抽象方法）
+        
+        Args:
+            message: 输入消息
+            
+        Returns:
+            响应消息
+        """
+        try:
+            payload = message.payload
+            
+            # 根据消息类型路由
+            if message.message_type == 'generate_report':
+                # 生成报告
+                patient_info = payload.get('patient_info', {})
+                diagnosis_results = payload.get('diagnosis_results', [])
+                doctor_info = payload.get('doctor_info', {})
+                language = payload.get('language', 'zh')
+                
+                result = self.generate_report(patient_info, diagnosis_results, doctor_info, language)
+                
+                return AgentMessage(
+                    sender_id=self.agent_id,
+                    receiver_id=message.sender_id,
+                    message_type='report_result',
+                    payload=result
+                )
+            
+            elif message.message_type == 'status':
+                # 状态查询
+                return AgentMessage(
+                    sender_id=self.agent_id,
+                    receiver_id=message.sender_id,
+                    message_type='status_response',
+                    payload=self.get_statistics()
+                )
+            
+            else:
+                return AgentMessage(
+                    sender_id=self.agent_id,
+                    receiver_id=message.sender_id,
+                    message_type='error',
+                    payload={'error': f'未知消息类型：{message.message_type}'}
+                )
+                
+        except Exception as e:
+            logger.error(f"ReportAgent 处理消息失败：{e}")
+            return AgentMessage(
+                sender_id=self.agent_id,
+                receiver_id=message.sender_id,
+                message_type='error',
+                payload={'error': str(e)}
+            )
+    
+    def get_capabilities(self) -> List[str]:
+        """
+        返回 Agent 的能力列表（实现 BaseAgent 抽象方法）
+        """
+        return ['report_generation', 'multi_language_support', 'pdf_export', 'template_management']
+    
+    async def execute_task(self, task_data: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        执行支撑任务（实现 SupportAgent 抽象方法）
+        """
+        task_type = task_data.get('task_type', 'generate_report')
+        
+        if task_type == 'generate_report':
+            return self.generate_report(
+                task_data.get('patient_info', {}),
+                task_data.get('diagnosis_results', []),
+                task_data.get('doctor_info', {}),
+                task_data.get('language', 'zh')
+            )
+        else:
+            return {'error': f'未知任务类型：{task_type}'}
+    
     def get_statistics(self) -> Dict:
         """
         获取统计信息
@@ -120,7 +210,9 @@ class ReportAgent:
             "total_reports": self.report_count,
             "supported_languages": self.supported_languages,
             "template_dir": self.template_dir,
-            "output_dir": self.output_dir
+            "output_dir": self.output_dir,
+            "agent_id": self.agent_id,
+            "agent_version": self.config.get('agent_version', '2.0.0')
         }
 
 # 单例实例

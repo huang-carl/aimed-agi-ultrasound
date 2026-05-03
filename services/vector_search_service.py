@@ -1,9 +1,12 @@
 """
 向量检索服务 - 医疗知识库 RAG
 支持：ChromaDB + Faiss + Qdrant
+使用中文 text2vec embedding 模型
 """
 
 import os
+os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
+
 import json
 import hashlib
 from typing import List, Dict, Any, Optional
@@ -15,6 +18,35 @@ try:
     CHROMADB_AVAILABLE = True
 except ImportError:
     CHROMADB_AVAILABLE = False
+
+# 中文 embedding 模型（懒加载）
+_chinese_model = None
+def get_chinese_model():
+    global _chinese_model
+    if _chinese_model is None:
+        from sentence_transformers import SentenceTransformer
+        _chinese_model = SentenceTransformer('shibing624/text2vec-base-chinese')
+        print(f"[中文Embedding] 模型已加载 - 维度: {_chinese_model.get_embedding_dimension()}")
+    return _chinese_model
+
+
+class ChineseEmbeddingFunction:
+    """中文 embedding 函数（ChromaDB 兼容）"""
+    
+    def __init__(self):
+        self.model = get_chinese_model()
+    
+    def name(self):
+        return "chinese_text2vec"
+    
+    def __call__(self, input: list) -> list:
+        return self.model.encode(input).tolist()
+    
+    def embed_query(self, input: list) -> list:
+        return self.model.encode(input).tolist()
+    
+    def embed_documents(self, input: list) -> list:
+        return self.model.encode(input).tolist()
 
 try:
     import faiss
@@ -65,12 +97,15 @@ class VectorSearchService:
             raise ValueError(f"向量数据库不可用: {provider}")
     
     def _init_chromadb(self):
-        """初始化 ChromaDB"""
+        """初始化 ChromaDB（使用中文 embedding）"""
         self.client = chromadb.PersistentClient(path=self.persist_dir)
-        # 获取或创建集合
+        # 使用中文 embedding 函数
+        self.cef = ChineseEmbeddingFunction()
+        # 获取或创建集合（使用中文 embedding）
         self.collection = self.client.get_or_create_collection(
             name="medical_knowledge",
-            metadata={"hnsw:space": "cosine"}
+            metadata={"hnsw:space": "cosine"},
+            embedding_function=self.cef
         )
         print(f"[ChromaDB] 集合已加载 - 文档数: {self.collection.count()}")
     

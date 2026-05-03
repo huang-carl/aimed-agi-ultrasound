@@ -13,16 +13,26 @@ from datetime import datetime
 from loguru import logger
 import uuid
 
-class ConductorAgent:
+from .base_agent import DiagnosticAgent, AgentMessage
+
+
+class ConductorAgent(DiagnosticAgent):
     """
     总指挥 Agent - AIMED Agent Swarm 的协调中枢
+    继承 DiagnosticAgent 基类，获得消息处理能力
     """
     
     def __init__(self):
+        config = {
+            'agent_name': 'Conductor Agent',
+            'agent_version': '2.0.0',
+            'description': '总指挥 Agent - 负责任务调度与多 Agent 协同'
+        }
+        super().__init__(agent_id="conductor", config=config)
         self.agent_registry = {}
         self.task_queue = []
         self.completed_tasks = {}
-        logger.info("ConductorAgent 初始化完成")
+        logger.info("ConductorAgent 初始化完成 (V2.0 架构)")
     
     def register_agent(self, agent_name: str, agent_instance: Any):
         """
@@ -117,6 +127,78 @@ class ConductorAgent:
         
         logger.warning(f"未找到任务：{task_id}")
     
+    async def process(self, message: AgentMessage) -> Optional[AgentMessage]:
+        """
+        处理消息（实现 DiagnosticAgent 抽象方法）
+        
+        Args:
+            message: 输入消息
+            
+        Returns:
+            响应消息
+        """
+        try:
+            payload = message.payload
+            
+            # 根据消息类型路由到不同处理逻辑
+            if message.message_type == 'diagnose':
+                # 诊断任务：分发到器官 Agent
+                organs = payload.get('organs', ['stomach'])
+                image_paths = payload.get('image_paths', [])
+                patient_id = payload.get('patient_id')
+                
+                result = self.dispatch_task(organs, image_paths, patient_id)
+                
+                return AgentMessage(
+                    sender_id=self.agent_id,
+                    receiver_id=message.sender_id,
+                    message_type='diagnosis_result',
+                    payload=result
+                )
+            
+            elif message.message_type == 'status':
+                # 状态查询
+                return AgentMessage(
+                    sender_id=self.agent_id,
+                    receiver_id=message.sender_id,
+                    message_type='status_response',
+                    payload=self.get_statistics()
+                )
+            
+            else:
+                return AgentMessage(
+                    sender_id=self.agent_id,
+                    receiver_id=message.sender_id,
+                    message_type='error',
+                    payload={'error': f'未知消息类型：{message.message_type}'}
+                )
+                
+        except Exception as e:
+            logger.error(f"ConductorAgent 处理消息失败：{e}")
+            return AgentMessage(
+                sender_id=self.agent_id,
+                receiver_id=message.sender_id,
+                message_type='error',
+                payload={'error': str(e)}
+            )
+    
+    def get_capabilities(self) -> List[str]:
+        """
+        返回 Agent 的能力列表（实现 DiagnosticAgent 抽象方法）
+        """
+        return ['task_dispatch', 'agent_coordination', 'result_aggregation']
+    
+    async def analyze_image(self, image_data: Any) -> Dict[str, Any]:
+        """
+        分析医学影像（实现 DiagnosticAgent 抽象方法）
+        ConductorAgent 不直接分析图像，而是调度到其他 Agent
+        """
+        return {
+            'agent_id': self.agent_id,
+            'message': 'ConductorAgent does not analyze images directly. Dispatch to organ agents.',
+            'available_agents': list(self.agent_registry.keys())
+        }
+    
     def get_statistics(self) -> Dict:
         """
         获取统计信息
@@ -125,7 +207,9 @@ class ConductorAgent:
             "total_tasks": len(self.task_queue) + len(self.completed_tasks),
             "pending_tasks": len(self.task_queue),
             "completed_tasks": len(self.completed_tasks),
-            "registered_agents": list(self.agent_registry.keys())
+            "registered_agents": list(self.agent_registry.keys()),
+            "agent_id": self.agent_id,
+            "agent_version": self.config.get('agent_version', '2.0.0')
         }
 
 # 单例实例

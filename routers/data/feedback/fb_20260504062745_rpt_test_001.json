@@ -1,0 +1,12 @@
+{
+  "feedback_id": "fb_20260504062745_rpt_test_001",
+  "report_id": "rpt_test_001",
+  "user_type": "doctor",
+  "rating": 4,
+  "feedback_type": "format",
+  "comment": "报告格式很好，建议增加图示",
+  "suggested_improvement": "在报告中增加病变位置示意图",
+  "is_skill_trigger": true,
+  "timestamp": "2026-05-04T06:27:45.991508",
+  "ip": "127.0.0.1"
+}
