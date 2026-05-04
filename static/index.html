@@ -446,7 +446,7 @@
                 <li><a href="#demo">体验</a></li>
                 <li><a href="#platform">平台</a></li>
                 <li><a href="#contact">联系</a></li>
-                <li><a href="/manage/login.html" class="nav-login">登录</a></li>
+                <li><a href="/service/login.html" class="nav-login">登录</a></li>
                 <li><a href="/index-en.html" class="lang-switch">EN</a></li>
             </ul>
         </div>
@@ -524,7 +524,7 @@
                 <div class="feature-card">
                     <div class="icon">🤖</div>
                     <h3>AI 多智能体诊断</h3>
-                    <p>Conductor 总指挥 + 胃/胰腺专科 Agent，4 套 AI 系统自动切换，诊断不中断。</p>
+                    <p>专科 Agent 智能诊断 · 4 套 AI 系统自动切换 + 智能降级 · 诊断不中断</p>
                 </div>
                 <div class="feature-card">
                     <div class="icon">🔍</div>
@@ -574,38 +574,94 @@
     </section>
 
     <!-- 多中心协作研究 -->
-    <section class="section" id="collaboration">
+    <section class="section section-light" id="collaboration">
         <div class="container section-center">
             <div class="section-label">🤝 多中心协作研究</div>
             <h2 class="section-title">加入联合实验室，共享 AI 诊断能力</h2>
             <p class="section-desc">面向医院、体检中心、科研机构开放协作，共建胃胰疾病早筛生态</p>
         </div>
         <div class="container">
-            <div class="partners-grid">
+            <div class="partners-grid" style="grid-template-columns: repeat(3, 1fr);">
                 <div class="partner-card">
-                    <h4>🏥 医院</h4>
+                    <div style="font-size:2.5em;margin-bottom:10px;">🏥</div>
+                    <h4>医院</h4>
                     <div class="type">提升超声诊断能力</div>
                     <p>获得 AI 辅助诊断系统使用权，提升超声科诊断效率和准确性，支持多中心数据协作与学术联合发表。</p>
                 </div>
                 <div class="partner-card">
-                    <h4>🔬 体检中心</h4>
+                    <div style="font-size:2.5em;margin-bottom:10px;">🔬</div>
+                    <h4>体检中心</h4>
                     <div class="type">增加早筛服务项目</div>
                     <p>快速部署口服超声造影早筛方案，增加胃胰疾病早筛特色项目，提升体检服务差异化竞争力。</p>
                 </div>
                 <div class="partner-card">
-                    <h4>🎓 科研机构</h4>
+                    <div style="font-size:2.5em;margin-bottom:10px;">🎓</div>
+                    <h4>科研机构</h4>
                     <div class="type">共享数据集和算法</div>
                     <p>接入多中心标注数据集，共享 AI 算法模型，联合申报科研项目，推动学术成果转化。</p>
                 </div>
-                <div class="partner-card">
-                    <h4>💎 数字资产收益</h4>
-                    <div class="type">智能合约自动分配</div>
-                    <p>诊断服务、数据贡献、学术成果均通过区块链智能合约自动分配收益，个人贡献与机构协作双重回报。</p>
+            </div>
+            
+            <!-- 协作优势 -->
+            <div style="margin-top:48px;">
+                <h3 style="text-align:center;font-size:1.2em;font-weight:600;margin-bottom:24px;">协作优势</h3>
+                <div class="partners-grid">
+                    <div class="partner-card" style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);color:white;">
+                        <div style="font-size:2em;margin-bottom:8px;">📊</div>
+                        <h4>数据共享</h4>
+                        <p style="opacity:0.9;">多中心数据协作，共建高质量标注数据集</p>
+                    </div>
+                    <div class="partner-card" style="background:linear-gradient(135deg, #f093fb 0%, #f5576c 100%);color:white;">
+                        <div style="font-size:2em;margin-bottom:8px;">🤖</div>
+                        <h4>AI 赋能</h4>
+                        <p style="opacity:0.9;">4 套 AI 系统自动切换，诊断准确率≥85%</p>
+                    </div>
+                    <div class="partner-card" style="background:linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);color:white;">
+                        <div style="font-size:2em;margin-bottom:8px;">📝</div>
+                        <h4>学术成果</h4>
+                        <p style="opacity:0.9;">联合发表论文，共享知识产权与学术荣誉</p>
+                    </div>
+                    <div class="partner-card" style="background:linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);color:white;">
+                        <div style="font-size:2em;margin-bottom:8px;">💎</div>
+                        <h4>数字资产</h4>
+                        <p style="opacity:0.9;">区块链智能合约自动分配，收益透明可追溯</p>
+                    </div>
                 </div>
             </div>
+            
+            <!-- 协作流程 -->
+            <div style="margin-top:48px;background:var(--light);border-radius:14px;padding:32px 24px;">
+                <h3 style="text-align:center;font-size:1.2em;font-weight:600;margin-bottom:24px;">协作流程</h3>
+                <div style="display:flex;justify-content:space-around;align-items:center;flex-wrap:wrap;gap:20px;">
+                    <div style="text-align:center;flex:1;min-width:150px;">
+                        <div style="width:60px;height:60px;background:var(--primary);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:1.5em;font-weight:700;">1</div>
+                        <div style="font-weight:600;">机构注册</div>
+                        <div style="font-size:0.85em;color:var(--gray);margin-top:4px;">提交资质认证</div>
+                    </div>
+                    <div style="font-size:2em;color:var(--primary);">→</div>
+                    <div style="text-align:center;flex:1;min-width:150px;">
+                        <div style="width:60px;height:60px;background:var(--primary);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:1.5em;font-weight:700;">2</div>
+                        <div style="font-weight:600;">加入项目</div>
+                        <div style="font-size:0.85em;color:var(--gray);margin-top:4px;">选择协作项目</div>
+                    </div>
+                    <div style="font-size:2em;color:var(--primary);">→</div>
+                    <div style="text-align:center;flex:1;min-width:150px;">
+                        <div style="width:60px;height:60px;background:var(--primary);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:1.5em;font-weight:700;">3</div>
+                        <div style="font-weight:600;">开展协作</div>
+                        <div style="font-size:0.85em;color:var(--gray);margin-top:4px;">数据采集与诊断</div>
+                    </div>
+                    <div style="font-size:2em;color:var(--primary);">→</div>
+                    <div style="text-align:center;flex:1;min-width:150px;">
+                        <div style="width:60px;height:60px;background:var(--primary);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:1.5em;font-weight:700;">4</div>
+                        <div style="font-weight:600;">收益分配</div>
+                        <div style="font-size:0.85em;color:var(--gray);margin-top:4px;">智能合约自动分配</div>
+                    </div>
+                </div>
+            </div>
+            
             <div style="text-align:center; margin-top:36px;">
-                <a href="/service/login.html" class="btn-primary">机构注册加入 →</a>
-                <a href="/service/" class="btn-secondary" style="margin-left:12px;">了解协作流程</a>
+                <a href="/service/login.html" class="btn-primary" style="padding:14px 32px;font-size:1em;">机构注册加入 →</a>
+                <a href="/service/collaboration.html" class="btn-secondary" style="margin-left:12px;padding:14px 32px;font-size:1em;">了解协作流程</a>
             </div>
         </div>
     </section>
@@ -761,7 +817,7 @@
                 </div>
             </div>
             <div style="text-align:center;margin-top:36px;">
-                <a href="/manage/login.html" class="btn-primary">进入管理平台 →</a>
+                <a href="/admin/index.html" class="btn-primary">进入管理平台 →</a>
             </div>
         </div>
     </section>
