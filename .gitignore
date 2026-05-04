@@ -270,3 +270,14 @@ scripts/api_test.py
 *.pt
 *.onnx
 *.h5
+
+# 用户反馈数据（本地收集，不上传）
+data/feedback/
+data/curation_reports/
+routers/data/
+
+# OpenClaw 内部状态
+.openclaw/workspace-state.json
+
+# 优化环境配置（不含密钥，但属于部署配置）
+.env.optimized
