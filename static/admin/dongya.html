@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>东亚医药 - AIMED 管理平台</title>
+    <link rel="icon" type="image/jpeg" href="../aimed-logo-new.jpg">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #0071e3; --dark: #1d1d1f; --gray: #86868b; --light: #f5f5f7; --white: #fff; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; background: var(--light); color: var(--dark); line-height: 1.5; }
+        .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 260px; background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%); color: white; padding: 24px 0; z-index: 100; }
+        .sidebar-logo { display: flex; align-items: center; gap: 12px; padding: 0 24px 24px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 24px; }
+        .sidebar-logo img { height: 40px; }
+        .sidebar-logo-text { font-size: 1.1em; font-weight: 600; }
+        .sidebar-logo-text small { display: block; font-size: 0.75em; color: rgba(255,255,255,0.6); margin-top: 2px; }
+        .nav-section { padding: 0 12px; margin-bottom: 24px; }
+        .nav-section-title { font-size: 0.75em; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.05em; padding: 0 12px; margin-bottom: 8px; }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 10px; color: rgba(255,255,255,0.8); text-decoration: none; transition: all 0.2s; }
+        .nav-item:hover { background: rgba(255,255,255,0.1); color: white; }
+        .nav-item.active { background: var(--primary); color: white; }
+        .nav-item .icon { font-size: 1.3em; width: 24px; text-align: center; }
+        .main-content { margin-left: 260px; padding: 30px; }
+        .page-header { margin-bottom: 30px; }
+        .page-header h1 { font-size: 1.8em; font-weight: 700; margin-bottom: 6px; }
+        .page-header p { color: var(--gray); font-size: 0.95em; }
+        .card { background: var(--white); border-radius: 16px; padding: 24px; margin-bottom: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .card h2 { font-size: 1.2em; font-weight: 600; margin-bottom: 16px; }
+        .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        .info-item { padding: 16px; background: var(--light); border-radius: 10px; }
+        .info-item .label { font-size: 0.85em; color: var(--gray); margin-bottom: 4px; }
+        .info-item .value { font-size: 1.1em; font-weight: 600; }
+        .btn { padding: 8px 16px; border-radius: 10px; border: none; font-size: 0.85em; font-weight: 500; cursor: pointer; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-outline { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
+        @media (max-width: 768px) { .sidebar { display: none; } .main-content { margin-left: 0; } .info-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-logo">
+            <img src="../aimed-logo-new.jpg" alt="AIMED">
+            <div class="sidebar-logo-text">AIMED 管理平台<small>智慧医疗生态系统</small></div>
+        </div>
+        <div class="nav-section">
+            <div class="nav-section-title">总览</div>
+            <a class="nav-item" href="dashboard.html"><span class="icon">📊</span><span>仪表盘</span></a>
+        </div>
+        <div class="nav-section">
+            <div class="nav-section-title">企业管理</div>
+            <a class="nav-item active" href="dongya.html"><span class="icon">💊</span><span>东亚医药</span></a>
+            <a class="nav-item" href="guoxie.html"><span class="icon">🏥</span><span>国械恒发</span></a>
+            <a class="nav-item" href="aimed.html"><span class="icon">🤖</span><span>阿尔麦德</span></a>
+            <a class="nav-item" href="shanghai.html"><span class="icon">🌐</span><span>阿尔麦德上海</span></a>
+            <a class="nav-item" href="heqihui.html"><span class="icon">🤝</span><span>和七汇企业</span></a>
+        </div>
+        <div class="nav-section">
+            <div class="nav-section-title">系统</div>
+            <a class="nav-item" href="#"><span class="icon">👥</span><span>用户管理</span></a>
+            <a class="nav-item" href="#"><span class="icon">📋</span><span>病例管理</span></a>
+            <a class="nav-item" href="#"><span class="icon">⚙️</span><span>系统设置</span></a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1>💊 东亚医药</h1>
+            <p>湖州东亚医药用品有限公司 · 母公司 · 造影剂研发生产</p>
+        </div>
+
+        <div class="card">
+            <h2>📋 基本信息</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="label">公司全称</div>
+                    <div class="value">湖州东亚医药用品有限公司</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">品牌</div>
+                    <div class="value">天下牌</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">公司类型</div>
+                    <div class="value">母公司</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">主营业务</div>
+                    <div class="value">医药研发、生产、销售</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">核心产品</div>
+                    <div class="value">口服超声造影剂系列</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">生产基地</div>
+                    <div class="value">湖州</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📦 产品线</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="label">胰腺型造影剂</div>
+                    <div class="value">40ml/瓶 · 已上市</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">胃肠型造影剂</div>
+                    <div class="value">40ml/瓶 · 已上市</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">胆管型造影剂</div>
+                    <div class="value">40ml/瓶 · 研发中</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">产品规格</div>
+                    <div class="value">20ml/30ml/40ml/50ml/100ml/200ml/500ml</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📊 运营数据</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="label">员工人数</div>
+                    <div class="value">--</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">产能利用率</div>
+                    <div class="value">--</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">月产量</div>
+                    <div class="value">--</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">库存状态</div>
+                    <div class="value">--</div>
+                </div>
+            </div>
+            <div style="margin-top: 16px; text-align: center; color: var(--gray);">
+                <p>数据待配置，请联系系统管理员</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>⚙️ 管理操作</h2>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                <button class="btn btn-primary" onclick="alert('员工管理功能开发中')">员工管理</button>
+                <button class="btn btn-outline" onclick="alert('库存管理功能开发中')">库存管理</button>
+                <button class="btn btn-outline" onclick="alert('生产计划功能开发中')">生产计划</button>
+                <button class="btn btn-outline" onclick="alert('质量管控功能开发中')">质量管控</button>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
