@@ -281,3 +281,4 @@ routers/data/
 
 # 优化环境配置（不含密钥，但属于部署配置）
 .env.optimized
+attachments/
