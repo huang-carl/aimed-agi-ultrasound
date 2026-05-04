@@ -59,7 +59,7 @@ pip3 install -r requirements.txt
 # ============================================
 # 阿里云百炼 API（主力模型 - Coding Plan）
 # ============================================
-DASHSCOPE_API_KEY=sk-sp-08e62c85ad194d6f8f05a1dcea27f55a
+DASHSCOPE_API_KEY=your_api_key_here
 DASHSCOPE_MODEL=qwen3.5-plus
 DASHSCOPE_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1
 
