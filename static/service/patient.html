@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>患者咨询台 - AIMED 充盈视界</title>
+    <title>用户咨询台 - AIMED 充盈视界</title>
     <link rel="icon" type="image/jpeg" href="../aimed-logo-new.jpg">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -335,7 +335,7 @@
     <div class="main-container">
         <!-- 欢迎区 -->
         <div class="welcome">
-            <h1>🏥 患者咨询台</h1>
+            <h1>🏥 用户咨询台</h1>
             <p>描述您的症状，AI 为您提供初步建议</p>
         </div>
 
@@ -480,11 +480,11 @@
             `;
 
             try {
-                const context = extra ? `患者补充信息：${extra}` : '';
+                const context = extra ? `用户补充信息：${extra}` : '';
                 const url = `${API_BASE}/diagnosis/diagnose`;
                 const body = {
                     organ: organ,
-                    image_description: '患者症状描述：' + desc,
+                    image_description: '用户症状描述：' + desc,
                     context: context,
                     filling_status: "已充盈",
                     model_preference: "mock"
