@@ -182,6 +182,137 @@
         .section-center { text-align: center; }
         .section-center .section-desc { margin: 0 auto; }
 
+        /* 协作研究 */
+        .collab-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 40px;
+        }
+        .collab-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px 32px;
+            text-align: left;
+            transition: all 0.3s;
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+        .collab-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+            border-color: var(--primary);
+        }
+        .collab-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            display: block;
+        }
+        .collab-card h3 {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+        .collab-desc {
+            font-size: 0.95em;
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+        .collab-text {
+            font-size: 0.92em;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* 协作优势 */
+        .collab-features {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        .collab-feature {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+        .collab-feature:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+        }
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 16px;
+            display: block;
+        }
+        .collab-feature h4 {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+        .collab-feature p {
+            font-size: 0.9em;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        /* 协作流程 */
+        .collab-steps {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+        .collab-step {
+            flex: 1;
+            text-align: center;
+            padding: 24px 16px;
+        }
+        .step-number {
+            width: 64px;
+            height: 64px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+        .collab-step h4 {
+            font-size: 1.05em;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--dark);
+        }
+        .collab-step p {
+            font-size: 0.88em;
+            color: var(--gray);
+        }
+        .step-arrow {
+            font-size: 2em;
+            color: var(--primary);
+            opacity: 0.6;
+        }
+
+        @media (max-width: 1024px) {
+            .collab-grid { grid-template-columns: repeat(2, 1fr); }
+            .collab-features { grid-template-columns: repeat(2, 1fr); }
+            .collab-steps { flex-wrap: wrap; }
+            .step-arrow { display: none; }
+        }
+        @media (max-width: 768px) {
+            .collab-grid { grid-template-columns: 1fr; }
+            .collab-features { grid-template-columns: 1fr; }
+            .collab-steps { flex-direction: column; }
+        }
+
         /* 统计 */
         .stats-row {
             display: grid;
@@ -580,88 +711,90 @@
             <h2 class="section-title">加入联合实验室，共享 AI 诊断能力</h2>
             <p class="section-desc">面向医院、体检中心、科研机构开放协作，共建胃胰疾病早筛生态</p>
         </div>
+        
+        <!-- 协作对象 -->
         <div class="container">
-            <div class="partners-grid" style="grid-template-columns: repeat(3, 1fr);">
-                <div class="partner-card">
-                    <div style="font-size:2.5em;margin-bottom:10px;">🏥</div>
-                    <h4>医院</h4>
-                    <div class="type">提升超声诊断能力</div>
-                    <p>获得 AI 辅助诊断系统使用权，提升超声科诊断效率和准确性，支持多中心数据协作与学术联合发表。</p>
+            <div class="collab-grid">
+                <div class="collab-card">
+                    <div class="collab-icon">🏥</div>
+                    <h3>医院</h3>
+                    <p class="collab-desc">提升超声诊断能力</p>
+                    <p class="collab-text">获得 AI 辅助诊断系统使用权，提升超声科诊断效率和准确性，支持多中心数据协作与学术联合发表。</p>
                 </div>
-                <div class="partner-card">
-                    <div style="font-size:2.5em;margin-bottom:10px;">🔬</div>
-                    <h4>体检中心</h4>
-                    <div class="type">增加早筛服务项目</div>
-                    <p>快速部署口服超声造影早筛方案，增加胃胰疾病早筛特色项目，提升体检服务差异化竞争力。</p>
+                <div class="collab-card">
+                    <div class="collab-icon">🔬</div>
+                    <h3>体检中心</h3>
+                    <p class="collab-desc">增加早筛服务项目</p>
+                    <p class="collab-text">快速部署口服超声造影早筛方案，增加胃胰疾病早筛特色项目，提升体检服务差异化竞争力。</p>
                 </div>
-                <div class="partner-card">
-                    <div style="font-size:2.5em;margin-bottom:10px;">🎓</div>
-                    <h4>科研机构</h4>
-                    <div class="type">共享数据集和算法</div>
-                    <p>接入多中心标注数据集，共享 AI 算法模型，联合申报科研项目，推动学术成果转化。</p>
+                <div class="collab-card">
+                    <div class="collab-icon">🎓</div>
+                    <h3>科研机构</h3>
+                    <p class="collab-desc">共享数据集和算法</p>
+                    <p class="collab-text">接入多中心标注数据集，共享 AI 算法模型，联合申报科研项目，推动学术成果转化。</p>
                 </div>
             </div>
             
             <!-- 协作优势 -->
-            <div style="margin-top:48px;">
-                <h3 style="text-align:center;font-size:1.2em;font-weight:600;margin-bottom:24px;">协作优势</h3>
-                <div class="partners-grid">
-                    <div class="partner-card" style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);color:white;">
-                        <div style="font-size:2em;margin-bottom:8px;">📊</div>
+            <div style="margin-top:80px;">
+                <h3 style="text-align:center;font-size:1.5em;font-weight:700;margin-bottom:48px;">协作优势</h3>
+                <div class="collab-features">
+                    <div class="collab-feature">
+                        <div class="feature-icon">📊</div>
                         <h4>数据共享</h4>
-                        <p style="opacity:0.9;">多中心数据协作，共建高质量标注数据集</p>
+                        <p>多中心数据协作，共建高质量标注数据集</p>
                     </div>
-                    <div class="partner-card" style="background:linear-gradient(135deg, #f093fb 0%, #f5576c 100%);color:white;">
-                        <div style="font-size:2em;margin-bottom:8px;">🤖</div>
+                    <div class="collab-feature">
+                        <div class="feature-icon">🤖</div>
                         <h4>AI 赋能</h4>
-                        <p style="opacity:0.9;">4 套 AI 系统自动切换，诊断准确率≥85%</p>
+                        <p>4 套 AI 系统自动切换，诊断准确率≥85%</p>
                     </div>
-                    <div class="partner-card" style="background:linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);color:white;">
-                        <div style="font-size:2em;margin-bottom:8px;">📝</div>
+                    <div class="collab-feature">
+                        <div class="feature-icon">📝</div>
                         <h4>学术成果</h4>
-                        <p style="opacity:0.9;">联合发表论文，共享知识产权与学术荣誉</p>
+                        <p>联合发表论文，共享知识产权与学术荣誉</p>
                     </div>
-                    <div class="partner-card" style="background:linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);color:white;">
-                        <div style="font-size:2em;margin-bottom:8px;">💎</div>
+                    <div class="collab-feature">
+                        <div class="feature-icon">💎</div>
                         <h4>数字资产</h4>
-                        <p style="opacity:0.9;">区块链智能合约自动分配，收益透明可追溯</p>
+                        <p>区块链智能合约自动分配，收益透明可追溯</p>
                     </div>
                 </div>
             </div>
             
             <!-- 协作流程 -->
-            <div style="margin-top:48px;background:var(--light);border-radius:14px;padding:32px 24px;">
-                <h3 style="text-align:center;font-size:1.2em;font-weight:600;margin-bottom:24px;">协作流程</h3>
-                <div style="display:flex;justify-content:space-around;align-items:center;flex-wrap:wrap;gap:20px;">
-                    <div style="text-align:center;flex:1;min-width:150px;">
-                        <div style="width:60px;height:60px;background:var(--primary);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:1.5em;font-weight:700;">1</div>
-                        <div style="font-weight:600;">机构注册</div>
-                        <div style="font-size:0.85em;color:var(--gray);margin-top:4px;">提交资质认证</div>
+            <div style="margin-top:80px;background:var(--light);border-radius:20px;padding:60px 40px;">
+                <h3 style="text-align:center;font-size:1.5em;font-weight:700;margin-bottom:48px;">协作流程</h3>
+                <div class="collab-steps">
+                    <div class="collab-step">
+                        <div class="step-number">1</div>
+                        <h4>机构注册</h4>
+                        <p>提交资质认证</p>
                     </div>
-                    <div style="font-size:2em;color:var(--primary);">→</div>
-                    <div style="text-align:center;flex:1;min-width:150px;">
-                        <div style="width:60px;height:60px;background:var(--primary);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:1.5em;font-weight:700;">2</div>
-                        <div style="font-weight:600;">加入项目</div>
-                        <div style="font-size:0.85em;color:var(--gray);margin-top:4px;">选择协作项目</div>
+                    <div class="step-arrow">→</div>
+                    <div class="collab-step">
+                        <div class="step-number">2</div>
+                        <h4>加入项目</h4>
+                        <p>选择协作项目</p>
                     </div>
-                    <div style="font-size:2em;color:var(--primary);">→</div>
-                    <div style="text-align:center;flex:1;min-width:150px;">
-                        <div style="width:60px;height:60px;background:var(--primary);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:1.5em;font-weight:700;">3</div>
-                        <div style="font-weight:600;">开展协作</div>
-                        <div style="font-size:0.85em;color:var(--gray);margin-top:4px;">数据采集与诊断</div>
+                    <div class="step-arrow">→</div>
+                    <div class="collab-step">
+                        <div class="step-number">3</div>
+                        <h4>开展协作</h4>
+                        <p>数据采集与诊断</p>
                     </div>
-                    <div style="font-size:2em;color:var(--primary);">→</div>
-                    <div style="text-align:center;flex:1;min-width:150px;">
-                        <div style="width:60px;height:60px;background:var(--primary);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:1.5em;font-weight:700;">4</div>
-                        <div style="font-weight:600;">收益分配</div>
-                        <div style="font-size:0.85em;color:var(--gray);margin-top:4px;">智能合约自动分配</div>
+                    <div class="step-arrow">→</div>
+                    <div class="collab-step">
+                        <div class="step-number">4</div>
+                        <h4>收益分配</h4>
+                        <p>智能合约自动分配</p>
                     </div>
                 </div>
             </div>
             
-            <div style="text-align:center; margin-top:36px;">
-                <a href="/service/login.html" class="btn-primary" style="padding:14px 32px;font-size:1em;">机构注册加入 →</a>
-                <a href="/service/collaboration.html" class="btn-secondary" style="margin-left:12px;padding:14px 32px;font-size:1em;">了解协作流程</a>
+            <div style="text-align:center; margin-top:60px;">
+                <a href="/service/login.html" class="btn-primary" style="padding:16px 40px;font-size:1.05em;">机构注册加入 →</a>
+                <a href="/service/collaboration.html" class="btn-secondary" style="margin-left:16px;padding:16px 40px;font-size:1.05em;">了解协作流程</a>
             </div>
         </div>
     </section>
