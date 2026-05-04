@@ -182,49 +182,6 @@
         .section-center { text-align: center; }
         .section-center .section-desc { margin: 0 auto; }
 
-        /* 诊断流程 */
-        .diagnosis-flow {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 8px;
-            overflow-x: auto;
-            padding: 20px 0;
-        }
-        .flow-step {
-            flex: 0 0 auto;
-            text-align: center;
-            min-width: 120px;
-        }
-        .step-icon {
-            width: 64px;
-            height: 64px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 12px;
-            font-size: 2em;
-            box-shadow: 0 4px 15px rgba(102,126,234,0.3);
-        }
-        .step-title {
-            font-size: 0.95em;
-            font-weight: 600;
-            color: var(--dark);
-            margin-bottom: 4px;
-        }
-        .step-desc {
-            font-size: 0.8em;
-            color: var(--gray);
-        }
-        .flow-arrow {
-            font-size: 1.5em;
-            color: var(--primary);
-            opacity: 0.6;
-            flex-shrink: 0;
-        }
-
         /* 协作研究 */
         .collab-grid {
             display: grid;
@@ -354,9 +311,6 @@
             .collab-grid { grid-template-columns: 1fr; }
             .collab-features { grid-template-columns: 1fr; }
             .collab-steps { flex-direction: column; }
-            .diagnosis-flow { flex-wrap: wrap; justify-content: center; }
-            .flow-arrow { display: none; }
-            .flow-step { margin: 10px; }
         }
 
         /* 统计 */
@@ -923,13 +877,7 @@
             </div>
         </div>
         
-        <!-- 诊断流程 -->
-        <div class="container" style="margin-top:60px;">
-            <h3 style="text-align:center;font-size:1.3em;font-weight:600;margin-bottom:32px;">📊 诊断流程（7 步标准化流程）</h3>
-            <div style="text-align:center;">
-                <img src="img/diagnosis-flow.png" alt="诊断流程" style="max-width:100%;width:900px;border-radius:16px;box-shadow:0 10px 40px rgba(0,0,0,0.1);">
-            </div>
-        </div>
+
     </section>
 
     <!-- 平台入口 -->
