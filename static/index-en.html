@@ -183,6 +183,125 @@
         .section-center { text-align: center; }
         .section-center .section-desc { margin: 0 auto; }
 
+        /* 协作研究 */
+        .collab-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 40px;
+        }
+        .collab-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px 32px;
+            text-align: left;
+            transition: all 0.3s;
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+        .collab-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+            border-color: var(--primary);
+        }
+        .collab-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            display: block;
+        }
+        .collab-card h3 {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+        .collab-desc {
+            font-size: 0.95em;
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+        .collab-text {
+            font-size: 0.92em;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* 协作优势 */
+        .collab-features {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+        .collab-feature {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+        .collab-feature:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+        }
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 16px;
+            display: block;
+        }
+        .collab-feature h4 {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+        .collab-feature p {
+            font-size: 0.9em;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        /* 协作流程 */
+        .collab-steps {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+        .collab-step {
+            flex: 1;
+            text-align: center;
+            padding: 24px 16px;
+        }
+        .step-number {
+            width: 64px;
+            height: 64px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+        .collab-step h4 {
+            font-size: 1.05em;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--dark);
+        }
+        .collab-step p {
+            font-size: 0.88em;
+            color: var(--gray);
+        }
+        .step-arrow {
+            font-size: 2em;
+            color: var(--primary);
+            opacity: 0.6;
+        }
+
         /* Stats */
         .stats-row {
             display: grid;
@@ -427,6 +546,10 @@
             .portal-grid { grid-template-columns: repeat(2, 1fr); }
             .contact-row { gap: 24px; }
             .footer-inner { flex-direction: column; text-align: center; }
+            .collab-grid { grid-template-columns: 1fr; }
+            .collab-features { grid-template-columns: 1fr; }
+            .collab-steps { flex-direction: column; }
+            .step-arrow { display: none; }
         }
     </style>
 </head>
@@ -442,11 +565,12 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#features">Technology</a></li>
                 <li><a href="#scenarios">Scenarios</a></li>
+                <li><a href="#collaboration">Collaboration</a></li>
                 <li><a href="#roadmap">Roadmap</a></li>
                 <li><a href="#demo">Demo</a></li>
                 <li><a href="#portal">Platform</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li><a href="/portal/login.html" class="nav-login">Login</a></li>
+                <li><a href="/service/login.html" class="nav-login">Login</a></li>
                 <li><a href="/" class="lang-switch">中文</a></li>
             </ul>
         </div>
@@ -569,6 +693,99 @@
                     <div class="type">Regional Public Health Programs</div>
                     <p>Cooperating with government public health programs to conduct regional gastric and pancreatic disease censuses.</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Multi-center Collaboration -->
+    <section class="section section-light" id="collaboration">
+        <div class="container section-center">
+            <div class="section-label">🤝 Multi-center Collaboration Research</div>
+            <h2 class="section-title">Join the Joint Laboratory, Share AI Diagnosis Capabilities</h2>
+            <p class="section-desc">Open collaboration for hospitals, health checkup centers, and research institutions to共建 gastric and pancreatic disease early screening ecosystem</p>
+        </div>
+        <div class="container">
+            <div class="collab-grid">
+                <div class="collab-card">
+                    <div class="collab-icon">🏥</div>
+                    <h3>Hospitals</h3>
+                    <p class="collab-desc">Enhance Ultrasound Diagnosis Capabilities</p>
+                    <p class="collab-text">Access AI-assisted diagnosis system, improve ultrasound department efficiency and accuracy, support multi-center data collaboration and joint academic publications.</p>
+                </div>
+                <div class="collab-card">
+                    <div class="collab-icon">🔬</div>
+                    <h3>Health Checkup Centers</h3>
+                    <p class="collab-desc">Add Early Screening Services</p>
+                    <p class="collab-text">Quickly deploy oral ultrasound contrast early screening solutions, add gastric and pancreatic disease screening特色 projects, enhance competitive advantage.</p>
+                </div>
+                <div class="collab-card">
+                    <div class="collab-icon">🎓</div>
+                    <h3>Research Institutions</h3>
+                    <p class="collab-desc">Share Datasets and Algorithms</p>
+                    <p class="collab-text">Access multi-center annotated datasets, share AI algorithm models, jointly apply for research projects, promote academic成果 transformation.</p>
+                </div>
+            </div>
+            
+            <!-- Collaboration Advantages -->
+            <div style="margin-top:80px;">
+                <h3 style="text-align:center;font-size:1.5em;font-weight:700;margin-bottom:48px;">Collaboration Advantages</h3>
+                <div class="collab-features">
+                    <div class="collab-feature">
+                        <div class="feature-icon">📊</div>
+                        <h4>Data Sharing</h4>
+                        <p>Multi-center data collaboration,共建 high-quality annotated datasets</p>
+                    </div>
+                    <div class="collab-feature">
+                        <div class="feature-icon">🤖</div>
+                        <h4>AI Empowerment</h4>
+                        <p>4 AI systems auto-switch, diagnosis accuracy ≥85%</p>
+                    </div>
+                    <div class="collab-feature">
+                        <div class="feature-icon">📝</div>
+                        <h4>Academic成果</h4>
+                        <p>Joint publications, shared intellectual property and academic honors</p>
+                    </div>
+                    <div class="collab-feature">
+                        <div class="feature-icon">💎</div>
+                        <h4>Digital Assets</h4>
+                        <p>Blockchain smart contract auto-distribution, transparent and traceable收益</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Collaboration Process -->
+            <div style="margin-top:80px;background:var(--light);border-radius:20px;padding:60px 40px;">
+                <h3 style="text-align:center;font-size:1.5em;font-weight:700;margin-bottom:48px;">Collaboration Process</h3>
+                <div class="collab-steps">
+                    <div class="collab-step">
+                        <div class="step-number">1</div>
+                        <h4>Institution Registration</h4>
+                        <p>Submit qualification certification</p>
+                    </div>
+                    <div class="step-arrow">→</div>
+                    <div class="collab-step">
+                        <div class="step-number">2</div>
+                        <h4>Join Projects</h4>
+                        <p>Select collaboration projects</p>
+                    </div>
+                    <div class="step-arrow">→</div>
+                    <div class="collab-step">
+                        <div class="step-number">3</div>
+                        <h4>Start Collaboration</h4>
+                        <p>Data collection and diagnosis</p>
+                    </div>
+                    <div class="step-arrow">→</div>
+                    <div class="collab-step">
+                        <div class="step-number">4</div>
+                        <h4>收益 Distribution</h4>
+                        <p>Smart contract auto-distribution</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align:center; margin-top:60px;">
+                <a href="/service/login.html" class="btn-primary" style="padding:16px 40px;font-size:1.05em;">Institution Registration →</a>
+                <a href="/service/collaboration.html" class="btn-secondary" style="margin-left:16px;padding:16px 40px;font-size:1.05em;">Learn More</a>
             </div>
         </div>
     </section>
