@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模型训练 - 超声造影人工智能诊断联合实验室</title>
+    <link rel="icon" type="image/jpeg" href="../aimed-logo-new.jpg">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #0071e3; --dark: #1d1d1f; --gray: #86868b; --light: #f5f5f7; --white: #fff; --success: #34c759; --warning: #ff9500; }
+        html { scroll-behavior: smooth; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; background: var(--light); color: var(--dark); line-height: 1.5; }
+        .navbar { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.72); backdrop-filter: saturate(180%) blur(20px); z-index: 1000; border-bottom: 0.5px solid rgba(0,0,0,0.08); }
+        .nav-container { max-width: 1100px; margin: 0 auto; padding: 0 24px; height: 48px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--dark); font-size: 1em; font-weight: 600; }
+        .logo img { height: 30px; }
+        .nav-links { display: flex; gap: 24px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--dark); font-size: 0.82em; opacity: 0.8; }
+        .nav-links a:hover { opacity: 1; }
+        .nav-links a.active { opacity: 1; color: var(--primary); font-weight: 500; }
+        .page-header { padding: 72px 24px 32px; background: var(--white); border-bottom: 0.5px solid rgba(0,0,0,0.06); }
+        .page-header h1 { font-size: 1.6em; font-weight: 700; }
+        .page-header p { color: var(--gray); font-size: 0.9em; margin-top: 4px; }
+        .breadcrumb { font-size: 0.78em; color: var(--gray); margin-bottom: 8px; }
+        .breadcrumb a { color: var(--primary); text-decoration: none; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+        .card { background: var(--white); border-radius: 14px; padding: 24px; margin-bottom: 16px; border: 1px solid rgba(0,0,0,0.05); }
+        .card h3 { font-size: 1em; font-weight: 600; margin-bottom: 12px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+        .stat-card { background: var(--white); border-radius: 12px; padding: 18px; text-align: center; border: 1px solid rgba(0,0,0,0.05); }
+        .stat-card .num { font-size: 1.8em; font-weight: 700; color: var(--primary); }
+        .stat-card .label { font-size: 0.78em; color: var(--gray); margin-top: 4px; }
+        .model-card { background: var(--light); border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+        .model-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .model-name { font-weight: 600; font-size: 0.95em; }
+        .badge { display: inline-block; padding: 3px 10px; border-radius: 10px; font-size: 0.72em; font-weight: 500; }
+        .badge-active { background: #e8f5e9; color: var(--success); }
+        .badge-training { background: #fff3e0; color: var(--warning); }
+        .model-meta { font-size: 0.82em; color: var(--gray); line-height: 1.6; }
+        .progress-bar { height: 8px; background: #e0e0e0; border-radius: 4px; overflow: hidden; margin-top: 8px; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--primary), #667eea); border-radius: 4px; transition: width 0.5s; }
+        .btn { padding: 8px 18px; border-radius: 10px; border: none; font-size: 0.85em; font-weight: 500; cursor: pointer; font-family: inherit; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-outline { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
+        .btn-sm { padding: 5px 12px; font-size: 0.78em; }
+        .toast { position: fixed; top: 20px; right: 20px; background: var(--white); border-radius: 12px; padding: 12px 18px; box-shadow: 0 8px 30px rgba(0,0,0,0.12); z-index: 1000; font-size: 0.85em; }
+        .toast.success { border-left: 3px solid var(--success); }
+        @media (max-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } .nav-links { display: none; } }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo"><img src="../aimed-logo-new.jpg" alt="AIMED"><span>联合实验室</span></a>
+            <ul class="nav-links">
+                <li><a href="/">官网</a></li>
+                <li><a href="/service/" class="active">服务平台</a></li>
+                <li><a href="/admin/">管理平台</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <div class="container" style="padding-top:0;padding-bottom:0;">
+            <div class="breadcrumb"><a href="/service/">服务平台</a> / 模型训练</div>
+            <h1>🧠 模型训练</h1>
+            <p>模型贡献 · 训练记录 · 效果评估</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-card"><div class="num">3</div><div class="label">在线模型</div></div>
+            <div class="stat-card"><div class="num">1</div><div class="label">训练中</div></div>
+            <div class="stat-card"><div class="num">92.3%</div><div class="label">最高准确率</div></div>
+            <div class="stat-card"><div class="num">5,247</div><div class="label">训练样本</div></div>
+        </div>
+
+        <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                <h3 style="margin-bottom:0;">在线模型</h3>
+                <button class="btn btn-primary btn-sm" onclick="showToast('贡献数据功能开发中', 'info')">贡献数据</button>
+            </div>
+            <div class="model-card">
+                <div class="model-header">
+                    <div class="model-name">🩺 胃早癌诊断模型 v2.1</div>
+                    <span class="badge badge-active">✅ 在线</span>
+                </div>
+                <div class="model-meta">
+                    准确率：92.3% · 敏感度：94.1% · 特异度：90.8%<br>
+                    训练样本：3,247 例 · 最后更新：2026-04-28
+                </div>
+            </div>
+            <div class="model-card">
+                <div class="model-header">
+                    <div class="model-name">🔬 胰腺癌诊断模型 v1.8</div>
+                    <span class="badge badge-active">✅ 在线</span>
+                </div>
+                <div class="model-meta">
+                    准确率：88.7% · 敏感度：89.5% · 特异度：87.2%<br>
+                    训练样本：1,892 例 · 最后更新：2026-04-25
+                </div>
+            </div>
+            <div class="model-card">
+                <div class="model-header">
+                    <div class="model-name">📋 慢性胃炎分级模型 v1.5</div>
+                    <span class="badge badge-active">✅ 在线</span>
+                </div>
+                <div class="model-meta">
+                    准确率：90.1% · 敏感度：91.3% · 特异度：88.9%<br>
+                    训练样本：678 例 · 最后更新：2026-04-20
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>训练中模型</h3>
+            <div class="model-card">
+                <div class="model-header">
+                    <div class="model-name">🌍 基层适配模型 v0.9</div>
+                    <span class="badge badge-training">⏳ 训练中</span>
+                </div>
+                <div class="model-meta">
+                    目标：提升基层医院诊断准确率 · 预计完成：2026-06-15<br>
+                    当前进度：
+                </div>
+                <div class="progress-bar"><div class="progress-fill" style="width:65%;"></div></div>
+                <div style="font-size:0.78em;color:var(--gray);margin-top:4px;">65% 完成（Epoch 65/100）</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>📊 模型效果对比</h3>
+            <table style="width:100%;font-size:0.85em;border-collapse:collapse;">
+                <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+                    <th style="text-align:left;padding:8px 0;">模型</th>
+                    <th style="padding:8px;">准确率</th>
+                    <th style="padding:8px;">敏感度</th>
+                    <th style="padding:8px;">特异度</th>
+                    <th style="padding:8px;">样本数</th>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(0,0,0,0.04);">
+                    <td style="padding:8px 0;">胃早癌 v2.1</td>
+                    <td style="text-align:center;font-weight:600;color:var(--success);">92.3%</td>
+                    <td style="text-align:center;">94.1%</td>
+                    <td style="text-align:center;">90.8%</td>
+                    <td style="text-align:center;">3,247</td>
+                </tr>
+                <tr style="border-bottom:1px solid rgba(0,0,0,0.04);">
+                    <td style="padding:8px 0;">胰腺癌 v1.8</td>
+                    <td style="text-align:center;font-weight:600;color:var(--success);">88.7%</td>
+                    <td style="text-align:center;">89.5%</td>
+                    <td style="text-align:center;">87.2%</td>
+                    <td style="text-align:center;">1,892</td>
+                </tr>
+                <tr>
+                    <td style="padding:8px 0;">慢性胃炎 v1.5</td>
+                    <td style="text-align:center;font-weight:600;color:var(--success);">90.1%</td>
+                    <td style="text-align:center;">91.3%</td>
+                    <td style="text-align:center;">88.9%</td>
+                    <td style="text-align:center;">678</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function showToast(msg, type) {
+            const t = document.createElement('div');
+            t.className = 'toast ' + type;
+            t.textContent = msg;
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 3000);
+        }
+    </script>
+</body>
+</html>

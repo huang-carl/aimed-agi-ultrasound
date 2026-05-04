@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学术中心 - 超声造影人工智能诊断联合实验室</title>
+    <link rel="icon" type="image/jpeg" href="../aimed-logo-new.jpg">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #0071e3; --dark: #1d1d1f; --gray: #86868b; --light: #f5f5f7; --white: #fff; --success: #34c759; }
+        html { scroll-behavior: smooth; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; background: var(--light); color: var(--dark); line-height: 1.5; }
+        .navbar { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.72); backdrop-filter: saturate(180%) blur(20px); z-index: 1000; border-bottom: 0.5px solid rgba(0,0,0,0.08); }
+        .nav-container { max-width: 1100px; margin: 0 auto; padding: 0 24px; height: 48px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--dark); font-size: 1em; font-weight: 600; }
+        .logo img { height: 30px; }
+        .nav-links { display: flex; gap: 24px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--dark); font-size: 0.82em; opacity: 0.8; }
+        .nav-links a:hover { opacity: 1; }
+        .nav-links a.active { opacity: 1; color: var(--primary); font-weight: 500; }
+        .page-header { padding: 72px 24px 32px; background: var(--white); border-bottom: 0.5px solid rgba(0,0,0,0.06); }
+        .page-header h1 { font-size: 1.6em; font-weight: 700; }
+        .page-header p { color: var(--gray); font-size: 0.9em; margin-top: 4px; }
+        .breadcrumb { font-size: 0.78em; color: var(--gray); margin-bottom: 8px; }
+        .breadcrumb a { color: var(--primary); text-decoration: none; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+        .card { background: var(--white); border-radius: 14px; padding: 24px; margin-bottom: 16px; border: 1px solid rgba(0,0,0,0.05); }
+        .card h3 { font-size: 1em; font-weight: 600; margin-bottom: 12px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+        .stat-card { background: var(--white); border-radius: 12px; padding: 18px; text-align: center; border: 1px solid rgba(0,0,0,0.05); }
+        .stat-card .num { font-size: 1.8em; font-weight: 700; color: var(--primary); }
+        .stat-card .label { font-size: 0.78em; color: var(--gray); margin-top: 4px; }
+        .paper-item { padding: 14px 0; border-bottom: 1px solid rgba(0,0,0,0.04); }
+        .paper-item:last-child { border-bottom: none; }
+        .paper-title { font-weight: 600; font-size: 0.9em; margin-bottom: 4px; }
+        .paper-meta { font-size: 0.8em; color: var(--gray); }
+        .badge { display: inline-block; padding: 3px 10px; border-radius: 10px; font-size: 0.72em; font-weight: 500; }
+        .badge-sci { background: #e3f2fd; color: var(--primary); }
+        .badge-core { background: #e8f5e9; color: var(--success); }
+        .btn { padding: 8px 18px; border-radius: 10px; border: none; font-size: 0.85em; font-weight: 500; cursor: pointer; font-family: inherit; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-outline { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
+        .btn-sm { padding: 5px 12px; font-size: 0.78em; }
+        .toast { position: fixed; top: 20px; right: 20px; background: var(--white); border-radius: 12px; padding: 12px 18px; box-shadow: 0 8px 30px rgba(0,0,0,0.12); z-index: 1000; font-size: 0.85em; }
+        .toast.success { border-left: 3px solid var(--success); }
+        @media (max-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } .nav-links { display: none; } }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo"><img src="../aimed-logo-new.jpg" alt="AIMED"><span>联合实验室</span></a>
+            <ul class="nav-links">
+                <li><a href="/">官网</a></li>
+                <li><a href="/service/" class="active">服务平台</a></li>
+                <li><a href="/admin/">管理平台</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <div class="container" style="padding-top:0;padding-bottom:0;">
+            <div class="breadcrumb"><a href="/service/">服务平台</a> / 学术中心</div>
+            <h1>🎓 学术中心</h1>
+            <p>学术论文 · 研究报告 · 学术会议</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-card"><div class="num">8</div><div class="label">发表论文</div></div>
+            <div class="stat-card"><div class="num">3</div><div class="label">SCI 论文</div></div>
+            <div class="stat-card"><div class="num">12</div><div class="label">学术会议</div></div>
+        </div>
+
+        <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                <h3 style="margin-bottom:0;">学术论文</h3>
+                <button class="btn btn-primary btn-sm" onclick="showToast('提交论文功能开发中', 'info')">提交论文</button>
+            </div>
+            <div class="paper-item">
+                <div class="paper-title">口服超声造影联合 AI 诊断在胃早癌筛查中的应用</div>
+                <div class="paper-meta">中华超声影像学杂志 · 2026 · 多中心协作组 · <span class="badge badge-core">核心期刊</span></div>
+            </div>
+            <div class="paper-item">
+                <div class="paper-title">Multi-center Validation of AI-assisted Ultrasound for Pancreatic Cancer Early Detection</div>
+                <div class="paper-meta">Ultrasound in Medicine & Biology · 2026 · AIMED Research Team · <span class="badge badge-sci">SCI IF 2.9</span></div>
+            </div>
+            <div class="paper-item">
+                <div class="paper-title">基于区块链的多中心医疗数据协作平台设计</div>
+                <div class="paper-meta">中国数字医学 · 2026 · 阿尔麦德技术团队 · <span class="badge badge-core">核心期刊</span></div>
+            </div>
+            <div class="paper-item">
+                <div class="paper-title">AI 辅助超声造影在慢性胃炎分级评估中的价值</div>
+                <div class="paper-meta">中华消化杂志 · 2026 · 上海瑞金医院协作组 · <span class="badge badge-core">核心期刊</span></div>
+            </div>
+            <div class="paper-item">
+                <div class="paper-title">Oral Contrast-Enhanced Ultrasound Combined with Deep Learning for Gastric Cancer Screening</div>
+                <div class="paper-meta">European Radiology · 2026 · AIMED Consortium · <span class="badge badge-sci">SCI IF 4.2</span></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>研究报告</h3>
+            <div class="paper-item">
+                <div class="paper-title">2026 年度多中心协作研究报告</div>
+                <div class="paper-meta">发布单位：AIMED 联合实验室 · 2026-04</div>
+            </div>
+            <div class="paper-item">
+                <div class="paper-title">口服超声造影剂安全性与有效性 Meta 分析</div>
+                <div class="paper-meta">发布单位：国械恒发 · 2026-03</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>学术会议</h3>
+            <div class="paper-item">
+                <div class="paper-title">📢 2026 国际超声造影与 AI 诊断研讨会</div>
+                <div class="paper-meta">时间：2026-06-15 · 地点：上海 · 主办：AIMED 联合实验室</div>
+            </div>
+            <div class="paper-item">
+                <div class="paper-title">📢 第 18 届全国超声医学学术会议</div>
+                <div class="paper-meta">时间：2026-09-20 · 地点：北京 · AIMED 设专场报告</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showToast(msg, type) {
+            const t = document.createElement('div');
+            t.className = 'toast ' + type;
+            t.textContent = msg;
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 3000);
+        }
+    </script>
+</body>
+</html>

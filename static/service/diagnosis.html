@@ -366,16 +366,16 @@
     <!-- 导航栏 -->
     <nav class="navbar">
         <div class="nav-inner">
-            <a href="/portal/" class="nav-logo">
+            <a href="/service/" class="nav-logo">
                 <img src="../aimed-logo-new.jpg" alt="AIMED">
                 <span>AIMED 充盈视界</span>
             </a>
             <div class="nav-breadcrumb">
-                <a href="/portal/">AI 平台</a>
+                <a href="/service/">AI 平台</a>
                 <span>›</span>
                 <span>医生工作台</span>
             </div>
-            <a href="/portal/login.html" class="nav-user" style="color:var(--primary);text-decoration:none;font-size:0.9em;">🔑 登录</a>
+            <a href="/service/login.html" class="nav-user" style="color:var(--primary);text-decoration:none;font-size:0.9em;">🔑 登录</a>
         </div>
     </nav>
 
@@ -513,7 +513,7 @@
                                 e.preventDefault();
                                 if (confirm('确定要退出登录吗？')) {
                                     localStorage.removeItem('loginStatus');
-                                    window.location.href = '/portal/login.html';
+                                    window.location.href = '/service/login.html';
                                 }
                             };
                         }
@@ -809,5 +809,5 @@
             setTimeout(() => toast.remove(), 3000);
         }
     </script>
-</body>
+<script src="/aimed-bot.js"></script></body>
 </html>

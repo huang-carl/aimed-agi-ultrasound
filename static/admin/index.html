@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIMED 运营管理平台</title>
+    <link rel="icon" type="image/jpeg" href="../aimed-logo-new.jpg">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #0071e3; --dark: #1d1d1f; --gray: #86868b; --light: #f5f5f7; --white: #fff; }
+        html { scroll-behavior: smooth; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; background: var(--light); color: var(--dark); line-height: 1.5; }
+        .navbar { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.72); backdrop-filter: saturate(180%) blur(20px); z-index: 1000; border-bottom: 0.5px solid rgba(0,0,0,0.08); }
+        .nav-container { max-width: 1100px; margin: 0 auto; padding: 0 24px; height: 48px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--dark); font-size: 1em; font-weight: 600; }
+        .logo img { height: 30px; }
+        .nav-links { display: flex; gap: 24px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--dark); font-size: 0.82em; opacity: 0.8; }
+        .nav-links a:hover { opacity: 1; }
+        .nav-links a.active { opacity: 1; color: var(--primary); font-weight: 500; }
+        .nav-login { background: var(--primary); color: white !important; padding: 5px 16px; border-radius: 18px; font-weight: 500 !important; opacity: 1 !important; }
+
+        .hero { min-height: 85vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 100px 24px 60px; background: var(--white); }
+        .hero h1 { font-size: clamp(1.8em, 4vw, 2.8em); font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 12px; }
+        .hero .subtitle { font-size: clamp(0.95em, 1.8vw, 1.1em); color: var(--gray); max-width: 480px; margin: 0 auto 40px; }
+        .roles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 700px; margin: 0 auto; }
+        .role-card { background: var(--white); border-radius: 14px; padding: 24px 16px; text-align: center; text-decoration: none; color: var(--dark); transition: all 0.3s; border: 1px solid rgba(0,0,0,0.05); }
+        .role-card:hover { transform: translateY(-3px); box-shadow: 0 10px 36px rgba(0,0,0,0.07); border-color: var(--primary); }
+        .role-icon { font-size: 1.8em; margin-bottom: 10px; display: block; }
+        .role-card h3 { font-size: 0.9em; font-weight: 600; margin-bottom: 4px; }
+        .role-card p { font-size: 0.72em; color: var(--gray); line-height: 1.4; }
+        .role-badge { display: inline-block; background: var(--light); color: var(--primary); padding: 2px 8px; border-radius: 8px; font-size: 0.65em; font-weight: 500; margin-top: 8px; }
+
+        .section-label { font-size: 0.8em; color: var(--primary); font-weight: 600; letter-spacing: 0.08em; margin-bottom: 10px; margin-top: 40px; }
+        .section-title { font-size: 1.2em; font-weight: 600; margin-bottom: 16px; }
+
+        .footer { background: var(--light); padding: 24px; border-top: 0.5px solid rgba(0,0,0,0.08); text-align: center; }
+        .footer p { color: var(--gray); font-size: 0.75em; }
+        .footer a { color: var(--primary); text-decoration: none; }
+
+        @media (max-width: 768px) { .nav-links { display: none; } .roles-grid { grid-template-columns: repeat(2, 1fr); } }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo"><img src="../aimed-logo-new.jpg" alt="AIMED"><span>运营管理平台</span></a>
+            <ul class="nav-links">
+                <li><a href="/">官网</a></li>
+                <li><a href="/service/">服务平台</a></li>
+                <li><a href="/admin/login.html" class="nav-login" id="loginLink">管理员登录</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>AIMED 运营管理平台</h1>
+        <p class="subtitle">集团5家公司 · 合作机构 · 收益分配 · 区块链管理</p>
+
+        <div class="section-label">内部管理 — 集团5家公司</div>
+        <div class="roles-grid">
+            <a href="/admin/dongya.html" class="role-card">
+                <span class="role-icon">💊</span>
+                <h3>东亚医药</h3>
+                <p>造影剂研发生产</p>
+                <span class="role-badge">母公司</span>
+            </a>
+            <a href="/admin/guoxie.html" class="role-card">
+                <span class="role-icon">🏥</span>
+                <h3>国械恒发</h3>
+                <p>造影剂销售运营</p>
+                <span class="role-badge">股东单位</span>
+            </a>
+            <a href="/admin/aimed.html" class="role-card">
+                <span class="role-icon">🤖</span>
+                <h3>阿尔麦德</h3>
+                <p>AI 诊断平台</p>
+                <span class="role-badge">核心子公司</span>
+            </a>
+        </div>
+        <div class="roles-grid" style="margin-top:14px;">
+            <a href="/admin/shanghai.html" class="role-card">
+                <span class="role-icon">🌐</span>
+                <h3>阿尔麦德上海</h3>
+                <p>市场拓展与渠道</p>
+                <span class="role-badge">子公司</span>
+            </a>
+            <a href="/admin/heqihui.html" class="role-card">
+                <span class="role-icon">🤝</span>
+                <h3>和七汇企业</h3>
+                <p>生态协同管理</p>
+                <span class="role-badge">合伙企业</span>
+            </a>
+            <a href="/admin/dashboard.html" class="role-card">
+                <span class="role-icon">📊</span>
+                <h3>运营总览</h3>
+                <p>全局数据看板</p>
+                <span class="role-badge">总览</span>
+            </a>
+        </div>
+
+        <div class="section-label">外部管理 — 合作机构</div>
+        <div class="roles-grid">
+            <a href="/admin/institutions.html" class="role-card">
+                <span class="role-icon">🏥</span>
+                <h3>合作医院</h3>
+                <p>成员管理 · 项目进度</p>
+                <span class="role-badge">外部</span>
+            </a>
+            <a href="/admin/institutions.html" class="role-card">
+                <span class="role-icon">🔬</span>
+                <h3>体检中心</h3>
+                <p>中心管理 · 收益分配</p>
+                <span class="role-badge">外部</span>
+            </a>
+            <a href="/admin/institutions.html" class="role-card">
+                <span class="role-icon">🎓</span>
+                <h3>科研机构</h3>
+                <p>机构管理 · 数据导出</p>
+                <span class="role-badge">外部</span>
+            </a>
+        </div>
+
+        <div class="section-label">平台功能</div>
+        <div class="roles-grid">
+            <a href="/admin/distribution.html" class="role-card">
+                <span class="role-icon">💰</span>
+                <h3>收益分配</h3>
+                <p>规则配置 · 结算对账</p>
+                <span class="role-badge">财务</span>
+            </a>
+            <a href="/admin/blockchain.html" class="role-card">
+                <span class="role-icon">⛓️</span>
+                <h3>区块链管理</h3>
+                <p>链上状态 · 智能合约</p>
+                <span class="role-badge">技术</span>
+            </a>
+            <a href="/admin/users.html" class="role-card">
+                <span class="role-icon">👥</span>
+                <h3>用户管理</h3>
+                <p>用户列表 · 权限管理</p>
+                <span class="role-badge">运营</span>
+            </a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>阿尔麦德智慧医疗（湖州）有限公司 · <a href="/">www.aius.xin</a></p>
+        <p style="margin-top:4px;">AIMED 充盈视界 FillingVision · 运营管理平台</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginStatus = localStorage.getItem('adminLogin');
+            const loginLink = document.getElementById('loginLink');
+            if (loginStatus) {
+                try {
+                    const data = JSON.parse(loginStatus);
+                    if (Date.now() - new Date(data.timestamp).getTime() < 24*60*60*1000) {
+                        loginLink.innerHTML = `👤 ${data.username}`;
+                        loginLink.href = '#';
+                        loginLink.onclick = (e) => {
+                            e.preventDefault();
+                            if (confirm('确定要退出登录吗？')) {
+                                localStorage.removeItem('adminLogin');
+                                window.location.reload();
+                            }
+                        };
+                    } else { localStorage.removeItem('adminLogin'); }
+                } catch (e) { localStorage.removeItem('adminLogin'); }
+            }
+        });
+    </script>
+</body>
+</html>

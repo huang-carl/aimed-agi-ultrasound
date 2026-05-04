@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>超声造影人工智能诊断联合实验室</title>
+    <link rel="icon" type="image/jpeg" href="../aimed-logo-new.jpg">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #0071e3; --primary-dark: #0055b3; --dark: #1d1d1f; --gray: #86868b; --light: #f5f5f7; --white: #ffffff; }
+        html { scroll-behavior: smooth; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; color: var(--dark); background: var(--white); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+        .navbar { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); z-index: 1000; border-bottom: 0.5px solid rgba(0,0,0,0.08); }
+        .nav-container { max-width: 1100px; margin: 0 auto; padding: 0 24px; height: 48px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--dark); font-size: 1em; font-weight: 600; }
+        .logo img { height: 30px; width: auto; }
+        .nav-links { display: flex; gap: 24px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--dark); font-size: 0.82em; opacity: 0.8; transition: opacity 0.3s; }
+        .nav-links a:hover { opacity: 1; }
+        .nav-login { background: var(--primary); color: white !important; padding: 5px 16px; border-radius: 18px; font-weight: 500 !important; opacity: 1 !important; transition: all 0.3s !important; }
+        .nav-login:hover { background: var(--primary-dark); }
+        .nav-user { color: var(--primary) !important; opacity: 1 !important; font-weight: 500 !important; }
+
+        .hero { min-height: 85vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 100px 24px 60px; background: var(--white); }
+        .hero h1 { font-size: clamp(1.8em, 4vw, 2.8em); font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 12px; color: var(--dark); }
+        .hero .subtitle { font-size: clamp(0.95em, 1.8vw, 1.1em); color: var(--gray); font-weight: 400; max-width: 480px; margin: 0 auto 40px; }
+        .roles-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 700px; margin: 0 auto; }
+        .role-card { background: var(--white); border-radius: 14px; padding: 24px 16px; text-align: center; text-decoration: none; color: var(--dark); transition: all 0.3s; border: 1px solid rgba(0,0,0,0.05); }
+        .role-card:hover { transform: translateY(-3px); box-shadow: 0 10px 36px rgba(0,0,0,0.07); border-color: var(--primary); }
+        .role-icon { font-size: 1.8em; margin-bottom: 10px; display: block; }
+        .role-card h3 { font-size: 0.9em; font-weight: 600; margin-bottom: 4px; }
+        .role-card p { font-size: 0.72em; color: var(--gray); line-height: 1.4; }
+        .role-badge { display: inline-block; background: var(--light); color: var(--primary); padding: 2px 8px; border-radius: 8px; font-size: 0.65em; font-weight: 500; margin-top: 8px; }
+
+        .quick-section { padding: 60px 24px; background: var(--light); }
+        .quick-section h2 { text-align: center; font-size: 1.3em; font-weight: 600; margin-bottom: 6px; }
+        .quick-section .desc { text-align: center; color: var(--gray); font-size: 0.9em; margin-bottom: 28px; }
+        .quick-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; max-width: 700px; margin: 0 auto; }
+        .quick-card { background: var(--white); border-radius: 12px; padding: 20px 16px; text-align: center; text-decoration: none; color: var(--dark); transition: all 0.3s; border: 1px solid rgba(0,0,0,0.05); }
+        .quick-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+        .quick-card .icon { font-size: 1.5em; margin-bottom: 8px; }
+        .quick-card h4 { font-size: 0.88em; font-weight: 600; margin-bottom: 2px; }
+        .quick-card p { font-size: 0.72em; color: var(--gray); }
+
+        .footer { background: var(--light); padding: 24px; border-top: 0.5px solid rgba(0,0,0,0.08); text-align: center; }
+        .footer p { color: var(--gray); font-size: 0.75em; }
+        .footer a { color: var(--primary); text-decoration: none; }
+
+        @media (max-width: 768px) { .nav-links { display: none; } .hero { min-height: 75vh; padding: 90px 20px 50px; } .roles-grid { grid-template-columns: repeat(2, 1fr); } .quick-grid { grid-template-columns: repeat(2, 1fr); } }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo"><img src="../aimed-logo-new.jpg" alt="AIMED"><span>联合实验室</span></a>
+            <ul class="nav-links">
+                <li><a href="/">官网</a></li>
+                <li><a href="/admin/">管理平台</a></li>
+                <li><a href="/service/login.html" class="nav-login" id="loginLink">登录</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>超声造影人工智能<br>诊断联合实验室</h1>
+        <p class="subtitle">口服超声造影剂 + AI 多智能体诊断 + 区块链存证</p>
+        <div class="roles-grid">
+            <a href="/service/diagnosis.html" class="role-card">
+                <span class="role-icon">🩺</span>
+                <h3>诊断工作台</h3>
+                <p>影像上传 → AI 诊断 → 报告生成</p>
+                <span class="role-badge">核心</span>
+            </a>
+            <a href="/service/collaboration.html" class="role-card">
+                <span class="role-icon">🤝</span>
+                <h3>协作研究</h3>
+                <p>多中心项目 · 数据看板</p>
+                <span class="role-badge">研究</span>
+            </a>
+            <a href="/service/academy.html" class="role-card">
+                <span class="role-icon">🎓</span>
+                <h3>学术中心</h3>
+                <p>论文 · 报告 · 会议</p>
+                <span class="role-badge">学术</span>
+            </a>
+            <a href="/service/model.html" class="role-card">
+                <span class="role-icon">🧠</span>
+                <h3>模型训练</h3>
+                <p>模型贡献 · 训练记录</p>
+                <span class="role-badge">AI</span>
+            </a>
+            <a href="/service/assets.html" class="role-card">
+                <span class="role-icon">💎</span>
+                <h3>我的资产</h3>
+                <p>数字资产 · 收益记录 · NFT</p>
+                <span class="role-badge">资产</span>
+            </a>
+            <a href="/service/patient.html" class="role-card">
+                <span class="role-icon">👤</span>
+                <h3>患者咨询</h3>
+                <p>症状描述 → AI 建议</p>
+                <span class="role-badge">简单</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="quick-section">
+        <h2>核心能力</h2>
+        <p class="desc">4 套 AI 系统 · 自动切换 · 诊断不中断</p>
+        <div class="quick-grid">
+            <a href="/service/diagnosis.html" class="quick-card">
+                <div class="icon">🤖</div>
+                <h4>AI 诊断</h4>
+                <p>4 套系统自动切换</p>
+            </a>
+            <a href="/service/identity.html" class="quick-card">
+                <div class="icon">🔐</div>
+                <h4>区块链身份</h4>
+                <p>DID 链上存证</p>
+            </a>
+            <a href="/service/assets.html" class="quick-card">
+                <div class="icon">🖼️</div>
+                <h4>图像分割</h4>
+                <p>SAM ViT-B 模型</p>
+            </a>
+            <a href="/docs/knowledge.html" class="quick-card">
+                <div class="icon">📚</div>
+                <h4>知识库</h4>
+                <p>50+ 篇文章</p>
+            </a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>阿尔麦德智慧医疗（湖州）有限公司 · <a href="/">www.aius.xin</a></p>
+        <p style="margin-top:4px;">AIMED 充盈视界 FillingVision · 超声造影人工智能诊断联合实验室</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginStatus = localStorage.getItem('loginStatus');
+            const loginLink = document.getElementById('loginLink');
+            if (loginStatus) {
+                try {
+                    const data = JSON.parse(loginStatus);
+                    if (Date.now() - new Date(data.timestamp).getTime() < 24*60*60*1000) {
+                        loginLink.innerHTML = `👤 ${data.username || data.identityId}`;
+                        loginLink.className = 'nav-user';
+                        loginLink.href = '#';
+                        loginLink.onclick = (e) => {
+                            e.preventDefault();
+                            if (confirm('确定要退出登录吗？')) {
+                                localStorage.removeItem('loginStatus');
+                                window.location.reload();
+                            }
+                        };
+                    } else { localStorage.removeItem('loginStatus'); }
+                } catch (e) { localStorage.removeItem('loginStatus'); }
+            }
+        });
+    </script>
+</body>
+</html>

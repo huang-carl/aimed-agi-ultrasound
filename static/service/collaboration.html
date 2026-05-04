@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>协作研究台 - 超声造影人工智能诊断联合实验室</title>
+    <link rel="icon" type="image/jpeg" href="../aimed-logo-new.jpg">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #0071e3; --dark: #1d1d1f; --gray: #86868b; --light: #f5f5f7; --white: #fff; --success: #34c759; }
+        html { scroll-behavior: smooth; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; background: var(--light); color: var(--dark); line-height: 1.5; }
+        .navbar { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.72); backdrop-filter: saturate(180%) blur(20px); z-index: 1000; border-bottom: 0.5px solid rgba(0,0,0,0.08); }
+        .nav-container { max-width: 1100px; margin: 0 auto; padding: 0 24px; height: 48px; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--dark); font-size: 1em; font-weight: 600; }
+        .logo img { height: 30px; }
+        .nav-links { display: flex; gap: 24px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--dark); font-size: 0.82em; opacity: 0.8; }
+        .nav-links a:hover { opacity: 1; }
+        .nav-links a.active { opacity: 1; color: var(--primary); font-weight: 500; }
+
+        .page-header { padding: 72px 24px 32px; background: var(--white); border-bottom: 0.5px solid rgba(0,0,0,0.06); }
+        .page-header h1 { font-size: 1.6em; font-weight: 700; }
+        .page-header p { color: var(--gray); font-size: 0.9em; margin-top: 4px; }
+        .breadcrumb { font-size: 0.78em; color: var(--gray); margin-bottom: 8px; }
+        .breadcrumb a { color: var(--primary); text-decoration: none; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+        .card { background: var(--white); border-radius: 14px; padding: 24px; margin-bottom: 16px; border: 1px solid rgba(0,0,0,0.05); }
+        .card h3 { font-size: 1em; font-weight: 600; margin-bottom: 12px; }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+        .stat-card { background: var(--white); border-radius: 12px; padding: 18px; text-align: center; border: 1px solid rgba(0,0,0,0.05); }
+        .stat-card .num { font-size: 1.8em; font-weight: 700; color: var(--primary); }
+        .stat-card .label { font-size: 0.78em; color: var(--gray); margin-top: 4px; }
+
+        .project-card { background: var(--white); border-radius: 12px; padding: 20px; margin-bottom: 12px; border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s; cursor: pointer; }
+        .project-card:hover { border-color: var(--primary); box-shadow: 0 4px 16px rgba(0,113,227,0.08); }
+        .project-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+        .project-title { font-weight: 600; font-size: 0.95em; }
+        .project-leader { font-size: 0.78em; color: var(--gray); margin-top: 2px; }
+        .project-desc { font-size: 0.85em; color: var(--gray); margin-bottom: 12px; line-height: 1.5; }
+        .project-meta { display: flex; gap: 16px; font-size: 0.78em; color: var(--gray); flex-wrap: wrap; }
+        .project-meta span { display: flex; align-items: center; gap: 4px; }
+
+        .badge { display: inline-block; padding: 3px 10px; border-radius: 10px; font-size: 0.72em; font-weight: 500; }
+        .badge-active { background: #e8f5e9; color: var(--success); }
+        .badge-recruiting { background: #e3f2fd; color: var(--primary); }
+        .badge-completed { background: var(--light); color: var(--gray); }
+
+        .btn { padding: 8px 18px; border-radius: 10px; border: none; font-size: 0.85em; font-weight: 500; cursor: pointer; font-family: inherit; transition: all 0.3s; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-outline { background: transparent; color: var(--primary); border: 1px solid var(--primary); }
+        .btn-outline:hover { background: rgba(0,113,227,0.04); }
+        .btn-sm { padding: 5px 12px; font-size: 0.78em; }
+
+        .bar-chart { display: flex; align-items: flex-end; gap: 8px; height: 120px; padding: 10px 0; }
+        .bar-item { flex: 1; display: flex; flex-direction: column; align-items: center; }
+        .bar { background: linear-gradient(180deg, var(--primary), #667eea); border-radius: 4px 4px 0 0; min-height: 8px; transition: height 0.5s; }
+        .bar-label { font-size: 0.65em; color: var(--gray); margin-top: 6px; text-align: center; }
+        .bar-value { font-size: 0.7em; font-weight: 600; color: var(--dark); margin-bottom: 4px; }
+
+        .tab-bar { display: flex; gap: 4px; margin-bottom: 20px; background: var(--light); border-radius: 10px; padding: 3px; }
+        .tab-item { flex: 1; padding: 8px; text-align: center; border-radius: 8px; font-size: 0.85em; font-weight: 500; cursor: pointer; color: var(--gray); transition: all 0.3s; }
+        .tab-item.active { background: var(--white); color: var(--primary); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+
+        .empty-state { text-align: center; padding: 40px 20px; color: var(--gray); }
+        .empty-state .icon { font-size: 2.5em; margin-bottom: 12px; }
+
+        .toast { position: fixed; top: 20px; right: 20px; background: var(--white); border-radius: 12px; padding: 12px 18px; box-shadow: 0 8px 30px rgba(0,0,0,0.12); z-index: 1000; font-size: 0.85em; }
+        .toast.success { border-left: 3px solid var(--success); }
+        .toast.error { border-left: 3px solid #ff3b30; }
+        .toast.info { border-left: 3px solid var(--primary); }
+
+        @media (max-width: 768px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .nav-links { display: none; }
+            .project-meta { flex-direction: column; gap: 4px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo"><img src="../aimed-logo-new.jpg" alt="AIMED"><span>联合实验室</span></a>
+            <ul class="nav-links">
+                <li><a href="/">官网</a></li>
+                <li><a href="/service/">平台</a></li>
+                <li><a href="/service/doctor.html">医生工作台</a></li>
+                <li><a href="/service/institution.html">机构管理</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <div class="container" style="padding-top:0;padding-bottom:0;">
+            <div class="breadcrumb"><a href="/service/">平台首页</a> / 协作研究台</div>
+            <h1>🤝 协作研究台</h1>
+            <p>多中心协作项目 · 数据共享看板 · 学术成果管理</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 未登录 -->
+        <div id="loginPrompt" style="display:none;">
+            <div class="card">
+                <div class="empty-state">
+                    <div class="icon">🔒</div>
+                    <p>请先登录后访问协作研究台</p>
+                    <a href="/service/login.html?redirect=portal/collaboration.html" class="btn btn-primary" style="margin-top:16px;display:inline-block;">立即登录</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 已登录 -->
+        <div id="dashboard" style="display:none;">
+            <!-- 全局统计 -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="num" id="totalProjects">5</div>
+                    <div class="label">协作项目</div>
+                </div>
+                <div class="stat-card">
+                    <div class="num" id="totalInstitutions">12</div>
+                    <div class="label">参与机构</div>
+                </div>
+                <div class="stat-card">
+                    <div class="num" id="totalCases">3,247</div>
+                    <div class="label">累计病例</div>
+                </div>
+                <div class="stat-card">
+                    <div class="num" id="totalPapers">8</div>
+                    <div class="label">学术论文</div>
+                </div>
+            </div>
+
+            <!-- Tab 切换 -->
+            <div class="tab-bar">
+                <div class="tab-item active" onclick="switchView('projects')">协作项目</div>
+                <div class="tab-item" onclick="switchView('data')">数据看板</div>
+                <div class="tab-item" onclick="switchView('papers')">学术成果</div>
+            </div>
+
+            <!-- 项目列表 -->
+            <div id="view-projects">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                    <h3 style="font-size:1em;">进行中项目</h3>
+                    <button class="btn btn-primary btn-sm" onclick="showToast('申请新项目功能开发中', 'info')">申请新项目</button>
+                </div>
+                <div id="projectList"></div>
+            </div>
+
+            <!-- 数据看板 -->
+            <div id="view-data" style="display:none;">
+                <div class="card">
+                    <h3>📊 各中心病例数对比</h3>
+                    <p style="font-size:0.82em;color:var(--gray);margin-bottom:16px;">多中心协作研究 · 胃早癌筛查（累计 3,247 例）</p>
+                    <div class="bar-chart" id="barChart"></div>
+                </div>
+                <div class="card">
+                    <h3>🤖 AI 诊断准确率统计</h3>
+                    <table style="width:100%;font-size:0.85em;border-collapse:collapse;">
+                        <tr style="border-bottom:1px solid rgba(0,0,0,0.06);">
+                            <th style="text-align:left;padding:8px 0;">指标</th>
+                            <th style="padding:8px;">胃早癌</th>
+                            <th style="padding:8px;">胰腺癌</th>
+                            <th style="padding:8px;">慢性胃炎</th>
+                        </tr>
+                        <tr style="border-bottom:1px solid rgba(0,0,0,0.04);">
+                            <td style="padding:8px 0;">准确率</td>
+                            <td style="text-align:center;font-weight:600;color:var(--success);">92.3%</td>
+                            <td style="text-align:center;font-weight:600;color:var(--success);">88.7%</td>
+                            <td style="text-align:center;font-weight:600;color:var(--success);">90.1%</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid rgba(0,0,0,0.04);">
+                            <td style="padding:8px 0;">敏感度</td>
+                            <td style="text-align:center;">94.1%</td>
+                            <td style="text-align:center;">89.5%</td>
+                            <td style="text-align:center;">91.3%</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 0;">特异度</td>
+                            <td style="text-align:center;">90.8%</td>
+                            <td style="text-align:center;">87.2%</td>
+                            <td style="text-align:center;">88.9%</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 学术成果 -->
+            <div id="view-papers" style="display:none;">
+                <div class="card">
+                    <h3>📝 联合发表成果</h3>
+                    <div id="paperList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const projects = [
+            { title: '胃早癌多中心筛查研究', leader: '牵头：浙江大学附属第一医院', status: 'active', statusLabel: '进行中', institutions: 12, cases: 3247, myCases: 156, desc: '基于口服超声造影的胃早癌早期筛查多中心临床研究，覆盖华东地区 12 家医院。' },
+            { title: '胰腺癌早期诊断 AI 模型训练', leader: '牵头：北京大学肿瘤医院', status: 'active', statusLabel: '进行中', institutions: 8, cases: 1892, myCases: 89, desc: '整合多中心胰腺超声造影数据，训练高精度 AI 诊断模型。' },
+            { title: '慢性胃炎分级评估标准研究', leader: '牵头：上海瑞金医院', status: 'recruiting', statusLabel: '招募中', institutions: 5, cases: 678, myCases: 0, desc: '建立慢性胃炎超声造影分级评估标准，推动诊断规范化。' },
+            { title: '基层超声造影技术推广验证', leader: '牵头：湖州市中心医院', status: 'active', statusLabel: '进行中', institutions: 15, cases: 2156, myCases: 45, desc: '验证口服超声造影在基层医院的适用性和 AI 辅助诊断效果。' },
+            { title: '体检人群胃胰疾病普查', leader: '牵头：美年大健康研究院', status: 'recruiting', statusLabel: '招募中', institutions: 6, cases: 4230, myCases: 0, desc: '面向无症状体检人群的胃胰疾病超声造影普查研究。' },
+        ];
+
+        const papers = [
+            { title: '口服超声造影联合 AI 诊断在胃早癌筛查中的应用', journal: '中华超声影像学杂志', year: 2026, authors: '多中心协作组', impact: 'SCI 影响因子 3.2' },
+            { title: 'Multi-center Validation of AI-assisted Ultrasound for Pancreatic Cancer Early Detection', journal: 'Ultrasound in Medicine & Biology', year: 2026, authors: 'AIMED Research Team', impact: 'SCI 影响因子 2.9' },
+            { title: '基于区块链的多中心医疗数据协作平台设计', journal: '中国数字医学', year: 2026, authors: '阿尔麦德技术团队', impact: '核心期刊' },
+        ];
+
+        const centerData = [
+            { name: '浙大一院', count: 680 },
+            { name: '北大肿瘤', count: 520 },
+            { name: '上海瑞金', count: 490 },
+            { name: '湖州市中心', count: 410 },
+            { name: '南京鼓楼', count: 380 },
+            { name: '华西医院', count: 350 },
+            { name: '其他中心', count: 417 },
+        ];
+
+        function renderProjects() {
+            const list = document.getElementById('projectList');
+            list.innerHTML = projects.map(p => `
+                <div class="project-card" onclick="showToast('项目详情页面开发中', 'info')">
+                    <div class="project-header">
+                        <div>
+                            <div class="project-title">${p.title}</div>
+                            <div class="project-leader">${p.leader}</div>
+                        </div>
+                        <span class="badge badge-${p.status}">${p.statusLabel}</span>
+                    </div>
+                    <div class="project-desc">${p.desc}</div>
+                    <div class="project-meta">
+                        <span>🏢 ${p.institutions} 家机构</span>
+                        <span>📋 ${p.cases.toLocaleString()} 例病例</span>
+                        ${p.myCases > 0 ? `<span>✅ 我的贡献：${p.myCases} 例</span>` : '<span>📝 尚未加入</span>'}
+                    </div>
+                    <div style="margin-top:12px;">
+                        ${p.status === 'recruiting' ? `<button class="btn btn-primary btn-sm" onclick="event.stopPropagation();showToast('✅ 已申请加入项目', 'success')">申请加入</button>` : `<button class="btn btn-outline btn-sm" onclick="event.stopPropagation();showToast('项目详情页面开发中', 'info')">进入项目</button>`}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderBarChart() {
+            const max = Math.max(...centerData.map(d => d.count));
+            const chart = document.getElementById('barChart');
+            chart.innerHTML = centerData.map(d => `
+                <div class="bar-item">
+                    <div class="bar-value">${d.count}</div>
+                    <div class="bar" style="height:${(d.count/max*90)}px;"></div>
+                    <div class="bar-label">${d.name}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderPapers() {
+            const list = document.getElementById('paperList');
+            list.innerHTML = papers.map(p => `
+                <div style="padding:14px 0;border-bottom:1px solid rgba(0,0,0,0.04);">
+                    <div style="font-weight:600;font-size:0.9em;margin-bottom:4px;">${p.title}</div>
+                    <div style="font-size:0.8em;color:var(--gray);">
+                        ${p.journal} · ${p.year} · ${p.authors} · ${p.impact}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function switchView(view) {
+            document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById('view-projects').style.display = view === 'projects' ? '' : 'none';
+            document.getElementById('view-data').style.display = view === 'data' ? '' : 'none';
+            document.getElementById('view-papers').style.display = view === 'papers' ? '' : 'none';
+        }
+
+        function checkLogin() {
+            const loginStatus = localStorage.getItem('loginStatus');
+            if (!loginStatus) {
+                document.getElementById('loginPrompt').style.display = '';
+                return false;
+            }
+            try {
+                const data = JSON.parse(loginStatus);
+                if (Date.now() - new Date(data.timestamp).getTime() > 24*60*60*1000) {
+                    localStorage.removeItem('loginStatus');
+                    document.getElementById('loginPrompt').style.display = '';
+                    return false;
+                }
+                document.getElementById('dashboard').style.display = '';
+                renderProjects();
+                renderBarChart();
+                renderPapers();
+                return true;
+            } catch(e) {
+                document.getElementById('loginPrompt').style.display = '';
+                return false;
+            }
+        }
+
+        function showToast(msg, type) {
+            const t = document.createElement('div');
+            t.className = 'toast ' + type;
+            t.textContent = msg;
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 3000);
+        }
+
+        document.addEventListener('DOMContentLoaded', checkLogin);
+    </script>
+</body>
+</html>

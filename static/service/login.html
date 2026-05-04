@@ -278,9 +278,26 @@
         <div class="login-header">
             <img src="../aimed-logo-new.jpg" alt="AIMED">
             <h1>超声造影人工智能诊断联合实验室</h1>
-            <p>安全登录</p>
+            <p>统一身份认证平台</p>
         </div>
         <div class="login-body">
+            <!-- 身份类型选择 -->
+            <div style="margin-bottom:20px;">
+                <label style="font-weight:600;font-size:0.85em;margin-bottom:8px;display:block;">身份类型</label>
+                <div class="role-select" id="identityTypeSelect">
+                    <div class="role-option selected" onclick="selectIdentityType(this, 'personal')" style="border-color:var(--primary);background:rgba(0,113,227,0.06);">
+                        <div class="icon">👤</div>
+                        <div>个人身份</div>
+                        <div style="font-size:0.7em;color:var(--gray);margin-top:2px;">医生 / 研究者</div>
+                    </div>
+                    <div class="role-option" onclick="selectIdentityType(this, 'institution')">
+                        <div class="icon">🏢</div>
+                        <div>机构身份</div>
+                        <div style="font-size:0.7em;color:var(--gray);margin-top:2px;">医院 / 体检中心 / 科研</div>
+                    </div>
+                </div>
+            </div>
+
             <!-- 标签切换 -->
             <div class="tab-container">
                 <div class="tab active" onclick="switchTab('password')">账号密码</div>
@@ -297,25 +314,56 @@
                     <label>密码</label>
                     <input type="password" id="password" placeholder="请输入密码" autocomplete="current-password">
                 </div>
-                <div class="form-group">
-                    <label>登录身份</label>
-                    <div class="role-select" id="roleSelect">
-                        <div class="role-option" onclick="selectRole(this, 'doctor')">
-                            <div class="icon">👨‍⚕️</div>
-                            <div>医生</div>
+                <!-- 个人身份角色 -->
+                <div id="personalRoles">
+                    <div class="form-group">
+                        <label>登录身份</label>
+                        <div class="role-select" id="roleSelect">
+                            <div class="role-option" onclick="selectRole(this, 'doctor')">
+                                <div class="icon">👨‍⚕️</div>
+                                <div>医生</div>
+                            </div>
+                            <div class="role-option" onclick="selectRole(this, 'patient')">
+                                <div class="icon">👤</div>
+                                <div>患者</div>
+                            </div>
+                            <div class="role-option" onclick="selectRole(this, 'developer')">
+                                <div class="icon">👨‍💻</div>
+                                <div>开发者</div>
+                            </div>
+                            <div class="role-option" onclick="selectRole(this, 'admin')">
+                                <div class="icon">⚙️</div>
+                                <div>管理员</div>
+                            </div>
                         </div>
-                        <div class="role-option" onclick="selectRole(this, 'patient')">
-                            <div class="icon">👤</div>
-                            <div>患者</div>
+                    </div>
+                </div>
+                <!-- 机构身份角色 -->
+                <div id="institutionRoles" style="display:none;">
+                    <div class="form-group">
+                        <label>机构类型</label>
+                        <div class="role-select" id="roleSelectInst">
+                            <div class="role-option" onclick="selectRole(this, 'hospital')">
+                                <div class="icon">🏥</div>
+                                <div>医院</div>
+                            </div>
+                            <div class="role-option" onclick="selectRole(this, 'clinic')">
+                                <div class="icon">🔬</div>
+                                <div>体检中心</div>
+                            </div>
+                            <div class="role-option" onclick="selectRole(this, 'research')">
+                                <div class="icon">🎓</div>
+                                <div>科研机构</div>
+                            </div>
+                            <div class="role-option" onclick="selectRole(this, 'admin')">
+                                <div class="icon">⚙️</div>
+                                <div>平台管理员</div>
+                            </div>
                         </div>
-                        <div class="role-option" onclick="selectRole(this, 'developer')">
-                            <div class="icon">👨‍💻</div>
-                            <div>开发者</div>
-                        </div>
-                        <div class="role-option" onclick="selectRole(this, 'admin')">
-                            <div class="icon">⚙️</div>
-                            <div>管理员</div>
-                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>机构名称</label>
+                        <input type="text" id="institutionName" placeholder="请输入已注册的机构名称">
                     </div>
                 </div>
                 <div class="form-options">
@@ -333,25 +381,56 @@
                     <label>身份 ID</label>
                     <input type="text" id="identityId" placeholder="输入区块链身份 ID（如：ID-XXXXXX）">
                 </div>
-                <div class="form-group">
-                    <label>登录身份</label>
-                    <div class="role-select" id="roleSelect2">
-                        <div class="role-option" onclick="selectRole(this, 'doctor')">
-                            <div class="icon">👨‍⚕️</div>
-                            <div>医生</div>
+                <!-- 个人身份角色 -->
+                <div id="personalRoles2">
+                    <div class="form-group">
+                        <label>登录身份</label>
+                        <div class="role-select" id="roleSelect2">
+                            <div class="role-option" onclick="selectRole(this, 'doctor')">
+                                <div class="icon">👨‍⚕️</div>
+                                <div>医生</div>
+                            </div>
+                            <div class="role-option" onclick="selectRole(this, 'patient')">
+                                <div class="icon">👤</div>
+                                <div>患者</div>
+                            </div>
+                            <div class="role-option" onclick="selectRole(this, 'developer')">
+                                <div class="icon">👨‍💻</div>
+                                <div>开发者</div>
+                            </div>
+                            <div class="role-option" onclick="selectRole(this, 'admin')">
+                                <div class="icon">⚙️</div>
+                                <div>管理员</div>
+                            </div>
                         </div>
-                        <div class="role-option" onclick="selectRole(this, 'patient')">
-                            <div class="icon">👤</div>
-                            <div>患者</div>
+                    </div>
+                </div>
+                <!-- 机构身份角色 -->
+                <div id="institutionRoles2" style="display:none;">
+                    <div class="form-group">
+                        <label>机构类型</label>
+                        <div class="role-select" id="roleSelectInst2">
+                            <div class="role-option" onclick="selectRole(this, 'hospital')">
+                                <div class="icon">🏥</div>
+                                <div>医院</div>
+                            </div>
+                            <div class="role-option" onclick="selectRole(this, 'clinic')">
+                                <div class="icon">🔬</div>
+                                <div>体检中心</div>
+                            </div>
+                            <div class="role-option" onclick="selectRole(this, 'research')">
+                                <div class="icon">🎓</div>
+                                <div>科研机构</div>
+                            </div>
+                            <div class="role-option" onclick="selectRole(this, 'admin')">
+                                <div class="icon">⚙️</div>
+                                <div>平台管理员</div>
+                            </div>
                         </div>
-                        <div class="role-option" onclick="selectRole(this, 'developer')">
-                            <div class="icon">👨‍💻</div>
-                            <div>开发者</div>
-                        </div>
-                        <div class="role-option" onclick="selectRole(this, 'admin')">
-                            <div class="icon">⚙️</div>
-                            <div>管理员</div>
-                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>机构名称</label>
+                        <input type="text" id="institutionName2" placeholder="请输入已注册的机构名称">
                     </div>
                 </div>
                 <button class="btn btn-blockchain" onclick="loginBlockchain()">区块链身份验证登录</button>
@@ -363,16 +442,39 @@
             <div class="divider">或</div>
 
             <div class="links">
-                还没有账号？<a href="/portal/blockchain-identity.html">注册区块链身份</a>
+                还没有账号？<a href="/service/blockchain-identity.html">注册个人身份</a> &nbsp;|&nbsp; <a href="#" onclick="showToast('机构注册请联系合作部：contact@aius.xin', 'info'); return false;">机构加入</a>
             </div>
             <div class="back-link">
-                <a href="/portal/">← 返回联合实验室</a>
+                <a href="/service/">← 返回联合实验室</a>
             </div>
         </div>
     </div>
 
     <script>
         let selectedRole = null;
+        let currentIdentityType = 'personal';
+
+        function selectIdentityType(el, type) {
+            document.querySelectorAll('#identityTypeSelect .role-option').forEach(o => {
+                o.classList.remove('selected');
+                o.style.borderColor = '';
+                o.style.background = '';
+            });
+            el.classList.add('selected');
+            el.style.borderColor = 'var(--primary)';
+            el.style.background = 'rgba(0,113,227,0.06)';
+            currentIdentityType = type;
+
+            // 切换个人/机构角色面板
+            const showPersonal = type === 'personal';
+            document.getElementById('personalRoles').style.display = showPersonal ? '' : 'none';
+            document.getElementById('institutionRoles').style.display = showPersonal ? 'none' : '';
+            document.getElementById('personalRoles2').style.display = showPersonal ? '' : 'none';
+            document.getElementById('institutionRoles2').style.display = showPersonal ? 'none' : '';
+            
+            // 重置角色选择
+            selectedRole = null;
+        }
 
         function switchTab(tab) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -412,28 +514,41 @@
             btn.disabled = true;
             btn.textContent = '登录中...';
 
-            try {
+            // 调用服务端 JWT 认证 API
+            fetch('/api/v1/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: username, password: password })
+            })
+            .then(function(res) {
+                if (!res.ok) throw new Error('账号或密码错误');
+                return res.json();
+            })
+            .then(function(data) {
+                // 服务端认证成功
+                localStorage.setItem('jwt_token', data.access_token);
                 const loginData = {
-                    username: username,
-                    role: selectedRole,
-                    roleLabel: getRoleLabel(selectedRole),
+                    username: data.user.username,
+                    role: data.user.role,
+                    roleLabel: data.user.role_name,
+                    company: data.user.company,
                     timestamp: new Date().toISOString(),
                     rememberMe: rememberMe
                 };
-
                 localStorage.setItem('loginStatus', JSON.stringify(loginData));
-                showToast('登录成功！欢迎回来，' + username, 'success');
+                showToast('登录成功！欢迎回来，' + data.user.name, 'success');
                 
-                setTimeout(() => {
-                    const redirect = getRedirectParam();
+                setTimeout(function() {
+                    const params = new URLSearchParams(window.location.search);
+                    const redirect = params.get('redirect');
                     window.location.href = redirect ? '/' + redirect : getRedirectUrl(selectedRole);
                 }, 800);
-            } catch (e) {
-                showToast('登录失败：' + e.message, 'error');
-            } finally {
+            })
+            .catch(function(err) {
+                showToast('登录失败：' + err.message, 'error');
                 btn.disabled = false;
                 btn.textContent = '登录';
-            }
+            });
         }
 
         async function loginBlockchain() {
@@ -448,30 +563,75 @@
                 return;
             }
 
-            const identityHistory = JSON.parse(localStorage.getItem('identityHistory') || '[]');
-            const identity = identityHistory.find(i => i.id === identityId);
-            
-            if (!identity) {
-                showToast('身份 ID 不存在，请先注册', 'error');
-                return;
+            try {
+                // 调用后端 API 验证 DID
+                const response = await fetch('/api/v1/blockchain/did/verify', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ did: identityId })
+                });
+
+                const result = await response.json();
+                
+                if (!result.success || !result.data.valid) {
+                    // 如果 API 验证失败，回退到本地检查
+                    const identityHistory = JSON.parse(localStorage.getItem('identityHistory') || '[]');
+                    const identity = identityHistory.find(i => i.id === identityId);
+                    
+                    if (!identity) {
+                        showToast('身份 ID 不存在，请先注册', 'error');
+                        return;
+                    }
+                    
+                    // 使用本地身份
+                    result.data = { valid: true, did: identityId, source: 'local' };
+                }
+
+                const loginData = {
+                    identityId: identityId,
+                    role: selectedRole,
+                    roleLabel: getRoleLabel(selectedRole),
+                    identity: result.data,
+                    timestamp: new Date().toISOString(),
+                    authMethod: 'blockchain'
+                };
+
+                localStorage.setItem('loginStatus', JSON.stringify(loginData));
+                showToast('✅ 区块链身份验证成功！', 'success');
+
+                setTimeout(() => {
+                    const params = new URLSearchParams(window.location.search);
+                    const redirect = params.get('redirect');
+                    window.location.href = redirect ? '/' + redirect : getRedirectUrl(selectedRole);
+                }, 800);
+            } catch (e) {
+                // API 不可用时，回退到本地检查
+                const identityHistory = JSON.parse(localStorage.getItem('identityHistory') || '[]');
+                const identity = identityHistory.find(i => i.id === identityId);
+                
+                if (!identity) {
+                    showToast('身份 ID 不存在，请先注册', 'error');
+                    return;
+                }
+
+                const loginData = {
+                    identityId: identityId,
+                    role: selectedRole,
+                    roleLabel: getRoleLabel(selectedRole),
+                    identity: identity,
+                    timestamp: new Date().toISOString(),
+                    authMethod: 'blockchain'
+                };
+
+                localStorage.setItem('loginStatus', JSON.stringify(loginData));
+                showToast('✅ 区块链身份验证成功！', 'success');
+
+                setTimeout(() => {
+                    const params = new URLSearchParams(window.location.search);
+                    const redirect = params.get('redirect');
+                    window.location.href = redirect ? '/' + redirect : getRedirectUrl(selectedRole);
+                }, 800);
             }
-
-            const loginData = {
-                identityId: identityId,
-                role: selectedRole,
-                roleLabel: getRoleLabel(selectedRole),
-                identity: identity,
-                timestamp: new Date().toISOString(),
-                authMethod: 'blockchain'
-            };
-
-            localStorage.setItem('loginStatus', JSON.stringify(loginData));
-            showToast('✅ 区块链身份验证成功！', 'success');
-
-            setTimeout(() => {
-                const redirect = getRedirectParam();
-                window.location.href = redirect ? '/' + redirect : getRedirectUrl(selectedRole);
-            }, 800);
         }
 
         function getRoleLabel(role) {
@@ -486,12 +646,12 @@
 
         function getRedirectUrl(role) {
             const redirects = {
-                'doctor': '/portal/doctor.html',
-                'patient': '/portal/patient.html',
-                'developer': '/portal/developer.html',
-                'admin': '/portal/'
+                'doctor': '/service/doctor.html',
+                'patient': '/service/patient.html',
+                'developer': '/service/developer.html',
+                'admin': '/service/'
             };
-            return redirects[role] || '/portal/';
+            return redirects[role] || '/service/';
         }
 
         function showToast(msg, type) {
@@ -502,12 +662,6 @@
             setTimeout(() => toast.remove(), 3000);
         }
 
-        // 获取 redirect 参数
-        function getRedirectParam() {
-            const params = new URLSearchParams(window.location.search);
-            return params.get('redirect');
-        }
-
         // 检查是否已登录
         document.addEventListener('DOMContentLoaded', () => {
             const loginStatus = localStorage.getItem('loginStatus');
@@ -516,7 +670,8 @@
                 const loginTime = new Date(data.timestamp).getTime();
                 const now = Date.now();
                 if (now - loginTime < 24 * 60 * 60 * 1000) {
-                    const redirect = getRedirectParam();
+                    const params = new URLSearchParams(window.location.search);
+                    const redirect = params.get('redirect');
                     window.location.href = redirect ? '/' + redirect : getRedirectUrl(data.role);
                 } else {
                     localStorage.removeItem('loginStatus');
@@ -524,5 +679,5 @@
             }
         });
     </script>
-</body>
+<script src="/aimed-bot.js"></script></body>
 </html>
