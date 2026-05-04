@@ -307,8 +307,8 @@
             <!-- 账号密码登录 -->
             <div class="tab-content active" id="tab-password">
                 <div class="form-group">
-                    <label>用户名</label>
-                    <input type="text" id="username" placeholder="请输入用户名" autocomplete="username">
+                    <label>健康咨询者名</label>
+                    <input type="text" id="username" placeholder="请输入健康咨询者名" autocomplete="username">
                 </div>
                 <div class="form-group">
                     <label>密码</label>
@@ -325,7 +325,7 @@
                             </div>
                             <div class="role-option" onclick="selectRole(this, 'patient')">
                                 <div class="icon">👤</div>
-                                <div>用户</div>
+                                <div>健康咨询者</div>
                             </div>
                             <div class="role-option" onclick="selectRole(this, 'developer')">
                                 <div class="icon">👨‍💻</div>
@@ -392,7 +392,7 @@
                             </div>
                             <div class="role-option" onclick="selectRole(this, 'patient')">
                                 <div class="icon">👤</div>
-                                <div>用户</div>
+                                <div>健康咨询者</div>
                             </div>
                             <div class="role-option" onclick="selectRole(this, 'developer')">
                                 <div class="icon">👨‍💻</div>
@@ -502,7 +502,7 @@
             const rememberMe = document.getElementById('rememberMe').checked;
 
             if (!username || !password) {
-                showToast('请填写用户名和密码', 'error');
+                showToast('请填写健康咨询者名和密码', 'error');
                 return;
             }
             if (!selectedRole) {
@@ -637,7 +637,7 @@
         function getRoleLabel(role) {
             const labels = {
                 'doctor': '👨‍⚕️ 医生',
-                'patient': '👤 用户',
+                'patient': '👤 健康咨询者',
                 'developer': '👨‍💻 开发者',
                 'admin': '⚙️ 管理员'
             };
