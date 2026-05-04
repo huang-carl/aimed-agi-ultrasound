@@ -1,0 +1,67 @@
+<svg viewBox="0 0 1200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#0071e3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0055b3;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 连接线 -->
+  <line x1="80" y1="100" x2="1120" y2="100" stroke="#d2d2d7" stroke-width="2"/>
+  
+  <!-- 步骤 1: 超声 -->
+  <g transform="translate(40, 20)">
+    <rect x="0" y="0" width="80" height="80" rx="12" fill="#f5f5f7" stroke="#0071e3" stroke-width="2"/>
+    <text x="40" y="45" font-size="40" text-anchor="middle">🔬</text>
+    <text x="40" y="105" font-size="14" font-weight="600" text-anchor="middle" fill="#1d1d1f">超声</text>
+    <circle cx="40" cy="140" r="6" fill="#0071e3"/>
+  </g>
+  
+  <!-- 步骤 2: 数据处理 -->
+  <g transform="translate(180, 20)">
+    <rect x="0" y="0" width="80" height="80" rx="12" fill="#f5f5f7" stroke="#0071e3" stroke-width="2"/>
+    <text x="40" y="45" font-size="40" text-anchor="middle">💻</text>
+    <text x="40" y="105" font-size="14" font-weight="600" text-anchor="middle" fill="#1d1d1f">数据处理</text>
+    <circle cx="40" cy="140" r="6" fill="#0071e3"/>
+  </g>
+  
+  <!-- 步骤 3: 深度学习模型 -->
+  <g transform="translate(320, 20)">
+    <rect x="0" y="0" width="80" height="80" rx="12" fill="#f5f5f7" stroke="#0071e3" stroke-width="2"/>
+    <text x="40" y="45" font-size="40" text-anchor="middle">🧠</text>
+    <text x="40" y="105" font-size="14" font-weight="600" text-anchor="middle" fill="#1d1d1f">深度学习模型</text>
+    <circle cx="40" cy="140" r="6" fill="#0071e3"/>
+  </g>
+  
+  <!-- 步骤 4: 诊断报告与标注 -->
+  <g transform="translate(460, 20)">
+    <rect x="0" y="0" width="80" height="80" rx="12" fill="#f5f5f7" stroke="#0071e3" stroke-width="2"/>
+    <text x="40" y="45" font-size="40" text-anchor="middle">📄</text>
+    <text x="40" y="105" font-size="14" font-weight="600" text-anchor="middle" fill="#1d1d1f">诊断报告</text>
+    <circle cx="40" cy="140" r="6" fill="#0071e3"/>
+  </g>
+  
+  <!-- 步骤 5: 医生阅审 -->
+  <g transform="translate(600, 20)">
+    <rect x="0" y="0" width="80" height="80" rx="12" fill="#f5f5f7" stroke="#0071e3" stroke-width="2"/>
+    <text x="40" y="45" font-size="40" text-anchor="middle">👨‍⚕️</text>
+    <text x="40" y="105" font-size="14" font-weight="600" text-anchor="middle" fill="#1d1d1f">医生阅审</text>
+    <circle cx="40" cy="140" r="6" fill="#0071e3"/>
+  </g>
+  
+  <!-- 步骤 6: 输出报告 -->
+  <g transform="translate(740, 20)">
+    <rect x="0" y="0" width="80" height="80" rx="12" fill="#f5f5f7" stroke="#0071e3" stroke-width="2"/>
+    <text x="40" y="45" font-size="40" text-anchor="middle">📑</text>
+    <text x="40" y="105" font-size="14" font-weight="600" text-anchor="middle" fill="#1d1d1f">输出报告</text>
+    <circle cx="40" cy="140" r="6" fill="#0071e3"/>
+  </g>
+  
+  <!-- 步骤 7: 资料归档 -->
+  <g transform="translate(880, 20)">
+    <rect x="0" y="0" width="80" height="80" rx="12" fill="#f5f5f7" stroke="#0071e3" stroke-width="2"/>
+    <text x="40" y="45" font-size="40" text-anchor="middle">🗂️</text>
+    <text x="40" y="105" font-size="14" font-weight="600" text-anchor="middle" fill="#1d1d1f">资料归档</text>
+    <circle cx="40" cy="140" r="6" fill="#0071e3"/>
+  </g>
+</svg>

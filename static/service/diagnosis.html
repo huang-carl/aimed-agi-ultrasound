@@ -98,6 +98,55 @@
             color: var(--dark);
         }
         .status-item .value.online { color: var(--success); }
+
+        /* 诊断流程 */
+        .diagnosis-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 20px 0;
+        }
+        .flow-step {
+            flex: 0 0 auto;
+            text-align: center;
+            min-width: 120px;
+        }
+        .step-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 2em;
+            box-shadow: 0 4px 15px rgba(102,126,234,0.3);
+        }
+        .step-title {
+            font-size: 0.95em;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+        .step-desc {
+            font-size: 0.8em;
+            color: var(--text-light);
+        }
+        .flow-arrow {
+            font-size: 1.5em;
+            color: var(--primary);
+            opacity: 0.6;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 1024px) {
+            .diagnosis-flow { flex-wrap: wrap; justify-content: center; }
+            .flow-arrow { display: none; }
+            .flow-step { margin: 10px; }
+        }
         .status-item .value.warning { color: var(--warning); }
 
         /* 工作区 */
@@ -381,6 +430,59 @@
 
     <!-- 主容器 -->
     <div class="main-container">
+        <!-- 诊断流程 -->
+        <div class="card" style="margin-bottom: 25px;">
+            <div class="card-header">
+                <h3>📊 诊断流程</h3>
+                <span style="font-size:0.85em;color:var(--text-light)">7 步标准化流程</span>
+            </div>
+            <div class="card-body" style="padding: 40px 20px;">
+                <div class="diagnosis-flow">
+                    <div class="flow-step">
+                        <div class="step-icon">🔬</div>
+                        <div class="step-title">超声</div>
+                        <div class="step-desc">影像采集</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="step-icon">💻</div>
+                        <div class="step-title">数据处理</div>
+                        <div class="step-desc">图像预处理</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="step-icon">🧠</div>
+                        <div class="step-title">深度学习模型</div>
+                        <div class="step-desc">AI 智能分析</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="step-icon">📄</div>
+                        <div class="step-title">诊断报告</div>
+                        <div class="step-desc">报告生成</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="step-icon">👨‍⚕️</div>
+                        <div class="step-title">医生阅审</div>
+                        <div class="step-desc">专业审核</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="step-icon">📑</div>
+                        <div class="step-title">输出报告</div>
+                        <div class="step-desc">正式报告</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-step">
+                        <div class="step-icon">🗂️</div>
+                        <div class="step-title">资料归档</div>
+                        <div class="step-desc">数据存证</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- 状态栏 -->
         <div class="status-bar">
             <div class="status-item">
