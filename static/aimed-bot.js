@@ -10,7 +10,7 @@
     // 配置
     // ============================================
     const CONFIG = {
-        apiEndpoint: '/api/v1/chat',
+        apiEndpoint: '/api/chat',
         position: 'bottom-right', // bottom-right, bottom-left
         theme: {
             primary: '#2563eb',
@@ -22,11 +22,11 @@
             border: '#e2e8f0',
             shadow: 'rgba(0,0,0,0.15)',
         },
-        welcomeMessage: '你好！我是 AIMED 超人 🦸\n\n有什么可以帮助你的？\n\n• 产品咨询\n• 技术支持\n• 诊断服务\n• 合作洽谈',
+        welcomeMessage: '你好！我是小菲同学 🤖\n\n有什么可以帮助你的？\n\n• 产品咨询\n• 技术支持\n• 诊断服务\n• 合作洽谈',
         typingText: '超人正在思考...',
         placeholder: '输入消息...',
-        title: 'AIMED 超人 🦸',
-        subtitle: 'AI 智能客服 · 7×24 在线',
+        title: '小菲同学 🤖',
+        subtitle: 'AIMED AI 助手 · 7×24 在线',
     };
 
     // ============================================
@@ -48,7 +48,7 @@
         container.innerHTML = `
             <!-- 悬浮按钮 -->
             <div id="aimed-bot-toggle" onclick="AIMEDBot.toggle()" title="${CONFIG.title}">
-                <div class="aimed-bot-icon">🦸</div>
+                <div class="aimed-bot-icon">🤖</div>
                 <div class="aimed-bot-badge">1</div>
             </div>
 
@@ -57,7 +57,7 @@
                 <!-- 头部 -->
                 <div class="aimed-bot-header">
                     <div class="aimed-bot-header-info">
-                        <div class="aimed-bot-avatar">🦸</div>
+                        <div class="aimed-bot-avatar">🤖</div>
                         <div>
                             <div class="aimed-bot-title">${CONFIG.title}</div>
                             <div class="aimed-bot-subtitle">${CONFIG.subtitle}</div>
@@ -69,7 +69,7 @@
                 <!-- 消息区域 -->
                 <div class="aimed-bot-messages" id="aimed-bot-messages">
                     <div class="aimed-bot-message bot">
-                        <div class="aimed-bot-msg-avatar">🦸</div>
+                        <div class="aimed-bot-msg-avatar">🤖</div>
                         <div class="aimed-bot-msg-content">
                             <div class="aimed-bot-msg-text">${CONFIG.welcomeMessage.replace(/\n/g, '<br>')}</div>
                             <div class="aimed-bot-msg-time">${getTime()}</div>
@@ -447,7 +447,7 @@
         const msgDiv = document.createElement('div');
         msgDiv.className = `aimed-bot-message ${role}`;
         
-        const avatar = role === 'bot' ? '🦸' : '👤';
+        const avatar = role === 'bot' ? '🤖' : '👤';
         const content = role === 'bot' ? text.replace(/\n/g, '<br>') : escapeHtml(text);
         
         msgDiv.innerHTML = `
@@ -472,7 +472,7 @@
         typingDiv.className = 'aimed-bot-message bot';
         typingDiv.id = 'aimed-bot-typing-indicator';
         typingDiv.innerHTML = `
-            <div class="aimed-bot-msg-avatar">🦸</div>
+            <div class="aimed-bot-msg-avatar">🤖</div>
             <div class="aimed-bot-msg-content">
                 <div class="aimed-bot-typing">
                     <div class="aimed-bot-typing-dot"></div>
