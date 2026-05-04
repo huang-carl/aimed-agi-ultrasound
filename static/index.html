@@ -182,6 +182,49 @@
         .section-center { text-align: center; }
         .section-center .section-desc { margin: 0 auto; }
 
+        /* 诊断流程 */
+        .diagnosis-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 20px 0;
+        }
+        .flow-step {
+            flex: 0 0 auto;
+            text-align: center;
+            min-width: 120px;
+        }
+        .step-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 2em;
+            box-shadow: 0 4px 15px rgba(102,126,234,0.3);
+        }
+        .step-title {
+            font-size: 0.95em;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+        .step-desc {
+            font-size: 0.8em;
+            color: var(--gray);
+        }
+        .flow-arrow {
+            font-size: 1.5em;
+            color: var(--primary);
+            opacity: 0.6;
+            flex-shrink: 0;
+        }
+
         /* 协作研究 */
         .collab-grid {
             display: grid;
@@ -311,6 +354,9 @@
             .collab-grid { grid-template-columns: 1fr; }
             .collab-features { grid-template-columns: 1fr; }
             .collab-steps { flex-direction: column; }
+            .diagnosis-flow { flex-wrap: wrap; justify-content: center; }
+            .flow-arrow { display: none; }
+            .flow-step { margin: 10px; }
         }
 
         /* 统计 */
@@ -874,6 +920,54 @@
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
                     进入演示平台
                 </a>
+            </div>
+        </div>
+        
+        <!-- 诊断流程 -->
+        <div class="container" style="margin-top:60px;">
+            <h3 style="text-align:center;font-size:1.3em;font-weight:600;margin-bottom:32px;">📊 诊断流程（7 步标准化流程）</h3>
+            <div class="diagnosis-flow">
+                <div class="flow-step">
+                    <div class="step-icon">🔬</div>
+                    <div class="step-title">超声</div>
+                    <div class="step-desc">影像采集</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-icon">💻</div>
+                    <div class="step-title">数据处理</div>
+                    <div class="step-desc">图像预处理</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-icon">🧠</div>
+                    <div class="step-title">深度学习模型</div>
+                    <div class="step-desc">AI 智能分析</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-icon">📄</div>
+                    <div class="step-title">诊断报告</div>
+                    <div class="step-desc">报告生成</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-icon">👨‍⚕️</div>
+                    <div class="step-title">医生阅审</div>
+                    <div class="step-desc">专业审核</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-icon">📑</div>
+                    <div class="step-title">输出报告</div>
+                    <div class="step-desc">正式报告</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-icon">🗂️</div>
+                    <div class="step-title">资料归档</div>
+                    <div class="step-desc">数据存证</div>
+                </div>
             </div>
         </div>
     </section>
