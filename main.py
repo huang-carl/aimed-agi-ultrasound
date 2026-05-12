@@ -8,8 +8,8 @@ from datetime import datetime
 import uvicorn
 
 app = FastAPI(
-    title="AIMED Agent Swarm - 胃胰超声造影 AI 诊断",
-    description="充盈视界 FillingVision - 上消化器官超声造影普筛早查服务生态 v1.0",
+    title="aimed 充盈视界 FillingVision - 胃/胰超声造影 AI 多智能体诊断平台",
+    description="aimed 充盈视界 FillingVision - 胃/胰超声造影 AI 多智能体诊断平台 v1.0",
     version="1.0.0",
     docs_url="/docs",
     redoc_url="/redoc"

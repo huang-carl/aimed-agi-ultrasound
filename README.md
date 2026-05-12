@@ -1,4 +1,5 @@
-# AIMED Agent Swarm - 上消化器官超声造影普筛早查服务生态 v1.0
+# aimed 充盈视界 FillingVision
+# 胃/胰超声造影 AI 多智能体诊断平台 v1.0
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
