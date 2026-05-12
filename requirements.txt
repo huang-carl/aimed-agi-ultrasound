@@ -39,33 +39,3 @@ loguru>=0.7.0
 pytest>=7.4.0
 pytest-asyncio>=0.23.0
 pytest-cov>=4.1.0
-
-# 医学影像处理
-pydicom>=2.4.0
-# simpleitk>=2.3.0  # 暂时注释，需要系统依赖
-pillow>=10.2.0
-numpy>=1.24.0
-
-# 数据库
-sqlalchemy>=2.0.0
-aiosqlite>=0.19.0
-
-# 认证安全
-python-jose[cryptography]>=3.3.0
-passlib[bcrypt]>=1.7.4
-
-# 报告生成
-reportlab>=4.0.0
-jinja2>=3.1.0
-
-# HTTP 客户端
-requests>=2.31.0
-httpx>=0.26.0
-
-# 测试
-pytest>=7.4.0
-pytest-asyncio>=0.23.0
-pytest-cov>=4.1.0
-
-# 工具
-loguru>=0.7.0
